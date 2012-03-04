@@ -4,7 +4,11 @@ find_package(Qt4 REQUIRED)
 
 include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(hstest_SRCS hstest.cpp main.cpp)
-qt4_automoc(${hstest_SRCS})
-add_executable(hstest ${hstest_SRCS})
-target_link_libraries(hstest ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+set(share_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/share-src/)
+include_directories(${share_SRC_DIR})
+
+set(share_SRC ${share_SRC_DIR}/testnode.cpp ${share_SRC_DIR}/test.cpp ${share_SRC_DIR}/testcategories.cpp ${share_SRC_DIR}/testdb.cpp)
+
+add_subdirectory(server)
+add_subdirectory(client)
+#add_subdirectory(share-src)

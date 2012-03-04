@@ -1,0 +1,11 @@
+project(hstester-server)
+cmake_minimum_required(VERSION 2.6)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${share_SRC_DIR})
+
+set(hstester-server_SRCS ${share_SRC} testmanager.cpp testthread.cpp testserver.cpp hstester-server.cpp main.cpp)
+qt4_automoc(${hstester-server_SRCS})
+add_executable(hstester-server ${hstester-server_SRCS})
+target_link_libraries(hstester-server ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+
+add_subdirectory(utils utils)

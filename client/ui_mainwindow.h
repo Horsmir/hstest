@@ -791,7 +791,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "HsTester", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Hs Test 0.1", 0, QApplication::UnicodeUTF8));
         actionLoadTests->setText(QApplication::translate("MainWindow", "&\320\227\320\260\320\263\321\200\321\203\320\267\320\270\321\202\321\214 \321\202\320\265\321\201\321\202\321\213", 0, QApplication::UnicodeUTF8));
         actionExit->setText(QApplication::translate("MainWindow", "&\320\222\321\213\321\205\320\276\320\264", 0, QApplication::UnicodeUTF8));
         actionExit->setShortcut(QApplication::translate("MainWindow", "Alt+X", 0, QApplication::UnicodeUTF8));
@@ -820,12 +820,6 @@ public:
         labelQuestOpen->setText(QApplication::translate("MainWindow", "\320\222\320\276\320\277\321\200\320\276\321\201", 0, QApplication::UnicodeUTF8));
         labelAnswer->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\262\320\265\321\202: ", 0, QApplication::UnicodeUTF8));
         labelTaskConformity->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\264\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
-        teQuestions->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Droid Serif'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Droid Sans'; font-size:9pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Droid Sans'; font-size:9pt;\"><br /></span></p></body></html>", 0, QApplication::UnicodeUTF8));
         btnConfAnswer_1->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
         labelConfAnswer_1->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\262\320\265\321\202 1", 0, QApplication::UnicodeUTF8));
         btnConfAnswer_2->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));

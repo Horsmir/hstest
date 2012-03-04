@@ -25,7 +25,10 @@ hstestcfg::hstestcfg() :
     verticalLayout->addItem ( verticalSpacer );
 
     horizontalLayout->addLayout ( verticalLayout );
-
+    
+    QIcon logo;
+    logo.addPixmap(QPixmap("../../../icons/logo.svg"));
+    setWindowIcon(logo);
     setWindowTitle ( trUtf8 ( "Параметры Hs Test Server" ) );
     
     testManager = new TestManager(this);

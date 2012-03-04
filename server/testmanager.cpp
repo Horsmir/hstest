@@ -23,7 +23,7 @@ TestManager::TestManager ( QObject* parent ) :
     QObject ( parent )
 {
     tests = new TestDB ( this );
-    testsDir = "../data";
+    testsDir = "../../server/data";
     testDbFileName = "testsdb.tst";
     magicNumber = 0xAAFF452C;
 }

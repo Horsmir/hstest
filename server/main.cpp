@@ -1,25 +1,27 @@
+#include <errno.h>
 #include <QCoreApplication>
 #include "hstester-server.h"
 
-void demonize()
+void daemonize()
 {
-	if(QCoreApplication::arguments().contains("--no-daemon"))
-		return;
-	switch(fork())
-	{
-		case 0:
-			break;
-		case -1:
-			exit(-1);
-		default:
-			exit(0);
-	}
+    if(QCoreApplication::arguments().contains("--no-daemon"))
+        return;
+    
+    switch (fork())
+    {
+        case 0:  break;
+        case -1: exit(errno);
+        default: exit(0);
+    }
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-	QCoreApplication app(argc, argv);
-	HstesterServer foo;
-	demonize();
-	return app.exec();
+    QCoreApplication app(argc, argv);
+    
+    HstesterServer server;
+    
+    daemonize();
+    
+    return app.exec();
 }

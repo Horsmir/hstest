@@ -24,6 +24,7 @@
 #include <QObject>
 #include "testdb.h"
 #include "test.h"
+#include "logfileout.h"
 
 
 class TestManager : public QObject
@@ -62,6 +63,7 @@ private:
     QString testsDir;
     QString testDbFileName;
     quint32 magicNumber;
+    LogFileOut logOut;
 
 
     bool addTest ( const QString &categoryName, Test test );

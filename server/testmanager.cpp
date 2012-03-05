@@ -26,6 +26,9 @@ TestManager::TestManager ( QObject* parent ) :
     testsDir = "../../server/data";
     testDbFileName = "testsdb.tst";
     magicNumber = 0xAAFF452C;
+    
+    logOut.setLogFilePath("/home/roman/projects/daemon/sdaemon.log");
+    logOut.setParent(this);
 }
 
 TestManager::TestManager ( const TestManager& other ) :
@@ -68,7 +71,7 @@ bool TestManager::addTest ( const QString& categoryName, Test test )
     QFile file ( testsDir + "/" + testFileName );
     if ( !file.open ( QIODevice::WriteOnly ) )
     {
-        qDebug() << "Can not open file " << ( testsDir + "/" + testFileName ) << " for writing. Error: " << file.errorString();
+        logOut << "Can not open file " << ( testsDir + "/" + testFileName ) << " for writing. Error: " << file.errorString();
         tests->delTest ( categoryName, test.getName() );
         return false;
     }
@@ -94,12 +97,12 @@ Test TestManager::getTest ( const QString& categoryName, const QString& testName
     QFile file ( testsDir + "/" + testFileName );
     if ( !file.exists() )
     {
-        qDebug() << "File " << ( testsDir + "/" + testFileName ) << " no exist.";
+        //this->logOut.write("File no exist.");
         return ret;
     }
-    if ( !file.open ( QIODevice::ReadOnly ) )
+    if ( !file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Can not open file " << ( testsDir + "/" + testFileName ) << " for reading. Error: " << file.errorString();
+        //logOut << "Can not open file " << ( testsDir + "/" + testFileName ) << " for reading. Error: " << file.errorString();
         return ret;
     }
 
@@ -107,12 +110,12 @@ Test TestManager::getTest ( const QString& categoryName, const QString& testName
     in >> magic >> streamVersion;
     if ( magic != magicNumber )
     {
-        qDebug() << "File is not recognized by this application";
+        //logOut << "File is not recognized by this application";
         return ret;
     }
     else if ( streamVersion > in.version() )
     {
-        qDebug() << "File is from a more recent version of the" << "application";
+        //logOut << "File is from a more recent version of the" << "application";
         return ret;
     }
 
@@ -196,12 +199,12 @@ bool TestManager::readTestDbFromFile()
     file.setFileName ( testsDir + "/" + testDbFileName );
     if ( !file.exists() )
     {
-        qDebug() << "File " << ( testsDir + "/" + testDbFileName ) << " no exist.";
+        logOut << "File " << ( testsDir + "/" + testDbFileName ) << " no exist.";
         return false;
     }
     if ( !file.open ( QIODevice::ReadOnly ) )
     {
-        qDebug() << "Cannot open file for reading: " << file.errorString();
+        logOut << "Cannot open file for reading: " << file.errorString();
         return false;
     }
 
@@ -210,12 +213,12 @@ bool TestManager::readTestDbFromFile()
 
     if ( magic != magicNumber )
     {
-        qDebug() << "File is not recognized by this application";
+        logOut << "File is not recognized by this application";
         return false;
     }
     else if ( streamVersion > in.version() )
     {
-        qDebug() << "File is from a more recent version of the" << "application";
+        logOut << "File is from a more recent version of the" << "application";
         return false;
     }
 
@@ -240,7 +243,7 @@ bool TestManager::writeTestDbToFile()
 
     if ( !file.open ( QIODevice::WriteOnly ) )
     {
-        qDebug() << "Cannot open file for writing: " << file.errorString();
+        logOut << "Cannot open file for writing: " << file.errorString();
         return false;
     }
 

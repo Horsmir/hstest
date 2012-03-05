@@ -28,7 +28,7 @@ TestThread::TestThread(QObject* parent):
 TestThread::TestThread(int socketDescriptor, TestManager* testManager, QObject* parent): 
 	QThread(parent), socketDescriptor(socketDescriptor), testManager(testManager), blockSize(0)
 {
-
+	
 }
 
 void TestThread::run()

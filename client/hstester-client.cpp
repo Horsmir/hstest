@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent):
 	QMainWindow(parent), 
 	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 	ui->stackedWidget->setCurrentIndex(0);
 	ui->actionBack->setDisabled(true);
 	ui->actionForvard->setDisabled(true);
@@ -48,6 +48,12 @@ MainWindow::MainWindow(QWidget *parent):
 	initRegView();
 	
 	config = new DlgConfig(this);
+	
+	QString appDir = QCoreApplication::applicationDirPath();
+	QDir imagesDir(appDir);
+	imagesDir.cdUp();
+	imagesDir.cdUp();
+	imagesPath = imagesDir.absolutePath() + "/images/";
 	
 	settings = new QSettings("../config/hstester.conf", QSettings::NativeFormat);
 	readSettings();
@@ -315,7 +321,7 @@ void MainWindow::testDbLoaded()
 {
 	QIcon folderIcon;
 	//folderIcon.addPixmap(style->standardPixmap(QStyle::SP_DirClosedIcon));
-	folderIcon.addPixmap(QPixmap("../../icons/folder.png"));
+	folderIcon.addPixmap(QPixmap(ui->iconsPath + "folder.png"));
 	ui->listCatTestView->clear();
 	QStringList catList = testManager->getCategoryList();
 	for(int i = 0; i < catList.count(); i++)
@@ -329,21 +335,21 @@ void MainWindow::net_error(int socketError, const QString &error_string)
 {
 	switch (socketError) {
 		case QAbstractSocket::HostNotFoundError:
-			QMessageBox::information(this, tr("Blocking Fortune Client"),
-											  tr("The host was not found. Please check the "
-											  "host and port settings."));
-											  break;
+			QMessageBox::information(this, tr("Blocking Hs Test Client"),
+											tr("The host was not found. Please check the "
+											"host and port settings."));
+											break;
 		case QAbstractSocket::ConnectionRefusedError:
-			QMessageBox::information(this, tr("Blocking Fortune Client"),
-											  tr("The connection was refused by the peer. "
-											  "Make sure the fortune server is running, "
-											  "and check that the host name and port "
-											  "settings are correct."));
+			QMessageBox::information(this, tr("Blocking Hs Test Client"),
+											tr("The connection was refused by the peer. "
+											"Make sure the hstest-server is running, "
+											"and check that the host name and port "
+											"settings are correct."));
 			break;
 		default:
-			QMessageBox::information(this, tr("Blocking Fortune Client"),
-											  tr("The following error occurred: %1.")
-											  .arg(error_string));
+			QMessageBox::information(this, tr("Blocking Hs Test Client"),
+											tr("The following error occurred: %1.")
+											.arg(error_string));
 	}
 }
 
@@ -448,7 +454,7 @@ void MainWindow::showResult()
 		ocenka = 4;
 	else
 		ocenka = 5;
-	ui->labelResultImg->setPixmap(QPixmap("../../images/" + nf.setNum(ocenka) + ".svg"));
+	ui->labelResultImg->setPixmap(QPixmap(imagesPath + nf.setNum(ocenka) + ".svg"));
 	
 	ui->actionRepit->setEnabled(true);
 	ui->actionReturn->setEnabled(true);
@@ -583,7 +589,7 @@ void MainWindow::on_listCatTestView_clicked(const QModelIndex &index)
 		ui->listCatTestView->addItems(testManager->getTestListByCategory(curCatName));
 		
 		QIcon testIcon;
-		testIcon.addPixmap(QPixmap("../../icons/test.png"));
+		testIcon.addPixmap(QPixmap(ui->iconsPath + "test.png"));
 		for(int i = 0; i < ui->listCatTestView->count(); i++)
 			ui->listCatTestView->item(i)->setIcon(testIcon);
 		
@@ -641,7 +647,7 @@ void MainWindow::on_actionForvard_activated()
 	ui->listCatTestView->addItems(testManager->getTestListByCategory(curCatName));
 	
 	QIcon testIcon;
-	testIcon.addPixmap(QPixmap("../icons/test.png"));
+	testIcon.addPixmap(QPixmap(ui->iconsPath + "test.png"));
 	for(int i = 0; i < ui->listCatTestView->count(); i++)
 		ui->listCatTestView->item(i)->setIcon(testIcon);
 	
@@ -722,7 +728,7 @@ void MainWindow::on_actionAbout_triggered()
 	str1 = trUtf8("<h2>Hs Test 0.1</h2><p>Программа <b>Hs Test</b> предназначена для тестирования учеников, студентов и сотрудников учреждений.</p><p>Copyright &copy;  2012 Роман Браун</p>");
 	str2 = trUtf8("<p>Это программа является свободным программным обеспечением. Вы можете распространять и/или модифицировать её согласно условиям Стандартной Общественной Лицензии GNU, опубликованной Фондом Свободного Программного Обеспечения, версии 3 или, по Вашему желанию, любой более поздней версии.</p>");
 	str3 = trUtf8("<p>Эта программа распространяется в надежде, что она будет полезной, но БЕЗ ВСЯКИХ ГАРАНТИЙ, в том числе подразумеваемых гарантий ТОВАРНОГО СОСТОЯНИЯ ПРИ ПРОДАЖЕ и ГОДНОСТИ ДЛЯ ОПРЕДЕЛЁННОГО ПРИМЕНЕНИЯ. Смотрите Стандартную Общественную Лицензию GNU для получения дополнительной информации.</p>");
-	str4 = trUtf8("<p>Вы должны были получить копию Стандартной Общественной Лицензии GNU вместе с программой. В случае её отсутствия, посмотрите <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</p><p>E-Mail: <a href=\"mailto:firdragon76@gmail.com\">firdragon76@gmail.com</a><br>Сайт программы: <a href=\"site.ru\">site.ru</a></p>");
+	str4 = trUtf8("<p>Вы должны были получить копию Стандартной Общественной Лицензии GNU вместе с программой. В случае её отсутствия, посмотрите <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</p><p>E-Mail: <a href=\"mailto:firdragon76@gmail.com\">firdragon76@gmail.com</a><br>Сайт программы: <a href=\"github.com/Horsmir/hstest\">github.com/Horsmir/hstest</a></p>");
 	
 	QMessageBox::about(this, trUtf8("О программе"), str1 + str2 + str3 + str4);
 }

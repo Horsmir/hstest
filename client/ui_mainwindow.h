@@ -11,6 +11,7 @@
 #define MAINWINDOWAM2010_H
 
 #include <QtCore/QVariant>
+#include <QDir>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
@@ -149,39 +150,46 @@ public:
     QMenu *menuHelp;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+	QString iconsPath;
 
     void setupUi(QMainWindow *MainWindow)
     {
-        if (MainWindow->objectName().isEmpty())
+        QString appDir = QCoreApplication::applicationDirPath();
+	    QDir iconsDir(appDir);
+	    iconsDir.cdUp();
+	    iconsDir.cdUp();
+	    iconsPath = iconsDir.absolutePath() + "/icons/";
+	
+	if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(801, 725);
         QFont font;
         font.setFamily(QString::fromUtf8("Droid Sans"));
         MainWindow->setFont(font);
 		QIcon icon9;
-		icon9.addFile(QString::fromUtf8("../../icons/logo.svg"), QSize(), QIcon::Normal, QIcon::Off);
+		icon9.addFile(iconsPath + QString::fromUtf8("logo.svg"), QSize(), QIcon::Normal, QIcon::Off);
 		MainWindow->setWindowIcon(icon9);
         actionLoadTests = new QAction(MainWindow);
         actionLoadTests->setObjectName(QString::fromUtf8("actionLoadTests"));
         QIcon icon;
-        icon.addFile(QString::fromUtf8("../../icons/load_tests.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(iconsPath + QString::fromUtf8("load_tests.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionLoadTests->setIcon(icon);
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../icons/exit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(iconsPath + QString::fromUtf8("exit.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionExit->setIcon(icon1);
         actionAdvance = new QAction(MainWindow);
         actionAdvance->setObjectName(QString::fromUtf8("actionAdvance"));
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8("../../icons/tools.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(iconsPath + QString::fromUtf8("tools.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionAdvance->setIcon(icon2);
         actionHelp = new QAction(MainWindow);
         actionHelp->setObjectName(QString::fromUtf8("actionHelp"));
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         QIcon icon3;
-        icon3.addFile(QString::fromUtf8("../../icons/about.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon3.addFile(iconsPath + QString::fromUtf8("about.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionAbout->setIcon(icon3);
         actionBack = new QAction(MainWindow);
         actionBack->setObjectName(QString::fromUtf8("actionBack"));
@@ -198,17 +206,17 @@ public:
         actionShowResult = new QAction(MainWindow);
         actionShowResult->setObjectName(QString::fromUtf8("actionShowResult"));
         QIcon icon6;
-        icon6.addFile(QString::fromUtf8("../../icons/view_result.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon6.addFile(iconsPath + QString::fromUtf8("view_result.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionShowResult->setIcon(icon6);
         actionRepit = new QAction(MainWindow);
         actionRepit->setObjectName(QString::fromUtf8("actionRepit"));
         QIcon icon7;
-        icon7.addFile(QString::fromUtf8("../../icons/repit_test.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon7.addFile(iconsPath + QString::fromUtf8("repit_test.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionRepit->setIcon(icon7);
         actionReturn = new QAction(MainWindow);
         actionReturn->setObjectName(QString::fromUtf8("actionReturn"));
         QIcon icon8;
-        icon8.addFile(QString::fromUtf8("../../icons/new_test.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon8.addFile(iconsPath + QString::fromUtf8("new_test.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionReturn->setIcon(icon8);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));

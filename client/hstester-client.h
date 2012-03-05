@@ -101,7 +101,8 @@ private:
 	QString htmlFileResult;     // путь к файлу с результатом теста
 	QString tmpDir;             // временный каталог
 	
-	bool onToggled;				// вкл./выкл. реакции слота toggled
+	bool onToggled;		        // вкл./выкл. реакции слота toggled
+	QString imagesPath;         // путь к каталогу с рисунками
 	
 	void showTestNode();
 	void initCloseView();

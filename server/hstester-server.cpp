@@ -1,6 +1,7 @@
 #include "hstester-server.h"
 
-HstesterServer::HstesterServer()
+HstesterServer::HstesterServer(QObject *parent):
+	QObject(parent)
 {
 	testManager = new TestManager(this);
 	testManager->readTestDbFromFile();

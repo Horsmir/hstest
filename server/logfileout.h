@@ -1,6 +1,6 @@
 /*
     <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) 2012  <copyright holder> <email>
+    Copyright (C) 2012  Роман Браун <firdragon76@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,30 +17,34 @@
 */
 
 
-#ifndef TESTTHREAD_H
-#define TESTTHREAD_H
+#ifndef LOGFILEOUT_H
+#define LOGFILEOUT_H
 
-#include <QThread>
-#include <QtNetwork/QTcpSocket>
-#include "testmanager.h"
+#include <QtCore/QDebug>
+#include <QtCore/QObject>
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
 
-class TestThread : public QThread
+
+class LogFileOut : public QObject
 {
-	Q_OBJECT
-	
+
 public:
-    TestThread();
-	TestThread(int socketDescriptor, TestManager *testManager);
+	LogFileOut(QObject *parent = 0);
+	LogFileOut(const QString &logFilePath, QObject *parent = 0);
+	LogFileOut(const LogFileOut& other);
+	virtual ~LogFileOut();
+	virtual LogFileOut &operator=(const LogFileOut &other);
+	virtual bool operator==(const LogFileOut &other) const;
 	
-	void run();
+	void setLogFilePath(const QString &logFilePath);
 	
-signals:
-	void error(QTcpSocket::SocketError socketError);
+	bool write(const QString &message);
+	
+	LogFileOut& operator <<(const QString &str);
 	
 private:
-	int socketDescriptor;
-	TestManager *testManager;
-	quint16 blockSize;
+	QString logFilePath;
 };
 
-#endif // TESTTHREAD_H
+#endif // LOGFILEOUT_HOUT_H

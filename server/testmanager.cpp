@@ -1,35 +1,37 @@
 /*
-    <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) 2012  <copyright holder> <email>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*    <one line to give the program's name and a brief idea of what it does.>
+*    Copyright (C) 2012  <copyright holder> <email>
+* 
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+* 
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+* 
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
 #include "testmanager.h"
 
 TestManager::TestManager ( QObject* parent ) :
-    QObject ( parent )
+QObject ( parent )
 {
     tests = new TestDB ( this );
     testsDir = "../../server/data";
     testDbFileName = "testsdb.tst";
     magicNumber = 0xAAFF452C;
+    
+    logOut = new LogFileOut("/home/roman/projects/daemon/sdaemon.log", this);
 }
 
-TestManager::TestManager ( const TestManager& other ) :
-    QObject ( other.parent() )
+TestManager::TestManager(const TestManager& other) :
+QObject (other.parent())
 {
     tests = other.tests;
     testDbFileName = other.testDbFileName;
@@ -38,7 +40,7 @@ TestManager::TestManager ( const TestManager& other ) :
 
 TestManager::~TestManager()
 {
-
+    
 }
 
 TestManager& TestManager::operator= ( const TestManager& other )
@@ -64,15 +66,15 @@ bool TestManager::addTest ( const QString& categoryName, Test test )
 {
     tests->addTest ( categoryName, test.getName(), test.getNumVis(), test.getVis() );
     QString testFileName = tests->getFileNameTest ( categoryName, test.getName() );
-
+    
     QFile file ( testsDir + "/" + testFileName );
     if ( !file.open ( QIODevice::WriteOnly ) )
     {
-        qDebug() << "Can not open file " << ( testsDir + "/" + testFileName ) << " for writing. Error: " << file.errorString();
+        logOut->write("ERROR: Can not open file " + testsDir + "/" + testFileName + " for writing. Error: " + file.errorString());
         tests->delTest ( categoryName, test.getName() );
         return false;
     }
-
+    
     QDataStream out ( &file );
     out << quint32 ( magicNumber ) << quint16 ( out.version() );
     out << test;
@@ -89,33 +91,33 @@ Test TestManager::getTest ( const QString& categoryName, const QString& testName
     Test ret;
     quint32 magic;
     quint16 streamVersion;
-
+    
     QString testFileName = tests->getFileNameTest ( categoryName, testName );
     QFile file ( testsDir + "/" + testFileName );
     if ( !file.exists() )
     {
-        qDebug() << "File " << ( testsDir + "/" + testFileName ) << " no exist.";
+        logOut->write("ERROR: File " + testsDir + "/" + testFileName + " no exist.");
         return ret;
     }
-    if ( !file.open ( QIODevice::ReadOnly ) )
+    if ( !file.open(QIODevice::ReadOnly))
     {
-        qDebug() << "Can not open file " << ( testsDir + "/" + testFileName ) << " for reading. Error: " << file.errorString();
+        logOut->write("ERROR: Can not open file " + testsDir + "/" + testFileName + " for reading. Error: " + file.errorString());
         return ret;
     }
-
+    
     QDataStream in ( &file );
     in >> magic >> streamVersion;
     if ( magic != magicNumber )
     {
-        qDebug() << "File is not recognized by this application";
+        logOut->write("ERROR: File is not recognized by this application");
         return ret;
     }
     else if ( streamVersion > in.version() )
     {
-        qDebug() << "File is from a more recent version of the" << "application";
+        logOut->write("ERROR: File is from a more recent version of the application");
         return ret;
     }
-
+    
     in >> ret;
     return ret;
 }
@@ -192,33 +194,33 @@ bool TestManager::readTestDbFromFile()
     quint32 magic;
     quint16 streamVersion;
     TestDB newTestDb ( this );
-
+    
     file.setFileName ( testsDir + "/" + testDbFileName );
     if ( !file.exists() )
     {
-        qDebug() << "File " << ( testsDir + "/" + testDbFileName ) << " no exist.";
+        logOut->write("ERROR: File " + testsDir + "/" + testDbFileName + " no exist.");
         return false;
     }
     if ( !file.open ( QIODevice::ReadOnly ) )
     {
-        qDebug() << "Cannot open file for reading: " << file.errorString();
+        logOut->write("ERROR: Cannot open file for reading: " + file.errorString());
         return false;
     }
-
+    
     QDataStream in ( &file );
     in >> magic >> streamVersion;
-
+    
     if ( magic != magicNumber )
     {
-        qDebug() << "File is not recognized by this application";
+        logOut->write("ERROR: File is not recognized by this application");
         return false;
     }
     else if ( streamVersion > in.version() )
     {
-        qDebug() << "File is from a more recent version of the" << "application";
+        logOut->write("ERROR: File is from a more recent version of the application");
         return false;
     }
-
+    
     in >> newTestDb;
     *tests = newTestDb;
     return true;
@@ -237,13 +239,13 @@ void TestManager::setTestDir ( const QString& testDirName )
 bool TestManager::writeTestDbToFile()
 {
     QFile file ( testsDir + "/" + testDbFileName );
-
+    
     if ( !file.open ( QIODevice::WriteOnly ) )
     {
-        qDebug() << "Cannot open file for writing: " << file.errorString();
+        logOut->write("ERROR: Cannot open file for writing: " + file.errorString());
         return false;
     }
-
+    
     QDataStream out ( &file );
     out << quint32 ( magicNumber ) << quint16 ( out.version() );
     out << *tests;

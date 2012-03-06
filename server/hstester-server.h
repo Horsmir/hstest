@@ -11,7 +11,7 @@ class HstesterServer : public QObject
 {
 Q_OBJECT
 public:
-    HstesterServer();
+    HstesterServer(QObject *parent = 0);
     virtual ~HstesterServer();
 
 private:

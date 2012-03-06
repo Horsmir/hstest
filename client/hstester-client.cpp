@@ -215,6 +215,13 @@ void MainWindow::on_btnRegAnswer_13_toggled(bool checked)
 	setNumConfRegBtn(ui->btnRegAnswer_13, checked);
 }
 
+/**
+ * @brief Установка номера ответа в тестах на упорядочние и соответствие.
+ *
+ * @param btn Активированная кнопка.
+ * @param ch Флаг состояния кнопки (true - нажата, false - отжата).
+ * @return void
+ **/
 void MainWindow::setNumConfRegBtn(QPushButton* btn, bool ch)
 {
 	if(onToggled)
@@ -335,21 +342,17 @@ void MainWindow::net_error(int socketError, const QString &error_string)
 {
 	switch (socketError) {
 		case QAbstractSocket::HostNotFoundError:
-			QMessageBox::information(this, tr("Blocking Hs Test Client"),
-											tr("The host was not found. Please check the "
-											"host and port settings."));
+			QMessageBox::information(this, trUtf8("Hs Test Client"),
+											trUtf8("Сервер не найден. Установите пожалуйста адрес и порт сервера в настройках."));
 											break;
 		case QAbstractSocket::ConnectionRefusedError:
-			QMessageBox::information(this, tr("Blocking Hs Test Client"),
-											tr("The connection was refused by the peer. "
-											"Make sure the hstest-server is running, "
-											"and check that the host name and port "
-											"settings are correct."));
+			QMessageBox::information(this, trUtf8("Blocking Hs Test Client"),
+											trUtf8("Соединение было разорвано другим узлом. "
+											"Убедитесь, что сервер работает, и имя хоста и порт настроены верно."));
 			break;
 		default:
-			QMessageBox::information(this, tr("Blocking Hs Test Client"),
-											tr("The following error occurred: %1.")
-											.arg(error_string));
+			QMessageBox::information(this, trUtf8("Blocking Hs Test Client"),
+											trUtf8("Произошла следующая ошибка: %1.").arg(error_string));
 	}
 }
 

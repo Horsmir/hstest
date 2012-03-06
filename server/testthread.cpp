@@ -19,14 +19,14 @@
 
 #include "testthread.h"
 
-TestThread::TestThread(QObject* parent): 
-	QThread(parent), socketDescriptor(0), testManager(0), blockSize(0)
+TestThread::TestThread(): 
+	QThread(0), testManager(0), blockSize(0)
 {
 	
 }
 
-TestThread::TestThread(int socketDescriptor, TestManager* testManager, QObject* parent): 
-	QThread(parent), socketDescriptor(socketDescriptor), testManager(testManager), blockSize(0)
+TestThread::TestThread(int socketDescriptor, TestManager* testManager): 
+	QThread(0), socketDescriptor(socketDescriptor), testManager(testManager), blockSize(0)
 {
 	
 }

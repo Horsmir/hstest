@@ -63,7 +63,7 @@ private:
     QString testsDir;
     QString testDbFileName;
     quint32 magicNumber;
-    LogFileOut logOut;
+    LogFileOut *logOut;
 
 
     bool addTest ( const QString &categoryName, Test test );

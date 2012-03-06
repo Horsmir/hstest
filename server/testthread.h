@@ -29,8 +29,8 @@ class TestThread : public QThread
 	Q_OBJECT
 	
 public:
-    explicit TestThread(QObject* parent = 0);
-	TestThread(int socketDescriptor, TestManager *testManager, QObject* parent = 0);
+    TestThread();
+	TestThread(int socketDescriptor, TestManager *testManager);
 	
 	void run();
 	

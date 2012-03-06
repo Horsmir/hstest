@@ -58,13 +58,16 @@ void LogFileOut::setLogFilePath(const QString &logFilePath)
 	this->logFilePath = logFilePath;
 }
 
-bool LogFileOut::write(const QString &message)
+bool LogFileOut::write(const QString &message) 
 {
 	QFile file(logFilePath);
 	if(!file.open(QIODevice::Append | QIODevice::Text))
-		return false;
+    {
+        qDebug() << "Can not open file " << logFilePath;
+        return false;
+    }
 	QTextStream out(&file);
-	out << message;
+	out << message << "\n";
 	return true;
 }
 

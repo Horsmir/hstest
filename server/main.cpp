@@ -26,7 +26,7 @@ void demonize()
 {
     if(QCoreApplication::arguments().contains("--no-daemon"))
         return;
-    writeLog("HsTestServer Start");
+    writeLog("HsTestServer Start\n");
     // Наши ID процесса и сессии 
     pid_t pid, sid;
     // отделяемся от родительского процесса
@@ -45,13 +45,13 @@ void demonize()
     // Изменяем файловую маску
     umask(0);
     
-    writeLog("HsTestServer set session id");
+    writeLog("HsTestServer set session id\n");
     
     // Создание нового SID для дочернего процесса
     sid = setsid();
     if(sid < 0)
     {
-        writeLog("HsTestServer  no set session id");
+        writeLog("HsTestServer  no set session id\n");
         exit(EXIT_FAILURE);
     }
     
@@ -82,8 +82,8 @@ int writeLog(const QString &msg)  //функция записи строки в 
         return 1;
     }
     QTextStream out(&pLog);
-    out << getTime() << " ==========================";
+    out << getTime() << " ==========================\n";
     out << msg;
-    pLog.close();
+    //pLog.close();
     return 0;
 }

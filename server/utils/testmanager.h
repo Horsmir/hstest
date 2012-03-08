@@ -30,43 +30,43 @@ class TestManager : public QObject
 {
 
 public:
-    TestManager ( QObject *parent = 0 );
-    TestManager ( const TestManager& other );
-    virtual ~TestManager();
-    virtual TestManager& operator= ( const TestManager& other );
-    virtual bool operator== ( const TestManager& other ) const;
+	TestManager(QObject *parent = 0);
+	TestManager(const TestManager &other);
+	virtual ~TestManager();
+	virtual TestManager &operator= (const TestManager &other);
+	virtual bool operator== (const TestManager &other) const;
 
-    bool readTestDbFromFile();
-    bool writeTestDbToFile();
+	bool readTestDbFromFile();
+	bool writeTestDbToFile();
 
-    void setTestDir ( const QString &testDirName );
-    void setTestDbFileName ( const QString &testDbFileName );
+	void setTestDir(const QString &testDirName);
+	void setTestDbFileName(const QString &testDbFileName);
 
-    bool addCategory ( const QString &categoryName );
-    bool loadTestFromFile ( const QString &categoryName, const QString &testFileTextName, quint32 numVis, bool vis = true );
+	bool addCategory(const QString &categoryName);
+	bool loadTestFromFile(const QString &categoryName, const QString &testFileTextName, quint32 numVis, bool vis = true);
 
-    QStringList getCategoryList() const;
-    QStringList getTestListByCategory ( const QString &categoryName, bool all = false) const;
-    Test getTestForUse ( int categoryName, int testName ) const;
-    TestDB getCategories() const;
-    TestDB* getCategoriesPtr() const;
+	QStringList getCategoryList() const;
+	QStringList getTestListByCategory(const QString &categoryName, bool all = false) const;
+	Test getTestForUse(int categoryName, int testName) const;
+	TestDB getCategories() const;
+	TestDB *getCategoriesPtr() const;
+	Test getTest(const QString &categoryName, const QString &testName) const;
 
-    QString getTestDir() const;
-    QString getTestDbFileName() const;
-    
-    bool delCategory(const QString &catName);
-    bool delTest(const QString &catName, const QString &testName);
+	QString getTestDir() const;
+	QString getTestDbFileName() const;
+
+	bool delCategory(const QString &catName);
+	bool delTest(const QString &catName, const QString &testName);
+	bool editTest(const QString &catName, const QString &testName, const quint32 numVis, const bool vis);
 
 private:
-    TestDB *tests;
-    QString testsDir;
-    QString testDbFileName;
-    quint32 magicNumber;
+	TestDB *tests;
+	QString testsDir;
+	QString testDbFileName;
+	quint32 magicNumber;
 
-
-    bool addTest ( const QString &categoryName, Test test );
-    Test getTest ( const QString &categoryName, const QString &testName ) const;
+	bool addTest(const QString &categoryName, Test test);
 };
 
 #endif // TESTMANAGER_H
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

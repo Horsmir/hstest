@@ -20,19 +20,19 @@
 #include "testcategories.h"
 
 TestCategories::TestCategories() :
-    QObject()
+	QObject()
 {
-    name = "";
-    _count = 0;
-    qsrand ( QTime ( 0,0,0 ).secsTo ( QTime::currentTime() ) );
+	name = "";
+	_count = 0;
+	qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
 }
 
-TestCategories::TestCategories ( const TestCategories& other ) :
-    QObject()
+TestCategories::TestCategories(const TestCategories &other) :
+	QObject()
 {
-    name = other.name;
-    data = other.data;
-    _count = data.count();
+	name = other.name;
+	data = other.data;
+	_count = data.count();
 }
 
 TestCategories::~TestCategories()
@@ -40,170 +40,199 @@ TestCategories::~TestCategories()
 
 }
 
-TestCategories& TestCategories::operator= ( const TestCategories& other )
+TestCategories &TestCategories::operator= (const TestCategories &other)
 {
-    this->name = other.name;
-    this->data = other.data;
-    this->_count = this->data.count();
-    return *this;
+	this->name = other.name;
+	this->data = other.data;
+	this->_count = this->data.count();
+	return *this;
 }
 
-bool TestCategories::operator== ( const TestCategories& other ) const
+bool TestCategories::operator== (const TestCategories &other) const
 {
-    return ( ( this->name == other.name ) && ( this->data == other.data ) );
+	return ((this->name == other.name) && (this->data == other.data));
 }
 
-void TestCategories::addTest ( const QString& testName, quint16 numVis, bool vis )
+void TestCategories::addTest(const QString &testName, quint16 numVis, bool vis)
 {
-    QStringList node;
-    QString fileName = newFileName();
-    QString strVis = "0";
-    if ( vis )
-        strVis = "1";
+	QStringList node;
+	QString fileName = newFileName();
+	QString strVis = "0";
+	if(vis)
+		strVis = "1";
 
-    node.append ( testName );
-    node.append ( fileName );
-    node.append ( QString().setNum ( numVis ) );
-    node.append ( strVis );
-    data.append ( node );
+	node.append(testName);
+	node.append(fileName);
+	node.append(QString().setNum(numVis));
+	node.append(strVis);
+	data.append(node);
 
-    _count = data.count();
+	_count = data.count();
 }
 
-void TestCategories::setData ( QList<QStringList> data )
+void TestCategories::setData(QList<QStringList> data)
 {
-    this->data = data;
+	this->data = data;
 }
 
-void TestCategories::delTest ( const QString& testName )
+void TestCategories::delTest(const QString &testName)
 {
-    int id = -1;
+	int id = -1;
 
-    for ( quint32 i = 0; i < _count; i++ )
-    {
-        if ( data.at ( i ).at ( 0 ) == testName )
-        {
-            id = i;
-            break;
-        }
-    }
-    if ( id != -1 )
-    {
-        data.removeAt ( id );
-        _count--;
-    }
+	for(quint32 i = 0; i < _count; i++)
+	{
+		if(data.at(i).at(0) == testName)
+		{
+			id = i;
+			break;
+		}
+	}
+	if(id != -1)
+	{
+		data.removeAt(id);
+		_count--;
+	}
 }
 
-void TestCategories::setName ( const QString& name )
+void TestCategories::setName(const QString &name)
 {
-    this->name = name;
+	this->name = name;
 }
 
 QString TestCategories::getName() const
 {
-    return name;
+	return name;
 }
 
-QString TestCategories::getTestFileByName ( const QString& name ) const
+QString TestCategories::getTestFileByName(const QString &name) const
 {
-    int id = -1;
+	int id = -1;
 
-    for ( quint32 i = 0; i < _count; i++ )
-    {
-        if ( data.at ( i ).at ( 0 ) == name )
-        {
-            id = i;
-            break;
-        }
-    }
+	for(quint32 i = 0; i < _count; i++)
+	{
+		if(data.at(i).at(0) == name)
+		{
+			id = i;
+			break;
+		}
+	}
 
-    if ( id == -1 )
-        return "";
+	if(id == -1)
+		return "";
 
-    return data.at ( id ).at ( 1 );
+	return data.at(id).at(1);
 }
 
 quint32 TestCategories::count() const
 {
-    return _count;
+	return _count;
 }
 
-void TestCategories::setCount ( quint32 c )
+void TestCategories::setCount(quint32 c)
 {
-    _count = c;
+	_count = c;
 }
 
 QList< QStringList > TestCategories::getData() const
 {
-    return data;
+	return data;
 }
 
 QString TestCategories::newFileName()
 {
-    QString fileName = "ts";
-    for ( int i = 0; i < FILE_NAME_SIZE; i++ )
-    {
-        fileName += QString().setNum ( qrand() % 10 );
-    }
-    fileName += ".tst";
-    return fileName;
+	QString fileName = "ts";
+	for(int i = 0; i < FILE_NAME_SIZE; i++)
+	{
+		fileName += QString().setNum(qrand() % 10);
+	}
+	fileName += ".tst";
+	return fileName;
 }
 
-QStringList TestCategories::getTestList ( bool all ) const
+QStringList TestCategories::getTestList(bool all) const
 {
-    if(data.isEmpty())
-        return QStringList();
-    QStringList ret;
-    if ( all )
-        for ( int i = 0; i < data.count(); i++ )
-            ret.append ( data.at ( i ).at ( 0 ) );
-    else
-        for ( int i = 0; i < data.count(); i++ )
-        {
-            bool vis = data.at ( i ).at ( 3 ).toUInt();
-            if ( vis )
-                ret.append ( data.at ( i ).at ( 0 ) );
-        }
-    return ret;
+	if(data.isEmpty())
+		return QStringList();
+	QStringList ret;
+	if(all)
+		for(int i = 0; i < data.count(); i++)
+			ret.append(data.at(i).at(0));
+	else
+		for(int i = 0; i < data.count(); i++)
+		{
+			bool vis = data.at(i).at(3).toUInt();
+			if(vis)
+				ret.append(data.at(i).at(0));
+		}
+	return ret;
 }
 
-quint32 TestCategories::getNumVis ( const QString& testName ) const
+quint32 TestCategories::getNumVis(const QString &testName) const
 {
-    int id = -1;
+	int id = -1;
 
-    for ( quint32 i = 0; i < _count; i++ )
-    {
-        if ( data.at ( i ).at ( 0 ) == testName )
-        {
-            id = i;
-            break;
-        }
-    }
+	for(quint32 i = 0; i < _count; i++)
+	{
+		if(data.at(i).at(0) == testName)
+		{
+			id = i;
+			break;
+		}
+	}
 
-    if ( id == -1 )
-        return 0;
+	if(id == -1)
+		return 0;
 
-    return data.at ( id ).at ( 2 ).toUInt();
+	return data.at(id).at(2).toUInt();
 }
 
-
-QDataStream &operator << ( QDataStream &out, const TestCategories &testCat )
+bool TestCategories::editTest(const QString &testName, quint32 numVis, bool vis)
 {
-    out << testCat.getName() << quint32 ( testCat.count() ) << testCat.getData();
-    return out;
+	QString testFileName = getTestFileByName(testName);
+	QStringList node;
+	int id = -1;
+	QString strVis = "0";
+	if(vis)
+		strVis = "1";
+	
+	for(quint32 i = 0; i < _count; i++)
+	{
+		if(data.at(i).at(0) == testName)
+		{
+			id = i;
+			break;
+		}
+	}
+	if(id == -1)
+		return false;
+	
+	node << testName;
+	node << testFileName;
+	node << QString().setNum(numVis);
+	node << strVis;
+	data.removeAt(id);
+	data.append(node);
+	return true;
 }
 
-QDataStream &operator >> ( QDataStream &in, TestCategories &testCat )
+QDataStream &operator << (QDataStream &out, const TestCategories &testCat)
 {
-    QString name = "";
-    quint32 count = 0;
-    QList<QStringList> data;
-
-    in >> name >> count >> data;
-    testCat.setName ( name );
-    testCat.setCount ( count );
-    testCat.setData ( data );
-
-    return in;
+	out << testCat.getName() << quint32(testCat.count()) << testCat.getData();
+	return out;
 }
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+
+QDataStream &operator >> (QDataStream &in, TestCategories &testCat)
+{
+	QString name = "";
+	quint32 count = 0;
+	QList<QStringList> data;
+
+	in >> name >> count >> data;
+	testCat.setName(name);
+	testCat.setCount(count);
+	testCat.setData(data);
+
+	return in;
+}
+
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

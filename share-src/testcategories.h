@@ -30,35 +30,36 @@ class TestCategories : public QObject
 {
 
 public:
-    TestCategories();
-    TestCategories ( const TestCategories& other );
-    virtual ~TestCategories();
-    virtual TestCategories& operator= ( const TestCategories& other );
-    virtual bool operator== ( const TestCategories& other ) const;
+	TestCategories();
+	TestCategories(const TestCategories &other);
+	virtual ~TestCategories();
+	virtual TestCategories &operator= (const TestCategories &other);
+	virtual bool operator== (const TestCategories &other) const;
 
-    void addTest ( const QString &testName, quint16 numVis, bool vis = true );
-    void setData ( QList<QStringList> data );
-    void delTest ( const QString &testName );
-    void setName ( const QString &name );
-    void setCount ( quint32 c );
+	void addTest(const QString &testName, quint16 numVis, bool vis = true);
+	void setData(QList<QStringList> data);
+	void delTest(const QString &testName);
+	bool editTest(const QString &testName, quint32 numVis, bool vis);
+	void setName(const QString &name);
+	void setCount(quint32 c);
 
-    QString getTestFileByName ( const QString &name ) const;
-    QStringList getTestList ( bool all = false ) const;
-    quint32 count() const;
-    QList<QStringList> getData() const;
-    QString getName() const;
-    quint32 getNumVis ( const QString &testName ) const;
+	QString getTestFileByName(const QString &name) const;
+	QStringList getTestList(bool all = false) const;
+	quint32 count() const;
+	QList<QStringList> getData() const;
+	QString getName() const;
+	quint32 getNumVis(const QString &testName) const;
 
 private:
-    QString name;				// Название категории
-    quint32 _count;				// Количество тестов данной категории
-    QList<QStringList> data;	// Список тестов
+	QString name;				// Название категории
+	quint32 _count;				// Количество тестов данной категории
+	QList<QStringList> data;	// Список тестов
 
-    QString newFileName();
+	QString newFileName();
 };
 
-QDataStream &operator << ( QDataStream& out, const TestCategories& testCat );
-QDataStream &operator >> ( QDataStream &in, TestCategories &testCat );
+QDataStream &operator << (QDataStream &out, const TestCategories &testCat);
+QDataStream &operator >> (QDataStream &in, TestCategories &testCat);
 
 #endif // TESTCATEGORIES_H
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <sys/stat.h>
-#include <errno.h>
-#include <syslog.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <string.h>
-#include <sys/time.h>
 #include <QCoreApplication>
 #include "hstester-server.h"
 
@@ -63,9 +55,9 @@ void demonize()
     }*/
     
     // Закрываем стандартные файловые дескрипторы
-    /*close(STDIN_FILENO);
+    close(STDIN_FILENO);
     close(STDOUT_FILENO);
-    close(STDERR_FILENO);*/
+    close(STDERR_FILENO);
 }
 
 QString getTime() //функция возвращает форматированную дату и время
@@ -76,7 +68,7 @@ QString getTime() //функция возвращает форматирован
 
 int writeLog(const QString &msg)  //функция записи строки в лог
 {
-    QFile pLog("/home/roman/projects/daemon/sdaemon.log");
+    QFile pLog("hstest-server.log");
     if(!pLog.open(QIODevice::Append | QIODevice::Text))
     {
         return 1;

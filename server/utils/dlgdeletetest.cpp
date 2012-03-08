@@ -20,7 +20,7 @@
 #include "dlgdeletetest.h"
 
 DlgDeleteTest::DlgDeleteTest(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent)
+	QDialog(parent), categories(0)
 {
 	verticalLayout = new QVBoxLayout(this);
 	label = new QLabel(trUtf8("Категория: "), this);

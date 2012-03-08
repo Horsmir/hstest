@@ -29,32 +29,35 @@ class TestDB : public QObject
 {
 
 public:
-    TestDB ( QObject *parent = 0 );
-    TestDB ( const TestDB& other );
-    virtual ~TestDB();
-    virtual TestDB& operator= ( const TestDB& other );
-    virtual bool operator== ( const TestDB& other ) const;
+	TestDB(QObject *parent = 0);
+	TestDB(const TestDB &other);
+	virtual ~TestDB();
+	virtual TestDB &operator= (const TestDB &other);
+	virtual bool operator== (const TestDB &other) const;
 
-    bool addCategory ( const QString& catName );
-    void addTest ( const QString &catName, const QString &testName, quint16 numVis, bool vis = true );
-    void setCategories ( QList<TestCategories> categories );
+	bool addCategory(const QString &catName);
+	void addTest(const QString &catName, const QString &testName, quint16 numVis, bool vis = true);
+	void setCategories(QList<TestCategories> categories);
 
-    QStringList getCategoryNameList() const;
-    QStringList getTestNameListByCategory ( const QString &catName, bool all = false ) const;
-    QString getFileNameTest ( const QString &catName, const QString &testName ) const;
-    quint32 getNumVis ( const QString &catName, const QString &testName ) const;
-    QList<TestCategories> getCategories() const;
+	QStringList getCategoryNameList() const;
+	QStringList getTestNameListByCategory(const QString &catName, bool all = false) const;
+	QString getFileNameTest(const QString &catName, const QString &testName) const;
+	quint32 getNumVis(const QString &catName, const QString &testName) const;
+	QList<TestCategories> getCategories() const;
 
-    bool delCategory ( const QString &catName );
-    bool delTest ( const QString &catName, const QString &testName );
+	bool delCategory(const QString &catName);
+	bool delTest(const QString &catName, const QString &testName);
+
+	bool editTest(const QString &catName, const QString &testName, const quint32 numVis, const bool vis);
+
 private:
-    QList<TestCategories> categories;
+	QList<TestCategories> categories;
 
-    qint32 getCategoryIdByName ( const QString &catName ) const;
+	qint32 getCategoryIdByName(const QString &catName) const;
 };
 
-QDataStream &operator << ( QDataStream& out, const TestDB &testDb );
-QDataStream &operator >> ( QDataStream &in, TestDB &testDb );
+QDataStream &operator << (QDataStream &out, const TestDB &testDb);
+QDataStream &operator >> (QDataStream &in, TestDB &testDb);
 
 #endif // TESTDB_H
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

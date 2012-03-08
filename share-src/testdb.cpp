@@ -20,16 +20,16 @@
 #include "testdb.h"
 #include <qmetatype.h>
 
-TestDB::TestDB ( QObject *parent ) :
-    QObject ( parent )
+TestDB::TestDB(QObject *parent) :
+	QObject(parent)
 {
 
 }
 
-TestDB::TestDB ( const TestDB& other ) :
-    QObject ( other.parent() )
+TestDB::TestDB(const TestDB &other) :
+	QObject(other.parent())
 {
-    this->categories = other.categories;
+	this->categories = other.categories;
 }
 
 TestDB::~TestDB()
@@ -37,138 +37,147 @@ TestDB::~TestDB()
 
 }
 
-TestDB& TestDB::operator= ( const TestDB& other )
+TestDB &TestDB::operator= (const TestDB &other)
 {
-    this->setParent ( other.parent() );
-    this->categories = other.categories;
-    return *this;
+	this->setParent(other.parent());
+	this->categories = other.categories;
+	return *this;
 }
 
-bool TestDB::operator== ( const TestDB& other ) const
+bool TestDB::operator== (const TestDB &other) const
 {
-    return ( this->categories == other.categories );
+	return (this->categories == other.categories);
 }
 
-bool TestDB::addCategory ( const QString& catName )
+bool TestDB::addCategory(const QString &catName)
 {
-    int existCat = getCategoryNameList().indexOf ( catName );
+	int existCat = getCategoryNameList().indexOf(catName);
 
-    if ( existCat != -1 )
-        return false;
+	if(existCat != -1)
+		return false;
 
-    TestCategories newCat;
-    newCat.setName ( catName );
-    categories.append ( newCat );
-    return true;
+	TestCategories newCat;
+	newCat.setName(catName);
+	categories.append(newCat);
+	return true;
 }
 
-void TestDB::addTest ( const QString& catName, const QString& testName, quint16 numVis, bool vis )
+void TestDB::addTest(const QString &catName, const QString &testName, quint16 numVis, bool vis)
 {
-    qint32 id = getCategoryIdByName ( catName );
+	qint32 id = getCategoryIdByName(catName);
 
-    if ( id != -1 )
-        categories[id].addTest ( testName, numVis, vis );
+	if(id != -1)
+		categories[id].addTest(testName, numVis, vis);
 }
 
 QStringList TestDB::getCategoryNameList() const
 {
-    QStringList ret;
-    for ( int i = 0; i < categories.count(); i++ )
-        ret.append ( categories.at ( i ).getName() );
-    return ret;
+	QStringList ret;
+	for(int i = 0; i < categories.count(); i++)
+		ret.append(categories.at(i).getName());
+	return ret;
 }
 
-qint32 TestDB::getCategoryIdByName ( const QString& catName ) const
+qint32 TestDB::getCategoryIdByName(const QString &catName) const
 {
-    qint32 id = -1;
-    for ( int i = 0; i < categories.count(); i++ )
-    {
-        if ( categories.at(i).getName() == catName )
-        {
-            id = i;
-            break;
-        }
-    }
-    return id;
+	qint32 id = -1;
+	for(int i = 0; i < categories.count(); i++)
+	{
+		if(categories.at(i).getName() == catName)
+		{
+			id = i;
+			break;
+		}
+	}
+	return id;
 }
 
-QStringList TestDB::getTestNameListByCategory ( const QString& catName, bool all ) const
+QStringList TestDB::getTestNameListByCategory(const QString &catName, bool all) const
 {
-    QStringList ret;
-    TestCategories cat;
-    qint32 id = getCategoryIdByName(catName);
-    if ( id != -1 )
-    {
-        cat = categories[id];
-        if(cat.count() != 0)
-            ret = cat.getTestList(all);
-    }
-    return ret;
+	QStringList ret;
+	TestCategories cat;
+	qint32 id = getCategoryIdByName(catName);
+	if(id != -1)
+	{
+		cat = categories[id];
+		if(cat.count() != 0)
+			ret = cat.getTestList(all);
+	}
+	return ret;
 }
 
-QString TestDB::getFileNameTest ( const QString& catName, const QString& testName ) const
+QString TestDB::getFileNameTest(const QString &catName, const QString &testName) const
 {
-    qint32 id = getCategoryIdByName ( catName );
-    if ( id != -1 )
-        return categories.at (id).getTestFileByName (testName);
-    else
-        return "";
+	qint32 id = getCategoryIdByName(catName);
+	if(id != -1)
+		return categories.at(id).getTestFileByName(testName);
+	else
+		return "";
 }
 
-quint32 TestDB::getNumVis ( const QString& catName, const QString& testName ) const
+quint32 TestDB::getNumVis(const QString &catName, const QString &testName) const
 {
-    qint32 id = getCategoryIdByName ( catName );
-    if ( id != -1 )
-        return categories.at ( id ).getNumVis ( testName );
-    else
-        return 0;
+	qint32 id = getCategoryIdByName(catName);
+	if(id != -1)
+		return categories.at(id).getNumVis(testName);
+	else
+		return 0;
 }
 
 QList< TestCategories > TestDB::getCategories() const
 {
-    return categories;
+	return categories;
 }
 
-void TestDB::setCategories ( QList< TestCategories > categories )
+void TestDB::setCategories(QList< TestCategories > categories)
 {
-    this->categories = categories;
+	this->categories = categories;
 }
 
-bool TestDB::delCategory ( const QString& catName )
+bool TestDB::delCategory(const QString &catName)
 {
-    qint32 id = getCategoryIdByName ( catName );
-    if ( id == -1 )
-        return false;
-    if ( categories.at ( id ).count() > 0 )
-        return false;
-    categories.removeAt ( id );
-    return true;
+	qint32 id = getCategoryIdByName(catName);
+	if(id == -1)
+		return false;
+	if(categories.at(id).count() > 0)
+		return false;
+	categories.removeAt(id);
+	return true;
 }
 
-bool TestDB::delTest ( const QString& catName, const QString& testName )
+bool TestDB::delTest(const QString &catName, const QString &testName)
 {
-    qint32 id = getCategoryIdByName ( catName );
-    if ( id == -1 )
-        return false;
-    categories[id].delTest ( testName );
-    return true;
+	qint32 id = getCategoryIdByName(catName);
+	if(id == -1)
+		return false;
+	categories[id].delTest(testName);
+	return true;
 }
 
-QDataStream &operator << ( QDataStream& out, const TestDB &testDb )
+bool TestDB::editTest(const QString &catName, const QString &testName, const quint32 numVis, const bool vis)
 {
-    out << testDb.getCategories();
-    return out;
+	qint32 id = getCategoryIdByName(catName);
+	if(id == -1)
+		return false;
+	categories[id].editTest(testName, numVis, vis);
+	return true;
 }
 
-QDataStream &operator >> ( QDataStream &in, TestDB &testDb )
+QDataStream &operator << (QDataStream &out, const TestDB &testDb)
 {
-    QList<TestCategories> cats;
+	out << testDb.getCategories();
+	return out;
+}
 
-    in >> cats;
-    testDb.setCategories ( cats );
-    return in;
+QDataStream &operator >> (QDataStream &in, TestDB &testDb)
+{
+	QList<TestCategories> cats;
+
+	in >> cats;
+	testDb.setCategories(cats);
+	return in;
 }
 
 Q_DECLARE_METATYPE(TestDB);
 
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

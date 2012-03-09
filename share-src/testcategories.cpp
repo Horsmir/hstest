@@ -161,7 +161,7 @@ QStringList TestCategories::getTestList(bool all) const
 		for(int i = 0; i < data.count(); i++)
 		{
 			bool vis = data.at(i).at(3).toUInt();
-			if(vis)
+			if(vis == 1)
 				ret.append(data.at(i).at(0));
 		}
 	return ret;

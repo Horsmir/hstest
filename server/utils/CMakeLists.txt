@@ -7,3 +7,5 @@ set(hstestcfg_SRCS dlgedittest.cpp ${share_SRC} testmanager.cpp hstestcfg.cpp dl
 qt4_automoc(${hstestcfg_SRCS})
 add_executable(hstestcfg ${hstestcfg_SRCS})
 target_link_libraries(hstestcfg ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+
+install(TARGETS hstestcfg DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

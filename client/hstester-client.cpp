@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent):
 	listViewTests = false;
 	tTime = new QTime(0, 0);
 	mTimer = new QTimer(this);
+	appName = trUtf8("Hs Test 0.2");
 	
 	per2 = 60.0;
 	per3 = 80.0;
@@ -67,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent):
 	testManager = new TestManager(this);
 	testManager->setServerParm(serverName, serverPort);
 	currentNode = 0;
+	
+	setWindowTitle(appName);
 	
 	connect(ui->action_AboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 	connect(mTimer, SIGNAL(timeout()), SLOT(timered()));
@@ -346,12 +349,12 @@ void MainWindow::net_error(int socketError, const QString &error_string)
 											trUtf8("Сервер не найден. Установите пожалуйста адрес и порт сервера в настройках."));
 											break;
 		case QAbstractSocket::ConnectionRefusedError:
-			QMessageBox::information(this, trUtf8("Blocking Hs Test Client"),
+			QMessageBox::information(this, trUtf8("Hs Test Client"),
 											trUtf8("Соединение было разорвано другим узлом. "
 											"Убедитесь, что сервер работает, и имя хоста и порт настроены верно."));
 			break;
 		default:
-			QMessageBox::information(this, trUtf8("Blocking Hs Test Client"),
+			QMessageBox::information(this, trUtf8("Hs Test Client"),
 											trUtf8("Произошла следующая ошибка: %1.").arg(error_string));
 	}
 }
@@ -459,6 +462,9 @@ void MainWindow::showResult()
 		ocenka = 5;
 	ui->labelResultImg->setPixmap(QPixmap(imagesPath + nf.setNum(ocenka) + ".svg"));
 	
+	QStringList timeList = timerView->text().split(':');
+	ui->labelResultTime->setText(QString(trUtf8("Время решения теста: %1ч. %2м.")).arg(timeList.at(0)).arg(timeList.at(1)));
+	
 	ui->actionRepit->setEnabled(true);
 	ui->actionReturn->setEnabled(true);
 	ui->actionShowResult->setEnabled(true);
@@ -563,7 +569,7 @@ void MainWindow::testLoaded()
 	numTasks->setNum(int(testManager->getNumNodes()));
 	ui->progressBarCurTest->setMaximum(testManager->getNumNodes());
 	ui->progressBarCurTest->setValue(0);
-	setWindowTitle("Hs Test 0.1 - " + testManager->getTestName());
+	setWindowTitle(appName + " - " + testManager->getTestName());
 	
 	numTasksL->setVisible(true);
 	numTasks->setVisible(true);
@@ -728,7 +734,7 @@ void MainWindow::on_actionAbout_triggered()
 {
 	QString str1, str2, str3, str4;
 	
-	str1 = trUtf8("<h2>Hs Test 0.1</h2><p>Программа <b>Hs Test</b> предназначена для тестирования учеников, студентов и сотрудников учреждений.</p><p>Copyright &copy;  2012 Роман Браун</p>");
+	str1 = trUtf8("<h2>%1</h2><p>Программа <b>Hs Test</b> предназначена для тестирования учеников, студентов и сотрудников учреждений.</p><p>Copyright &copy;  2012 Роман Браун</p>").arg(appName);
 	str2 = trUtf8("<p>Это программа является свободным программным обеспечением. Вы можете распространять и/или модифицировать её согласно условиям Стандартной Общественной Лицензии GNU, опубликованной Фондом Свободного Программного Обеспечения, версии 3 или, по Вашему желанию, любой более поздней версии.</p>");
 	str3 = trUtf8("<p>Эта программа распространяется в надежде, что она будет полезной, но БЕЗ ВСЯКИХ ГАРАНТИЙ, в том числе подразумеваемых гарантий ТОВАРНОГО СОСТОЯНИЯ ПРИ ПРОДАЖЕ и ГОДНОСТИ ДЛЯ ОПРЕДЕЛЁННОГО ПРИМЕНЕНИЯ. Смотрите Стандартную Общественную Лицензию GNU для получения дополнительной информации.</p>");
 	str4 = trUtf8("<p>Вы должны были получить копию Стандартной Общественной Лицензии GNU вместе с программой. В случае её отсутствия, посмотрите <a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>.</p><p>E-Mail: <a href=\"mailto:firdragon76@gmail.com\">firdragon76@gmail.com</a><br>Сайт программы: <a href=\"github.com/Horsmir/hstest\">github.com/Horsmir/hstest</a></p>");

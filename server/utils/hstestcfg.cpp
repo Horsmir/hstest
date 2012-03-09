@@ -27,13 +27,19 @@ hstestcfg::hstestcfg() :
 	verticalLayout->addItem(verticalSpacer);
 
 	horizontalLayout->addLayout(verticalLayout);
+	
+	QString appDirPath = QCoreApplication::applicationDirPath();
+	QDir appDir(appDirPath);
+	appDir.cdUp();
+	QString iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
 
 	QIcon logo;
-	logo.addPixmap(QPixmap("../../../icons/logo.svg"));
+	logo.addPixmap(QPixmap(iconsPath + "logo.svg"));
 	setWindowIcon(logo);
 	setWindowTitle(trUtf8("Параметры Hs Test Server"));
 
 	testManager = new TestManager(this);
+	testManager->setTestDir(appDir.absolutePath() + "/var/lib/hstest");
 	testManager->readTestDbFromFile();
 	createTree();
 

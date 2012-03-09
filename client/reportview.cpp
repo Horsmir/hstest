@@ -29,6 +29,7 @@ ReportView::ReportView(QWidget *parent, const QString &report_file):
 	verticalLayout->addWidget(textEdit);
 	
 	setWindowTitle(trUtf8("Просмотр результатов"));
+	resize(parent->width(), parent->height());
 }
 
 ReportView::~ReportView()

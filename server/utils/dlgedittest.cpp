@@ -37,7 +37,7 @@ DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
 	sbNumVis = new QSpinBox(this);
 	sbNumVis->setMaximum(1000);
 	label_4 = new QLabel(trUtf8("Видимых вопросов:"), this);
-	chbVis = new QCheckBox(this);
+	chbVis = new QCheckBox(trUtf8("Видимый для клиента"), this);
 	buttonBox = new QDialogButtonBox(this);
 	buttonBox->setOrientation(Qt::Horizontal);
 	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);

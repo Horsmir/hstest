@@ -4,6 +4,7 @@ HstesterServer::HstesterServer(QObject *parent):
 	QObject(parent)
 {
 	testManager = new TestManager(this);
+	testManager->setTestDir("../var/lib/hstest");
 	testManager->readTestDbFromFile();
 	testServer = new TestServer(testManager, this);
 	

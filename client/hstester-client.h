@@ -103,6 +103,7 @@ private:
 	
 	bool onToggled;		        // вкл./выкл. реакции слота toggled
 	QString imagesPath;         // путь к каталогу с рисунками
+	QString appName;			// заголовок окна
 	
 	void showTestNode();
 	void initCloseView();

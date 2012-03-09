@@ -150,6 +150,7 @@ public:
     QMenu *menuHelp;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+	QLabel *labelResultTime;
 	QString iconsPath;
 
     void setupUi(QMainWindow *MainWindow)
@@ -157,8 +158,7 @@ public:
         QString appDir = QCoreApplication::applicationDirPath();
 	    QDir iconsDir(appDir);
 	    iconsDir.cdUp();
-	    iconsDir.cdUp();
-	    iconsPath = iconsDir.absolutePath() + "/icons/";
+		iconsPath = iconsDir.absolutePath() + "/share/hstest/icons/";
 	
 	if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
@@ -186,6 +186,9 @@ public:
         actionAdvance->setIcon(icon2);
         actionHelp = new QAction(MainWindow);
         actionHelp->setObjectName(QString::fromUtf8("actionHelp"));
+		QIcon icon10;
+		icon10.addFile(iconsPath + QString::fromUtf8("help.png"), QSize(), QIcon::Normal, QIcon::Off);
+		actionHelp->setIcon(icon10);
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         QIcon icon3;
@@ -194,12 +197,12 @@ public:
         actionBack = new QAction(MainWindow);
         actionBack->setObjectName(QString::fromUtf8("actionBack"));
         QIcon icon4;
-        icon4.addFile(QString::fromUtf8("/usr/share/icons/default.kde4/22x22/actions/go-previous.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(iconsPath + QString::fromUtf8("go-previous.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionBack->setIcon(icon4);
         actionForvard = new QAction(MainWindow);
         actionForvard->setObjectName(QString::fromUtf8("actionForvard"));
         QIcon icon5;
-        icon5.addFile(QString::fromUtf8("/usr/share/icons/default.kde4/22x22/actions/go-next.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon5.addFile(iconsPath + QString::fromUtf8("go-next.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionForvard->setIcon(icon5);
         action_AboutQt = new QAction(MainWindow);
         action_AboutQt->setObjectName(QString::fromUtf8("action_AboutQt"));
@@ -649,6 +652,13 @@ public:
         labelResultPrec->setAlignment(Qt::AlignCenter);
 
         verticalLayout_8->addWidget(labelResultPrec);
+		
+		labelResultTime = new QLabel(pageResult);
+		sizePolicy.setHeightForWidth(labelResultTime->sizePolicy().hasHeightForWidth());
+		labelResultTime->setSizePolicy(sizePolicy);
+		labelResultTime->setFont(font1);
+		labelResultTime->setAlignment(Qt::AlignCenter);
+		verticalLayout_8->addWidget(labelResultTime);
 
         labelResultOcenk = new QLabel(pageResult);
         labelResultOcenk->setObjectName(QString::fromUtf8("labelResultOcenk"));
@@ -785,6 +795,7 @@ public:
         mainToolBar->addAction(actionShowResult);
         mainToolBar->addAction(actionAdvance);
         mainToolBar->addSeparator();
+		mainToolBar->addAction(actionHelp);
         mainToolBar->addAction(actionAbout);
         mainToolBar->addSeparator();
         mainToolBar->addAction(actionExit);
@@ -799,7 +810,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Hs Test 0.1", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Hs Test", 0, QApplication::UnicodeUTF8));
         actionLoadTests->setText(QApplication::translate("MainWindow", "&\320\227\320\260\320\263\321\200\321\203\320\267\320\270\321\202\321\214 \321\202\320\265\321\201\321\202\321\213", 0, QApplication::UnicodeUTF8));
         actionExit->setText(QApplication::translate("MainWindow", "&\320\222\321\213\321\205\320\276\320\264", 0, QApplication::UnicodeUTF8));
         actionExit->setShortcut(QApplication::translate("MainWindow", "Alt+X", 0, QApplication::UnicodeUTF8));

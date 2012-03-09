@@ -1,6 +1,7 @@
 #ifndef hstestcfg_H
 #define hstestcfg_H
 
+#include <QtCore/QCoreApplication>
 #include <QtGui/QDialog>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QTreeWidget>

@@ -7,3 +7,6 @@ set(hstester-client_SRCS reportview.cpp report.cpp testthread.cpp ${share_SRC} t
 qt4_automoc(${hstester-client_SRCS})
 add_executable(hstest-client ${hstester-client_SRCS})
 target_link_libraries(hstest-client ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+
+install(TARGETS hstest-client DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(DIRECTORY ../icons ../images DESTINATION ${CMAKE_INSTALL_PREFIX}/share/hstest)

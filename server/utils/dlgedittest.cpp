@@ -57,6 +57,8 @@ DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
 	verticalLayout->addItem(verticalSpacer);
 	verticalLayout->addWidget(buttonBox);
 	
+	setWindowTitle(trUtf8("Изменить тест"));
+	
 	connect(buttonBox, SIGNAL(accepted()), SLOT(accept()));
 	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
 	connect(cbCat, SIGNAL(currentIndexChanged(QString)), SLOT(setTest(QString)));

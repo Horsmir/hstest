@@ -39,6 +39,7 @@ hstestcfg::hstestcfg() :
 	setWindowTitle(trUtf8("Параметры Hs Test Server"));
 
 	testManager = new TestManager(this);
+	appDir.cdUp();
 	testManager->setTestDir(appDir.absolutePath() + "/var/lib/hstest");
 	testManager->readTestDbFromFile();
 	createTree();

@@ -32,6 +32,7 @@ DlgAddTest::DlgAddTest ( QWidget* parent, Qt::WindowFlags f ) : QDialog ( parent
 	horizontalLayout->addWidget(leTestFileName);
 	
 	toolBtnFileOpen = new QToolButton(this);
+	toolBtnFileOpen->setText("...");
 	horizontalLayout->addWidget(toolBtnFileOpen);
 	
 	verticalLayout->addLayout(horizontalLayout);
@@ -72,6 +73,8 @@ DlgAddTest::DlgAddTest ( QWidget* parent, Qt::WindowFlags f ) : QDialog ( parent
 	horizontalLayout_3->addItem(horizontalSpacer_2);
 	
 	verticalLayout->addLayout(horizontalLayout_3);
+	
+	setWindowTitle(trUtf8("Добавить тест"));
 	
 	connect(btnAdd, SIGNAL(clicked()), SLOT(accept()));
 	connect(btnCancel, SIGNAL(clicked()), SLOT(reject()));

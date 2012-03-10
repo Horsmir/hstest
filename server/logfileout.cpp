@@ -22,7 +22,7 @@
 LogFileOut::LogFileOut(QObject *parent):
 	QObject(parent)
 {
-	logFilePath = "/var/hstest/server.log";
+	logFilePath = "/var/log/hstest/server.log";
 }
 
 LogFileOut::LogFileOut(const QString &logFilePath, QObject *parent): QObject(parent)

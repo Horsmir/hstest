@@ -104,6 +104,7 @@ private:
 	bool onToggled;		        // вкл./выкл. реакции слота toggled
 	QString imagesPath;         // путь к каталогу с рисунками
 	QString appName;			// заголовок окна
+	bool viewPanel;				// показать/скрыть панель инструментов
 	
 	void showTestNode();
 	void initCloseView();

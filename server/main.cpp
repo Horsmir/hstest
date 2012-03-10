@@ -68,7 +68,7 @@ QString getTime() //функция возвращает форматирован
 
 int writeLog(const QString &msg)  //функция записи строки в лог
 {
-    QFile pLog("../var/log/hstest-server.log");
+    QFile pLog("../../var/log/hstest-server.log");
     if(!pLog.open(QIODevice::Append | QIODevice::Text))
     {
         return 1;

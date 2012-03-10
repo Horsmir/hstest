@@ -27,7 +27,7 @@ QObject ( parent )
     testDbFileName = "testsdb.tst";
     magicNumber = 0xAAFF452C;
     
-    logOut = new LogFileOut("../var/log/hstest-server.log", this);
+    logOut = new LogFileOut("../../var/log/hstest-server.log", this);
 }
 
 TestManager::TestManager(const TestManager& other) :

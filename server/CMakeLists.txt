@@ -8,8 +8,12 @@ qt4_automoc(${hstester-server_SRCS})
 add_executable(hstest-server ${hstester-server_SRCS})
 target_link_libraries(hstest-server ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY})
 
+if(NOT localstatedir)
+	set(localstatedir ${CMAKE_INSTALL_PREFIX}/../var)
+endif(NOT localstatedir)
+
 add_subdirectory(utils utils)
 
 install(TARGETS hstest-server DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(DIRECTORY ../icons ../images DESTINATION ${CMAKE_INSTALL_PREFIX}/share/hstest)
-install(DIRECTORY data/ DESTINATION ${CMAKE_INSTALL_PREFIX}/var/lib/hstest)
+install(DIRECTORY data/ DESTINATION ${localstatedir}/lib/hstest)

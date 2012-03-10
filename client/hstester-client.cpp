@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent):
 	settings = new QSettings("../config/hstester.conf", QSettings::NativeFormat);
 	readSettings();
 	
+	ui->mainToolBar->setVisible(viewPanel);
+	
 	resultReport = new Report(this, htmlFileResult);
 	reportView = new ReportView(this, htmlFileResult);
 	reportView->hide();
@@ -287,6 +289,7 @@ void MainWindow::readSettings()
 	serverPort = settings->value("server/port", qint16(1605)).toInt();
 	
 	resultReportOn = settings->value("view/ReportOn", bool(true)).toBool();
+	viewPanel = settings->value("view/ViewPanel", bool(true)).toBool();
 }
 
 void MainWindow::writeSettings()
@@ -298,6 +301,7 @@ void MainWindow::writeSettings()
 	settings->setValue("server/port", serverPort);
 	
 	settings->setValue("view/ReportOn", resultReportOn);
+	settings->setValue("view/ViewPanel", viewPanel);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -309,7 +313,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::on_actionAdvance_triggered()
 {
 	config->setServerParm(serverName, serverPort);
-	config->setViewPanel(true); // TODO: реализовать отображение/скрытие панели инструментов
+	config->setViewPanel(viewPanel);
 	config->setCreateReport(resultReportOn);
 	
 	if(config->exec() == QDialog::Accepted)
@@ -317,6 +321,8 @@ void MainWindow::on_actionAdvance_triggered()
 		serverName = config->getServerName();
 		serverPort = config->getServerPort();
 		resultReportOn = config->getCreateReport();
+		viewPanel = config->getViewPanel();
+		ui->mainToolBar->setVisible(viewPanel);
 		writeSettings();
 	}
 }

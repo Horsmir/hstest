@@ -23,7 +23,9 @@
 TestDB::TestDB(QObject *parent) :
 	QObject(parent)
 {
-
+	percentParam.insert("2", 60.0);
+	percentParam.insert("3", 80.0);
+	percentParam.insert("4", 90.0);
 }
 
 TestDB::TestDB(const TestDB &other) :
@@ -163,17 +165,45 @@ bool TestDB::editTest(const QString &catName, const QString &testName, const qui
 	return true;
 }
 
+QMap< QString, float > TestDB::getPercentParam() const
+{
+	return percentParam;
+}
+
+void TestDB::setPercentParam(QMap< QString, float > percentParam)
+{
+	this->percentParam = percentParam;
+}
+
+void TestDB::getPercentParam(float &per2, float &per3, float &per4) const
+{
+	per2 = percentParam.value("2");
+	per3 = percentParam.value("3");
+	per4 = percentParam.value("4");
+}
+
+void TestDB::setPercentParam(float per2, float per3, float per4)
+{
+	percentParam.insert("2", per2);
+	percentParam.insert("3", per3);
+	percentParam.insert("4", per4);
+}
+
+//================================================================================================================
+
 QDataStream &operator << (QDataStream &out, const TestDB &testDb)
 {
-	out << testDb.getCategories();
+	out << testDb.getPercentParam() << testDb.getCategories();
 	return out;
 }
 
 QDataStream &operator >> (QDataStream &in, TestDB &testDb)
 {
 	QList<TestCategories> cats;
+	QMap<QString, float> percents;
 
-	in >> cats;
+	in >> percents >> cats;
+	testDb.setPercentParam(percents);
 	testDb.setCategories(cats);
 	return in;
 }

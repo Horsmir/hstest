@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QMetaType>
+#include <QtCore/QMap>
 #include "testcategories.h"
 
 
@@ -38,12 +39,16 @@ public:
 	bool addCategory(const QString &catName);
 	void addTest(const QString &catName, const QString &testName, quint16 numVis, bool vis = true);
 	void setCategories(QList<TestCategories> categories);
+	void setPercentParam(QMap<QString, float> percentParam);
+	void setPercentParam(float per2, float per3, float per4);
 
 	QStringList getCategoryNameList() const;
 	QStringList getTestNameListByCategory(const QString &catName, bool all = false) const;
 	QString getFileNameTest(const QString &catName, const QString &testName) const;
 	quint32 getNumVis(const QString &catName, const QString &testName) const;
 	QList<TestCategories> getCategories() const;
+	QMap<QString, float> getPercentParam() const;
+	void getPercentParam(float &per2, float &per3, float &per4) const;
 
 	bool delCategory(const QString &catName);
 	bool delTest(const QString &catName, const QString &testName);
@@ -52,6 +57,7 @@ public:
 
 private:
 	QList<TestCategories> categories;
+	QMap<QString, float> percentParam;
 
 	qint32 getCategoryIdByName(const QString &catName) const;
 };

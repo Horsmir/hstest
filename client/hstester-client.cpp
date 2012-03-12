@@ -344,6 +344,7 @@ void MainWindow::testDbLoaded()
 		QListWidgetItem *cat = new QListWidgetItem(folderIcon, catList.at(i));
 		ui->listCatTestView->addItem(cat);
 	}
+	testManager->getPercentParam(per2, per3, per4);
 }
 
 void MainWindow::net_error(int socketError, const QString &error_string)

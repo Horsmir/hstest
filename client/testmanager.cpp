@@ -150,6 +150,11 @@ quint32 TestManager::getNumNodes() const
 	return numNodes;
 }
 
+void TestManager::getPercentParam(float &per2, float per3, float per4)
+{
+	tests->getPercentParam(per2, per3, per4);
+}
+
 #include "testmanager.moc"
 
 // kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

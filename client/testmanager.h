@@ -53,6 +53,8 @@ public:
 	const TestNode *next();
 	QString getTestName() const;
 	quint32 getNumNodes() const;
+	
+	void getPercentParam(float &per2, float per3, float per4);
 
 signals:
 	void testDbLoaded();

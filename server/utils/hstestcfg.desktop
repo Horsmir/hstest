@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Hs Test Configure
+GenericName=Application for configure tests
+GenericName[ru]=Приложение для настройки тестов
+Terminal=false
+Exec=hstestcfg
+Icon=hstestcfg
+Categories=Education;Qt;Settings;

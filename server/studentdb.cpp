@@ -1,0 +1,139 @@
+/*
+    <one line to give the program's name and a brief idea of what it does.>
+    Copyright (C) 2012  Роман Браун <firdragon76@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+#include "studentdb.h"
+
+StudentDb::StudentDb(QObject *parent): 
+	QObject(parent)
+{
+
+}
+
+StudentDb::StudentDb(const StudentDb &other)
+{
+	setParent(other.parent());
+	students = other.students;
+	groups = other.groups;
+}
+
+StudentDb::~StudentDb()
+{
+
+}
+
+StudentDb &StudentDb::operator=(const StudentDb &other)
+{
+	students = other.students;
+	groups = other.groups;
+	return *this;
+}
+
+void StudentDb::addNewStudent(const QString &studentName, const QString &groupName)
+{
+	Student newStudent;
+	newStudent.setName(studentName);
+	newStudent.setGroupName(groupName);
+	for(int i = 0; i < students.count(); i++)
+	{
+		if(newStudent == students.at(i))
+			return;
+	}
+	
+	students.append(newStudent);
+}
+
+void StudentDb::addGroup(const QString &group)
+{
+	int id = groups.indexOf(group);
+	if(id == -1)
+		groups.append(group);
+}
+
+void StudentDb::addTestForStudent(const QString &studentName, const QString &groupName, const QString &testName, qreal percent, quint32 ocenka)
+{
+	int stud = -1;
+	bool ok = false;
+	for(int i = 0; i < students.count(); i++)
+	{
+		if(studentName == students.at(i).getName() && groupName == students.at(i).getGroupName())
+		{
+			ok = true;
+			stud = i;
+			break;
+		}
+	}
+	
+	if(!ok)
+	{
+		addNewStudent(studentName, groupName);
+		stud = students.count() - 1;
+	}
+	
+	QDate today = QDate::currentDate();
+	students[stud].addTest(today.toString("yyyy-MM-dd"), testName, percent, ocenka);
+}
+
+void StudentDb::setStudents(QList< Student > students)
+{
+	this->students = students;
+}
+
+void StudentDb::setGroups(QStringList groups)
+{
+	this->groups = groups;
+}
+
+QStringList StudentDb::getGroups() const
+{
+	return groups;
+}
+
+Student StudentDb::getStudentByName(const QString &studentName, const QString &groupName) const
+{
+	Student ret;
+	for(int i = 0; i < students.count(); i++)
+	{
+		if(studentName == students.at(i).getName() && groupName == students.at(i).getGroupName())
+			ret = students.at(i);
+	}
+	return ret;
+}
+
+QList< Student > StudentDb::getStudents() const
+{
+	return students;
+}
+
+QDataStream &operator<<(QDataStream &out, const StudentDb &db)
+{
+	out << db.getStudents() << db.getGroups();
+	return out;
+}
+
+QDataStream &operator>>(QDataStream &in, StudentDb &db)
+{
+	QList<Student> studs;
+	QStringList groups;
+	
+	in >> studs >> groups;
+	db.setStudents(studs);
+	db.setGroups(groups);
+	
+	return in;
+}

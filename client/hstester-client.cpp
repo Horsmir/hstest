@@ -53,8 +53,7 @@ MainWindow::MainWindow(QWidget *parent):
 	QString appDir = QCoreApplication::applicationDirPath();
 	QDir imagesDir(appDir);
 	imagesDir.cdUp();
-	imagesDir.cdUp();
-	imagesPath = imagesDir.absolutePath() + "/images/";
+	imagesPath = imagesDir.absolutePath() + "/share/hstest/images/";
 	
 	settings = new QSettings("../config/hstester.conf", QSettings::NativeFormat);
 	readSettings();

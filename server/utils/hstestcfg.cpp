@@ -34,7 +34,7 @@ hstestcfg::hstestcfg() :
 	QString iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
 
 	QIcon logo;
-	logo.addPixmap(QPixmap(iconsPath + "logo.svg"));
+	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
 	setWindowIcon(logo);
 	setWindowTitle(trUtf8("Параметры Hs Test Server"));
 

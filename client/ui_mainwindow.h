@@ -167,7 +167,7 @@ public:
         font.setFamily(QString::fromUtf8("Droid Sans"));
         MainWindow->setFont(font);
 		QIcon icon9;
-		icon9.addFile(iconsPath + QString::fromUtf8("logo.svg"), QSize(), QIcon::Normal, QIcon::Off);
+		icon9.addFile(iconsPath + QString::fromUtf8("hstest.svg"), QSize(), QIcon::Normal, QIcon::Off);
 		MainWindow->setWindowIcon(icon9);
         actionLoadTests = new QAction(MainWindow);
         actionLoadTests->setObjectName(QString::fromUtf8("actionLoadTests"));

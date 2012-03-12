@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Hs Test
+GenericName=Application for testing
+GenericName[ru]=Приложение для тестирования
+Terminal=false
+Exec=hstest-client
+Icon=hstest
+Categories=Education;Qt;

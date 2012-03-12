@@ -9,3 +9,6 @@ add_executable(hstestcfg ${hstestcfg_SRCS})
 target_link_libraries(hstestcfg ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
 
 install(TARGETS hstestcfg DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(FILES hstestcfg.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/hstest/icons)
+install(FILES hstestcfg.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES hstestcfg.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps)

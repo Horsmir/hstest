@@ -10,3 +10,5 @@ target_link_libraries(hstest-client ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY} ${Q
 
 install(TARGETS hstest-client DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(DIRECTORY ../icons ../images DESTINATION ${CMAKE_INSTALL_PREFIX}/share/hstest)
+install(FILES hstest-client.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES ../icons/hstest.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps)

@@ -26,6 +26,8 @@
 #include "testdb.h"
 #include "test.h"
 
+#define QT_NO_CAST_TO_ASCII
+
 
 class TestThread : public QThread
 {
@@ -37,11 +39,14 @@ public:
 	
 	void requestTestDb(const QString &hostName, quint16 port);
 	void requestTest(const QString &hostName, quint16 port, int catName, int testName);
+	void requestGroups(const QString &hostName, quint16 port);
+	void sendStudentData(const QString &hostName, quint16 port, const QString &studentName, const QString &groupName, const QString &testName, qreal percent, quint32 ocenka);
 	void run();
 	
 signals:
 	void newTestDb(TestDB categories);
 	void newTest(Test test);
+	void newGroups(QStringList groups);
 	void error(int socketError, const QString &message);
 	
 private:
@@ -51,6 +56,11 @@ private:
 	quint16 onGet;
 	int catName;
 	int testName;
+	QString studentName;
+	QString groupName;
+	QString testNameStud;
+	qreal percent;
+	quint32 ocenka;
 };
 
 #endif // TESTTHREAD_H

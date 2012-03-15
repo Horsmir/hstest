@@ -62,6 +62,9 @@ public:
 
 	bool delCategory(const QString &catName);
 	bool delTest(const QString &catName, const QString &testName);
+	
+	void addStudent(const QString &studentName, const QString &groupName, const QString &testName, qreal percent, quint32 ocenka);
+	QStringList getGroupsList() const;
 
 private:
 	TestDB *tests;

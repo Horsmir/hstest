@@ -69,4 +69,9 @@ bool DlgConfig::getCreateReport() const
 	return ui->chbCreateReport->isChecked();
 }
 
+void DlgConfig::setCreateReportVisible(bool dis)
+{
+	ui->chbCreateReport->setVisible(dis);
+}
+
 #include "dlgconfig.moc"

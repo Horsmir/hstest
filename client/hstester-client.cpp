@@ -38,7 +38,8 @@ MainWindow::MainWindow(QWidget *parent):
 	listViewTests = false;
 	tTime = new QTime(0, 0);
 	mTimer = new QTimer(this);
-	appName = trUtf8("Hs Test 0.2");
+	appName = trUtf8("Hs Test 0.3");
+	modeType = Training;
 	
 	per2 = 60.0;
 	per3 = 80.0;
@@ -49,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent):
 	initRegView();
 	
 	config = new DlgConfig(this);
+	modeDialog = new DlgRegister(this);
 	
 	QString appDir = QCoreApplication::applicationDirPath();
 	QDir imagesDir(appDir);
@@ -77,6 +79,7 @@ MainWindow::MainWindow(QWidget *parent):
 	connect(testManager, SIGNAL(testDbLoaded()), SLOT(testDbLoaded()));
 	connect(testManager, SIGNAL(testLoaded()), SLOT(testLoaded()));
 	connect(testManager, SIGNAL(netIsError(int,QString)), SLOT(net_error(int,QString)));
+	connect(testManager, SIGNAL(groupsLoaded()), SLOT(groupsLoaded()));
 }
 
 MainWindow::~MainWindow()
@@ -113,14 +116,20 @@ void MainWindow::initConfView()
 	confBtnNodes[2] = ui->btnConfAnswer_3;
 	confBtnNodes[3] = ui->btnConfAnswer_4;
 	confBtnNodes[4] = ui->btnConfAnswer_5;
+	confBtnNodes[5] = ui->btnConfAnswer_6;
+	confBtnNodes[6] = ui->btnConfAnswer_7;
+	confBtnNodes[7] = ui->btnConfAnswer_8;
 	
 	confLabelNodes[0] = ui->labelConfAnswer_1;
 	confLabelNodes[1] = ui->labelConfAnswer_2;
 	confLabelNodes[2] = ui->labelConfAnswer_3;
 	confLabelNodes[3] = ui->labelConfAnswer_4;
 	confLabelNodes[4] = ui->labelConfAnswer_5;
+	confLabelNodes[5] = ui->labelConfAnswer_6;
+	confLabelNodes[6] = ui->labelConfAnswer_7;
+	confLabelNodes[7] = ui->labelConfAnswer_8;
 	
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		confBtnNodes[i]->setVisible(false);
 		confLabelNodes[i]->setVisible(false);
@@ -137,6 +146,14 @@ void MainWindow::initRegView()
 	regBtnNodes[5] = ui->btnRegAnswer_11;
 	regBtnNodes[6] = ui->btnRegAnswer_12;
 	regBtnNodes[7] = ui->btnRegAnswer_13;
+	regBtnNodes[8] = ui->btnRegAnswer_14;
+	regBtnNodes[9] = ui->btnRegAnswer_15;
+	regBtnNodes[10] = ui->btnRegAnswer_16;
+	regBtnNodes[11] = ui->btnRegAnswer_17;
+	regBtnNodes[12] = ui->btnRegAnswer_18;
+	regBtnNodes[13] = ui->btnRegAnswer_19;
+	regBtnNodes[14] = ui->btnRegAnswer_20;
+	regBtnNodes[15] = ui->btnRegAnswer_21;
 	
 	regLabelNodes[0] = ui->labelRegAnswer_1;
 	regLabelNodes[1] = ui->labelRegAnswer_7;
@@ -146,8 +163,16 @@ void MainWindow::initRegView()
 	regLabelNodes[5] = ui->labelRegAnswer_11;
 	regLabelNodes[6] = ui->labelRegAnswer_12;
 	regLabelNodes[7] = ui->labelRegAnswer_13;
+	regLabelNodes[8] = ui->labelRegAnswer_14;
+	regLabelNodes[9] = ui->labelRegAnswer_15;
+	regLabelNodes[10] = ui->labelRegAnswer_16;
+	regLabelNodes[11] = ui->labelRegAnswer_17;
+	regLabelNodes[12] = ui->labelRegAnswer_18;
+	regLabelNodes[13] = ui->labelRegAnswer_19;
+	regLabelNodes[14] = ui->labelRegAnswer_20;
+	regLabelNodes[15] = ui->labelRegAnswer_21;
 	
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 16; i++)
 	{
 		regBtnNodes[i]->setVisible(false);
 		regLabelNodes[i]->setVisible(false);
@@ -177,6 +202,21 @@ void MainWindow::on_btnConfAnswer_4_toggled(bool checked)
 void MainWindow::on_btnConfAnswer_5_toggled(bool checked)
 {
 	setNumConfRegBtn(ui->btnConfAnswer_5, checked);
+}
+
+void MainWindow::on_btnConfAnswer_6_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnConfAnswer_5, checked);
+}
+
+void MainWindow::on_btnConfAnswer_7_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnConfAnswer_7, checked);
+}
+
+void MainWindow::on_btnConfAnswer_8_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnConfAnswer_8, checked);
 }
 
 void MainWindow::on_btnRegAnswer_1_toggled(bool checked)
@@ -217,6 +257,46 @@ void MainWindow::on_btnRegAnswer_12_toggled(bool checked)
 void MainWindow::on_btnRegAnswer_13_toggled(bool checked)
 {
 	setNumConfRegBtn(ui->btnRegAnswer_13, checked);
+}
+
+void MainWindow::on_btnRegAnswer_14_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_14, checked);
+}
+
+void MainWindow::on_btnRegAnswer_15_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_15, checked);
+}
+
+void MainWindow::on_btnRegAnswer_16_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_16, checked);
+}
+
+void MainWindow::on_btnRegAnswer_17_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_17, checked);
+}
+
+void MainWindow::on_btnRegAnswer_18_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_18, checked);
+}
+
+void MainWindow::on_btnRegAnswer_19_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_19, checked);
+}
+
+void MainWindow::on_btnRegAnswer_20_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_20, checked);
+}
+
+void MainWindow::on_btnRegAnswer_21_toggled(bool checked)
+{
+	setNumConfRegBtn(ui->btnRegAnswer_21, checked);
 }
 
 /**
@@ -329,7 +409,7 @@ void MainWindow::on_actionAdvance_triggered()
 void MainWindow::on_actionLoadTests_triggered()
 {
 	listViewTests = false;
-	testManager->loadTestDb();
+	testManager->loadGroups();
 }
 
 void MainWindow::testDbLoaded()
@@ -475,6 +555,11 @@ void MainWindow::showResult()
 	ui->actionReturn->setEnabled(true);
 	ui->actionShowResult->setEnabled(true);
 	
+	if(modeType == Exam)
+	{
+		testManager->sentStudentData(nf.toFloat(), ocenka);
+	}
+	
 	ui->stackedWidget->setCurrentIndex(5);
 	
 	if(resultReportOn)
@@ -504,6 +589,11 @@ void MainWindow::showTestNode()
 			ui->labelTaskClose->setText(currentNode->getTask());
 			ui->labelQuestClose->setText(currentNode->getQuestion());
 			c_answ = currentNode->getAnswers().count();
+			if(c_answ >= 8)
+			{
+				QMessageBox::information(this, trUtf8("Превышение допустимого количества ответов"), trUtf8("Количество ответов не должно быть больше 8."));
+				break;
+			}
 			for(int i = 0; i < c_answ; i++)
 			{
 				closeNodes[i]->setText(currentNode->getAnswers().at(i));
@@ -523,7 +613,7 @@ void MainWindow::showTestNode()
 		case TYPE_NODE_CONFORMITY:
 			numConfRegAnsw = 1;
 			onToggled = false;
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < 8; i++)
 			{
 				confBtnNodes[i]->setVisible(false);
 				confBtnNodes[i]->setChecked(false);
@@ -537,6 +627,11 @@ void MainWindow::showTestNode()
 				ques_conf += QString("%1. " + currentNode->getQuestions().at(i) + "\n\n").arg(i + 1);
 			}
 			ui->teQuestions->setText(ques_conf);
+			if(currentNode->getAnswers().count() >= 8)
+			{
+				QMessageBox::information(this, trUtf8("Превышение допустимого количества ответов"), trUtf8("Количество ответов не должно быть больше 8."));
+				break;
+			}
 			for(int i = 0; i < currentNode->getAnswers().count(); i++)
 			{
 				confBtnNodes[i]->setText(" ");
@@ -550,7 +645,7 @@ void MainWindow::showTestNode()
 		case TYPE_NODE_REGULATING:
 			numConfRegAnsw = 1;
 			onToggled = false;
-			for(int i = 0; i < 8; i++)
+			for(int i = 0; i < 16; i++)
 			{
 				regBtnNodes[i]->setVisible(false);
 				regBtnNodes[i]->setChecked(false);
@@ -558,6 +653,11 @@ void MainWindow::showTestNode()
 			}
 			onToggled = true;
 			ui->labelTaskRegulating->setText(currentNode->getTask());
+			if(currentNode->getAnswers().count() >= 16)
+			{
+				QMessageBox::information(this, trUtf8("Превышение допустимого количества ответов"), trUtf8("Количество ответов не должно быть больше 16."));
+				break;
+			}
 			for(int i = 0; i < currentNode->getAnswers().count(); i++)
 			{
 				regBtnNodes[i]->setText(" ");
@@ -587,6 +687,9 @@ void MainWindow::testLoaded()
 	ui->actionBack->setDisabled(true);
 	ui->actionForvard->setDisabled(true);
 	ui->actionLoadTests->setDisabled(true);
+	
+	ui->actionRepit->setEnabled(true);
+	ui->actionReturn->setEnabled(true);
 	
 	numCurrentNode = 0;
 	tTime->setHMS(0, 0, 0);
@@ -685,11 +788,11 @@ void MainWindow::on_actionRepit_triggered()
 	numConfRegAnsw = 1;
 	resultReport->clear();
 	
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		confBtnNodes[i]->setChecked(false);
 	}
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 16; i++)
 	{
 		regBtnNodes[i]->setChecked(false);
 	}
@@ -712,11 +815,11 @@ void MainWindow::on_actionReturn_triggered()
 	listViewTests = false;
 	resultReport->clear();
 	
-	for(int i = 0; i < 5; i++)
+	for(int i = 0; i < 8; i++)
 	{
 		confBtnNodes[i]->setChecked(false);
 	}
-	for(int i = 0; i < 8; i++)
+	for(int i = 0; i < 16; i++)
 	{
 		regBtnNodes[i]->setChecked(false);
 	}
@@ -732,8 +835,16 @@ void MainWindow::on_actionReturn_triggered()
 	numTasksL->setVisible(false);
 	timerView->setVisible(false);
 	
-	testDbLoaded();
+	if(modeType == Exam)
+	{
+		config->setCreateReportVisible(true);
+		ui->actionShowResult->setVisible(true);
+		resultReportOn = resultReportOnOld;
+	}
+	
+	ui->listCatTestView->clear();
 	ui->stackedWidget->setCurrentIndex(0);
+	on_actionLoadTests_triggered();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -753,6 +864,33 @@ void MainWindow::on_actionHelp_triggered()
 	QString curPath = QDir::currentPath();
 	curPath = "file://" + curPath + "/help_rus.pdf";
 	QDesktopServices::openUrl(QUrl(curPath, QUrl::TolerantMode));
+}
+
+void MainWindow::groupsLoaded()
+{
+	modeDialog->setGroups(testManager->getGroups());
+	int id = 0;
+	if(modeDialog->exec() == QDialog::Accepted)
+	{
+		id = modeDialog->getMode();
+		if(id == 1)
+		{
+			testManager->setStudentName(modeDialog->getStudentName());
+			testManager->setGroupName(modeDialog->getGroupName());
+			modeType = Exam;
+			resultReportOnOld = resultReportOn;
+			resultReportOn = false;
+			config->setCreateReportVisible(false);
+			ui->actionShowResult->setVisible(false);
+		}
+		else if(id == 0)
+		{
+			modeType = Training;
+			config->setCreateReportVisible(true);
+			ui->actionShowResult->setVisible(true);
+		}
+		testManager->loadTestDb();
+	}
 }
 
 #include "hstester-client.moc"

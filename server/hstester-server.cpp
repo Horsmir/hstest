@@ -6,6 +6,7 @@ HstesterServer::HstesterServer(QObject *parent):
 	testManager = new TestManager(this);
 	testManager->setTestDir("../../var/lib/hstest");
 	testManager->readTestDbFromFile();
+	testManager->readStudentDbFromFile();
 	testServer = new TestServer(testManager, this);
 	
 	if(!testServer->listen(QHostAddress::Any, 1605))

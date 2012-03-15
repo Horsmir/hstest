@@ -14,6 +14,7 @@ hstestcfg::hstestcfg() :
 	btnDelCat = new QPushButton(trUtf8("Удалить категорию"), this);
 	btnDelTest = new QPushButton(trUtf8("Удалить тест"), this);
 	btnEditTest = new QPushButton(trUtf8("Изменить тест"), this);
+	btnEditGroups = new QPushButton(trUtf8("Группы"), this);
 	btnClose = new QPushButton(trUtf8("Закрыть"), this);
 
 	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -23,6 +24,7 @@ hstestcfg::hstestcfg() :
 	verticalLayout->addWidget(btnDelCat);
 	verticalLayout->addWidget(btnDelTest);
 	verticalLayout->addWidget(btnEditTest);
+	verticalLayout->addWidget(btnEditGroups);
 	verticalLayout->addWidget(btnClose);
 	verticalLayout->addItem(verticalSpacer);
 
@@ -47,12 +49,14 @@ hstestcfg::hstestcfg() :
 	addTestDialog = new DlgAddTest(this);
 	delTestDialog = new DlgDeleteTest(this);
 	editTestDialog = new DlgEditTest(this);
+	editGroupsDialog = new DlgEditGroups(this);
 
 	connect(btnAddCat, SIGNAL(clicked(bool)), SLOT(on_btnAddCat_clicked()));
 	connect(btnAddTest, SIGNAL(clicked(bool)), SLOT(on_btnAddTest_clicked()));
 	connect(btnClose, SIGNAL(clicked(bool)), SLOT(on_btnClose_clicked()));
 	connect(btnDelCat, SIGNAL(clicked(bool)), SLOT(on_btnDelCat_clicked()));
 	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
+	connect(btnEditGroups, SIGNAL(clicked(bool)), SLOT(on_btnEditGroups_clicked()));
 	connect(btnDelTest, SIGNAL(clicked(bool)), SLOT(on_btnDelTest_clicked()));
 }
 
@@ -150,6 +154,13 @@ void hstestcfg::on_btnEditTest_clicked()
 		else
 			testManager->writeTestDbToFile();
 	}
+}
+
+void hstestcfg::on_btnEditGroups_clicked()
+{
+	testManager->readStudentDbFromFile();
+	editGroupsDialog->setTestManager(testManager);
+	editGroupsDialog->show();
 }
 
 #include "hstestcfg.moc"

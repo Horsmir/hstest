@@ -32,6 +32,7 @@ TestDB::TestDB(const TestDB &other) :
 	QObject(other.parent())
 {
 	this->categories = other.categories;
+	this->percentParam = other.percentParam;
 }
 
 TestDB::~TestDB()
@@ -43,6 +44,7 @@ TestDB &TestDB::operator= (const TestDB &other)
 {
 	this->setParent(other.parent());
 	this->categories = other.categories;
+	this->percentParam = other.percentParam;
 	return *this;
 }
 

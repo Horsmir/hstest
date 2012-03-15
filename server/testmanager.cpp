@@ -346,4 +346,15 @@ bool TestManager::writeStudentDbToFile()
 	return true;
 }
 
+void TestManager::addStudent(const QString &studentName, const QString &groupName, const QString &testName, qreal percent, quint32 ocenka)
+{
+	students->addTestForStudent(studentName, groupName, testName, percent, ocenka);
+	writeStudentDbToFile();
+}
+
+QStringList TestManager::getGroupsList() const
+{
+	return students->getGroups();
+}
+
 // kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

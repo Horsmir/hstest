@@ -26,6 +26,7 @@ TestManager::TestManager(QObject *parent) :
 
 	connect(&thread, SIGNAL(newTestDb(TestDB)), SLOT(requestNewTestDb(TestDB)));
 	connect(&thread, SIGNAL(newTest(Test)), SLOT(requestNewTest(Test)));
+	connect(&thread, SIGNAL(newGroups(QStringList)), SLOT(requestNewGroups(QStringList)));
 	connect(&thread, SIGNAL(error(int, QString)), SLOT(netError(int, QString)));
 }
 
@@ -153,6 +154,37 @@ quint32 TestManager::getNumNodes() const
 void TestManager::getPercentParam(float &per2, float per3, float per4)
 {
 	tests->getPercentParam(per2, per3, per4);
+}
+
+void TestManager::setStudentName(const QString &studentName)
+{
+	this->studentName = studentName;
+}
+
+void TestManager::setGroupName(const QString &groupName)
+{
+	this->groupName = groupName;
+}
+
+void TestManager::loadGroups()
+{
+	thread.requestGroups(serverName, serverPort);
+}
+
+QStringList TestManager::getGroups() const
+{
+	return groups;
+}
+
+void TestManager::requestNewGroups(QStringList groups)
+{
+	this->groups = groups;
+	emit groupsLoaded();
+}
+
+void TestManager::sentStudentData(qreal percent, quint32 ocenka)
+{
+	thread.sendStudentData(serverName, serverPort, studentName, groupName, currentTest->getName(), percent, ocenka);
 }
 
 #include "testmanager.moc"

@@ -15,6 +15,7 @@
 #include "testmanager.h"
 #include "report.h"
 #include "reportview.h"
+#include "dlgregister.h"
 
 namespace Ui {
 	class MainWindow;
@@ -26,6 +27,8 @@ Q_OBJECT
 public:
 	explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
+	
+	enum ModeType {Training, Exam};
 	
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -41,6 +44,9 @@ private slots:
 	void on_btnConfAnswer_3_toggled(bool checked);
 	void on_btnConfAnswer_4_toggled(bool checked);
 	void on_btnConfAnswer_5_toggled(bool checked);
+	void on_btnConfAnswer_6_toggled(bool checked);
+	void on_btnConfAnswer_7_toggled(bool checked);
+	void on_btnConfAnswer_8_toggled(bool checked);
 	void on_btnRegAnswer_1_toggled(bool checked);
 	void on_btnRegAnswer_7_toggled(bool checked);
 	void on_btnRegAnswer_8_toggled(bool checked);
@@ -49,6 +55,14 @@ private slots:
 	void on_btnRegAnswer_11_toggled(bool checked);
 	void on_btnRegAnswer_12_toggled(bool checked);
 	void on_btnRegAnswer_13_toggled(bool checked);
+	void on_btnRegAnswer_14_toggled(bool checked);
+	void on_btnRegAnswer_15_toggled(bool checked);
+	void on_btnRegAnswer_16_toggled(bool checked);
+	void on_btnRegAnswer_17_toggled(bool checked);
+	void on_btnRegAnswer_18_toggled(bool checked);
+	void on_btnRegAnswer_19_toggled(bool checked);
+	void on_btnRegAnswer_20_toggled(bool checked);
+	void on_btnRegAnswer_21_toggled(bool checked);
 	void on_actionRepit_triggered();
 	void on_actionLoadTests_triggered();
 	void on_actionReturn_triggered();
@@ -61,6 +75,7 @@ private slots:
 	
 	void testDbLoaded();
 	void testLoaded();
+	void groupsLoaded();
 	
 private:
     Ui::MainWindow *ui;
@@ -68,10 +83,10 @@ private:
 	QLabel* numTasks;           // отображение количества заданий в тесте
 	QLabel* timerView;          // отображение времени решения теста
 	QCheckBox* closeNodes[8];   // массив чекбоксов задания закрытого типа
-	QPushButton* confBtnNodes[5];   // массив кнопок задания типа соответствия
-	QLabel* confLabelNodes[5];  // массив ответов задания типа соответствия
-	QPushButton* regBtnNodes[8];// массив кнопок задания типа упорядочения
-	QLabel* regLabelNodes[8];   // массив ответов задания упорядочения
+	QPushButton* confBtnNodes[8];   // массив кнопок задания типа соответствия
+	QLabel* confLabelNodes[8];  // массив ответов задания типа соответствия
+	QPushButton* regBtnNodes[16];// массив кнопок задания типа упорядочения
+	QLabel* regLabelNodes[16];   // массив ответов задания упорядочения
 	
 	DlgConfig *config;          // диалог параметров
 	ReportView *reportView;     // окно отображения результатов теста
@@ -98,6 +113,7 @@ private:
 	
 	Report *resultReport;       // для просмотра результата
 	bool resultReportOn;		// флаг включение записи результатов
+	bool resultReportOnOld;		// значение флага включение записи результатов (для экзаменационного режима)
 	QString htmlFileResult;     // путь к файлу с результатом теста
 	QString tmpDir;             // временный каталог
 	
@@ -105,6 +121,9 @@ private:
 	QString imagesPath;         // путь к каталогу с рисунками
 	QString appName;			// заголовок окна
 	bool viewPanel;				// показать/скрыть панель инструментов
+	ModeType modeType;			// режим тестирования
+	
+	DlgRegister *modeDialog;	// диалог выбора режима тестирования
 	
 	void showTestNode();
 	void initCloseView();

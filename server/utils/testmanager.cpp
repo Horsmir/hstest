@@ -23,8 +23,10 @@ TestManager::TestManager(QObject *parent) :
 	QObject(parent)
 {
 	tests = new TestDB(this);
+	students = new StudentDb(this);
 	testsDir = "../../../server/data";
 	testDbFileName = "testsdb.tst";
+	studentDbFileName = "students.tst";
 	magicNumber = 0xAAFF452C;
 }
 
@@ -32,7 +34,9 @@ TestManager::TestManager(const TestManager &other) :
 	QObject(other.parent())
 {
 	tests = other.tests;
+	students = other.students;
 	testDbFileName = other.testDbFileName;
+	studentDbFileName = other.studentDbFileName;
 	testsDir = other.testsDir;
 }
 
@@ -45,7 +49,9 @@ TestManager &TestManager::operator= (const TestManager &other)
 {
 	setParent(other.parent());
 	tests = other.tests;
+	students = other.students;
 	testDbFileName = other.testDbFileName;
+	studentDbFileName = other.studentDbFileName;
 	testsDir = other.testsDir;
 	return *this;
 }
@@ -300,6 +306,70 @@ bool TestManager::editTest(const QString &catName, const QString &testName, cons
 	out << test;
 	return true;
 	
+}
+
+void TestManager::addGroup(const QString &group)
+{
+	students->addGroup(group);
+}
+
+QStringList TestManager::getGroupsList() const
+{
+	return students->getGroups();
+}
+
+bool TestManager::readStudentDbFromFile()
+{
+	QFile file;
+	quint32 magic;
+	quint16 streamVersion;
+	StudentDb newStudentDb(this);
+	
+	file.setFileName(testsDir + "/" + studentDbFileName);
+	if(!file.exists())
+	{
+		qDebug() << "ERROR: File " << (testsDir + "/" + studentDbFileName) << " no exist.";
+		return false;
+	}
+	if(!file.open(QIODevice::ReadOnly))
+	{
+		qDebug() << "ERROR: Cannot open file for reading: " << file.errorString();
+		return false;
+	}
+	
+	QDataStream in(&file);
+	in >> magic >> streamVersion;
+	
+	if(magic != magicNumber)
+	{
+		qDebug() << "ERROR: File is not recognized by this application";
+		return false;
+	}
+	else if(streamVersion > in.version())
+	{
+		qDebug() << "ERROR: File is from a more recent version of the application";
+		return false;
+	}
+	
+	in >> newStudentDb;
+	*students = newStudentDb;
+	return true;
+}
+
+bool TestManager::writeStudentDbToFile()
+{
+	QFile file(testsDir + "/" + studentDbFileName);
+	
+	if(!file.open(QIODevice::WriteOnly))
+	{
+		qDebug() << "ERROR: Cannot open file for writing: " << file.errorString();
+		return false;
+	}
+	
+	QDataStream out(&file);
+	out << quint32(magicNumber) << quint16(out.version());
+	out << *students;
+	return true;
 }
 
 // kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

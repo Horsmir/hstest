@@ -17,35 +17,46 @@
 */
 
 
-#ifndef DLGCONFIG_H
-#define DLGCONFIG_H
+#ifndef DLGEDITGROUPS_H
+#define DLGEDITGROUPS_H
 
-#include <QDialog>
-#include "ui_dlgconfig.h"
+#include <QtGui/QDialog>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QSpacerItem>
+#include <QtGui/QListWidget>
+#include <QtGui/QInputDialog>
+#include <QtGui/QMessageBox>
+#include "testmanager.h"
 
-namespace Ui {
-	class DlgConfig;
-}
 
-class DlgConfig : public QDialog
+class DlgEditGroups : public QDialog
 {
 	Q_OBJECT
+	
 public:
-    explicit DlgConfig(QWidget *parent = 0, Qt::WindowFlags f = 0);
-    virtual ~DlgConfig();
+	explicit DlgEditGroups(QWidget *parent = 0, Qt::WindowFlags f = 0);
+	virtual ~DlgEditGroups();
 	
-	void setServerParm(const QString &server_name, quint16 server_port);
-	void setViewPanel(bool view_panel);
-	void setCreateReport(bool creport);
-	void setCreateReportVisible(bool dis);
+	void setTestManager(TestManager *testManager);
 	
-	QString getServerName() const;
-	quint16 getServerPort() const;
-	bool getViewPanel() const;
-	bool getCreateReport() const;
-
+private slots:
+	void on_btnAdd_clicked();
+	void on_btnDel_clocked();
+	
 private:
-	Ui::DlgConfig *ui;
+	QVBoxLayout *verticalLayout_2;
+	QLabel *label;
+	QHBoxLayout *horizontalLayout;
+	QListWidget *lvGroups;
+	QVBoxLayout *verticalLayout;
+	QPushButton *btnAdd;
+	QPushButton *btnDel;
+	QSpacerItem *verticalSpacer;
+	QPushButton *btnExit;
+	
+	TestManager *testManager;
 };
 
-#endif // DLGCONFIG_H
+#endif // DLGEDITGROUPS_H

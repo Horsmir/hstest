@@ -24,6 +24,7 @@
 #include <QObject>
 #include "testdb.h"
 #include "test.h"
+#include "studentdb.h"
 
 
 class TestManager : public QObject
@@ -37,7 +38,9 @@ public:
 	virtual bool operator== (const TestManager &other) const;
 
 	bool readTestDbFromFile();
+	bool readStudentDbFromFile();
 	bool writeTestDbToFile();
+	bool writeStudentDbToFile();
 
 	void setTestDir(const QString &testDirName);
 	void setTestDbFileName(const QString &testDbFileName);
@@ -58,11 +61,16 @@ public:
 	bool delCategory(const QString &catName);
 	bool delTest(const QString &catName, const QString &testName);
 	bool editTest(const QString &catName, const QString &testName, const quint32 numVis, const bool vis);
+	
+	void addGroup(const QString &group);
+	QStringList getGroupsList() const;
 
 private:
 	TestDB *tests;
+	StudentDb *students;
 	QString testsDir;
 	QString testDbFileName;
+	QString studentDbFileName;
 	quint32 magicNumber;
 
 	bool addTest(const QString &categoryName, Test test);

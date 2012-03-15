@@ -42,7 +42,6 @@ void TestThread::run()
 		return;
 	}
 	
-	//QDataStream in(&tcpSocket);
 	//in >> command;
 	while(tcpSocket.bytesAvailable() <= 0)
 	{
@@ -54,8 +53,8 @@ void TestThread::run()
 		}
 	}
 	
-	//if(tcpSocket.canReadLine())
-		command = tcpSocket.readLine();
+	QTextStream in(&tcpSocket);
+	command = in.readLine();
 	
 	int com = command.split('|').at(1).toInt();
 	if(com == 2)
@@ -63,7 +62,12 @@ void TestThread::run()
 		catName = command.split('|').at(2);
 		testName = command.split('|').at(3);
 	}
-	
+	if(com == 4)
+	{
+		QStringList lcom = command.split('|');
+		testManager->addStudent(lcom.at(2), lcom.at(3), lcom.at(4), lcom.at(5).toDouble(), lcom.at(6).toUInt());
+		return;
+	}
 	QByteArray block;
 	QDataStream out(&block, QIODevice::WriteOnly);
 	out << quint16(0);
@@ -75,6 +79,9 @@ void TestThread::run()
 			break;
 		case 2:
 			out << testManager->getTestForUse(catName.toInt(), testName.toInt());
+			break;
+		case 3:
+			out << testManager->getGroupsList();
 			break;
 	}
 	out.device()->seek(0);

@@ -51,6 +51,29 @@ void TestThread::requestTest(const QString &hostName, quint16 port, int catName,
 		start();
 }
 
+void TestThread::requestGroups(const QString &hostName, quint16 port)
+{
+	this->hostName = hostName;
+	this->port = port;
+	onGet = 3;
+	if(!isRunning())
+		start();
+}
+
+void TestThread::sendStudentData(const QString &hostName, quint16 port, const QString &studentName, const QString &groupName, const QString &testName, qreal percent, quint32 ocenka)
+{
+	this->hostName = hostName;
+	this->port = port;
+	onGet = 4;
+	this->studentName = studentName;
+	this->groupName = groupName;
+	this->testNameStud = testName;
+	this->percent = percent;
+	this->ocenka = ocenka;
+	if(!isRunning())
+		start();
+}
+
 void TestThread::run()
 {
 	QString serverName = hostName;
@@ -69,10 +92,28 @@ void TestThread::run()
 			return;
 		}
 		
-		if(onGet == 1)
-			query.append("GET|1|\n");
-		else if(onGet == 2)
-			query.append(QString("GET|2|%1|%2|\n").arg(catName).arg(testName));
+		QTextStream out(&query);
+		switch(onGet)
+		{
+			case 1:
+				query.append(QString("GET|1|\n").toUtf8());
+				break;
+			case 2:
+				query.append(QString("GET|2|%1|%2|\n").arg(catName).arg(testName).toUtf8());
+				break;
+			case 3:
+				query.append(QString("GET|3|\n").toUtf8());
+				break;
+			case 4:
+				query.append(QString("POST|4|%1|%2|%3|%4|%5|\n").arg(studentName).arg(groupName).arg(testNameStud).arg(percent).arg(ocenka).toUtf8());
+				socket.write(query);
+				if(!socket.waitForBytesWritten(Timeout))
+				{
+					emit error(socket.error(), socket.errorString());
+				}
+				return;
+		}
+		
 		socket.write(query);
 		if(!socket.waitForBytesWritten(Timeout))
 		{
@@ -115,6 +156,12 @@ void TestThread::run()
 			Test test;
 			in >> test;
 			emit newTest(test);
+		}
+		else if(onGet == 3)
+		{
+			QStringList groups;
+			in >> groups;
+			emit newGroups(groups);
 		}
 		
 		socket.disconnectFromHost();

@@ -8,6 +8,7 @@ set(share_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/share-src/)
 include_directories(${share_SRC_DIR})
 
 set(share_SRC ${share_SRC_DIR}/testnode.cpp ${share_SRC_DIR}/test.cpp ${share_SRC_DIR}/testcategories.cpp ${share_SRC_DIR}/testdb.cpp)
+set(share_SRC_STUD ${share_SRC_DIR}/student.cpp ${share_SRC_DIR}/studentdb.cpp)
 
 add_subdirectory(server)
 add_subdirectory(client)

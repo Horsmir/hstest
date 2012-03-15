@@ -21,9 +21,43 @@ Copyright © 2012 Roman Brown.
 
 E-Mail: firdragon76@gmail.com
 
-Build:
-In source directory.
+//--------------------------------------------------------------------------------------//
+
+Install server:
+
+cd <source_directory>
 mkdir -v build
 cd build
-cmake ..
-make
+cmake -DCMAKE_INSTALL_PREFIX=<install_directory> \
+-Dlocalstatedir=<install_data_directory(default=/var)> \
+-DCMAKE_BUILD_TYPE=Release ..
+make hstest-server
+cd server
+make install
+
+Run server as daemon:
+<install_directory>/bin/hstest-server
+
+Run server as no daemon:
+<install_directory>/bin/hstest-server --no-daemon
+
+Run configure utility:
+(as root)<install_directory>/bin/hstestcfg
+
+//---------------------------------------------------------------------------------------//
+
+Install client:
+
+cd <source_directory>
+mkdir -v build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=<install_directory> \
+-DCMAKE_BUILD_TYPE=Release ..
+make hstest-client
+cd client
+make install
+
+Run client:
+<install_directory>/bin/hstest-client
+
+//---------------------------------------------------------------------------------------//

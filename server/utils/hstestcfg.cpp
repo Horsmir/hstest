@@ -38,7 +38,7 @@ hstestcfg::hstestcfg() :
 	QIcon logo;
 	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
 	setWindowIcon(logo);
-	setWindowTitle(trUtf8("Параметры Hs Test Server"));
+	setWindowTitle(trUtf8("Параметры Hs Test Server 0.3"));
 
 	testManager = new TestManager(this);
 	appDir.cdUp();

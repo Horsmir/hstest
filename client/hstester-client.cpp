@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent):
 	settings = new QSettings("../config/hstester.conf", QSettings::NativeFormat);
 	readSettings();
 	
+	setupFonts();
+	
 	ui->mainToolBar->setVisible(viewPanel);
 	
 	resultReport = new Report(this, htmlFileResult);
@@ -369,6 +371,10 @@ void MainWindow::readSettings()
 	
 	resultReportOn = settings->value("view/ReportOn", bool(true)).toBool();
 	viewPanel = settings->value("view/ViewPanel", bool(true)).toBool();
+	
+	fontTask = settings->value("view/TaskFont", QFont("Droid Sans", 9, QFont::Bold, true)).value<QFont>();
+	fontQuest = settings->value("view/QuestFont", QFont("Droid Serif", 12, QFont::Bold)).value<QFont>();
+	fontAnsw = settings->value("view/AnswFont", QFont("Droid Serif", 10, QFont::Normal)).value<QFont>();
 }
 
 void MainWindow::writeSettings()
@@ -381,6 +387,10 @@ void MainWindow::writeSettings()
 	
 	settings->setValue("view/ReportOn", resultReportOn);
 	settings->setValue("view/ViewPanel", viewPanel);
+	
+	settings->setValue("view/TaskFont", fontTask);
+	settings->setValue("view/QuestFont", fontQuest);
+	settings->setValue("view/AnswFont", fontAnsw);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -394,6 +404,7 @@ void MainWindow::on_actionAdvance_triggered()
 	config->setServerParm(serverName, serverPort);
 	config->setViewPanel(viewPanel);
 	config->setCreateReport(resultReportOn);
+	config->setFonts(fontTask, fontQuest, fontAnsw);
 	
 	if(config->exec() == QDialog::Accepted)
 	{
@@ -402,6 +413,8 @@ void MainWindow::on_actionAdvance_triggered()
 		resultReportOn = config->getCreateReport();
 		viewPanel = config->getViewPanel();
 		ui->mainToolBar->setVisible(viewPanel);
+		config->getFonts(fontTask, fontQuest, fontAnsw);
+		setupFonts();
 		writeSettings();
 	}
 }
@@ -890,6 +903,37 @@ void MainWindow::groupsLoaded()
 			ui->actionShowResult->setVisible(true);
 		}
 		testManager->loadTestDb();
+	}
+}
+
+void MainWindow::setupFonts()
+{
+	int i = 0;
+	
+	ui->labelTaskClose->setFont(fontTask);
+	ui->labelTaskOpen->setFont(fontTask);
+	ui->labelTaskConformity->setFont(fontTask);
+	ui->labelTaskRegulating->setFont(fontTask);
+	
+	ui->labelQuestClose->setFont(fontQuest);
+	ui->labelQuestOpen->setFont(fontQuest);
+	ui->teQuestions->setFont(fontQuest);
+	
+	ui->leAnswer->setFont(fontAnsw);
+	
+	for(i = 0; i < 8; i ++)
+		closeNodes[i]->setFont(fontAnsw);
+	
+	for(i = 0; i < 8; i ++)
+	{
+		confLabelNodes[i]->setFont(fontAnsw);
+		confBtnNodes[i]->setFont(fontAnsw);
+	}
+	
+	for(i = 0; i < 16; i++)
+	{
+		regLabelNodes[i]->setFont(fontAnsw);
+		regBtnNodes[i]->setFont(fontAnsw);
 	}
 }
 

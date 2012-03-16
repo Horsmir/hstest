@@ -17,46 +17,47 @@
 */
 
 
-#ifndef DLGCONFIG_H
-#define DLGCONFIG_H
+#ifndef DLGEDITFONTS_H
+#define DLGEDITFONTS_H
 
-#include <QDialog>
-#include "ui_dlgconfig.h"
-#include "dlgeditfonts.h"
+#include <QtGui/QDialog>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QFormLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QFontDialog>
 
-namespace Ui {
-	class DlgConfig;
-}
-
-class DlgConfig : public QDialog
+class DlgEditFonts : public QDialog
 {
 	Q_OBJECT
+	
 public:
-    explicit DlgConfig(QWidget *parent = 0, Qt::WindowFlags f = 0);
-    virtual ~DlgConfig();
+	explicit DlgEditFonts(QWidget *parent = 0, Qt::WindowFlags f = 0);
+	virtual ~DlgEditFonts();
 	
-	void setServerParm(const QString &server_name, quint16 server_port);
-	void setViewPanel(bool view_panel);
-	void setCreateReport(bool creport);
-	void setCreateReportVisible(bool dis);
 	void setFonts(QFont fTask, QFont fQuest, QFont fAnsw);
-	
-	QString getServerName() const;
-	quint16 getServerPort() const;
-	bool getViewPanel() const;
-	bool getCreateReport() const;
 	void getFonts(QFont &fTask, QFont &fQuest, QFont &fAnsw);
 	
 private slots:
-	void on_btnFonts_clicked();
-
-private:
-	Ui::DlgConfig *ui;
-	DlgEditFonts *editFontsDialog;
+	void on_btnTask_clicked();
+	void on_btnQuest_clicked();
+	void on_btnAnsw_clicked();
 	
-	QFont fontTask;
-	QFont fontQuest;
-	QFont fontAnsw;
+private:
+	QVBoxLayout *verticalLayout;
+	QFormLayout *formLayout;
+	QLabel *label;
+	QPushButton *btnTask;
+	QLabel *label_2;
+	QPushButton *btnQuest;
+	QLabel *label_3;
+	QPushButton *btnAnsw;
+	QDialogButtonBox *buttonBox;
+	
+	QFont fTask;
+	QFont fQuest;
+	QFont fAnsw;
 };
 
-#endif // DLGCONFIG_H
+#endif // DLGEDITFONTS_H

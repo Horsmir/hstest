@@ -125,6 +125,10 @@ private:
 	
 	DlgRegister *modeDialog;	// диалог выбора режима тестирования
 	
+	QFont fontTask;				// шрифт для задания
+	QFont fontQuest;			// шрифт для вопроса
+	QFont fontAnsw;				// шрифт для ответа
+	
 	void showTestNode();
 	void initCloseView();
 	void initConfView();
@@ -137,6 +141,8 @@ private:
 	
 	void readSettings();
 	void writeSettings();
+	
+	void setupFonts();
 };
 
 #endif // hstester_client_H

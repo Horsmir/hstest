@@ -48,6 +48,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *btnOk;
     QPushButton *btnCancel;
+	QPushButton *btnFonts;
 
     void setupUi(QDialog *DlgConfig)
     {
@@ -104,6 +105,11 @@ public:
         chbCreateReport->setObjectName(QString::fromUtf8("chbCreateReport"));
 
         verticalLayout_2->addWidget(chbCreateReport);
+		
+		btnFonts = new QPushButton(groupBox_2);
+		btnFonts->setObjectName(QString::fromUtf8("btnFonts"));
+		
+		verticalLayout_2->addWidget(btnFonts);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 

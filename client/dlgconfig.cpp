@@ -24,6 +24,10 @@ DlgConfig::DlgConfig(QWidget *parent, Qt::WindowFlags f):
 {
 	ui->setupUi(this);
 	
+	ui->btnFonts->setText(trUtf8("Шрифты"));
+	
+	editFontsDialog = new DlgEditFonts(this);
+	
 	connect(ui->btnOk, SIGNAL(clicked(bool)), SLOT(accept()));
 	connect(ui->btnCancel, SIGNAL(clicked(bool)), SLOT(reject()));
 }
@@ -72,6 +76,27 @@ bool DlgConfig::getCreateReport() const
 void DlgConfig::setCreateReportVisible(bool dis)
 {
 	ui->chbCreateReport->setVisible(dis);
+}
+
+void DlgConfig::on_btnFonts_clicked()
+{
+	editFontsDialog->setFonts(fontTask, fontQuest, fontAnsw);
+	if(editFontsDialog->exec() == QDialog::Accepted)
+		editFontsDialog->getFonts(fontTask, fontQuest, fontAnsw);
+}
+
+void DlgConfig::setFonts(QFont fTask, QFont fQuest, QFont fAnsw)
+{
+	fontTask = fTask;
+	fontQuest = fQuest;
+	fontAnsw = fAnsw;
+}
+
+void DlgConfig::getFonts(QFont &fTask, QFont &fQuest, QFont &fAnsw)
+{
+	fTask = fontTask;
+	fQuest = fontQuest;
+	fAnsw = fontAnsw;
 }
 
 #include "dlgconfig.moc"

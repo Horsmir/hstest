@@ -86,7 +86,7 @@ void StudentDb::addTestForStudent(const QString &studentName, const QString &gro
 	}
 	
 	QDate today = QDate::currentDate();
-	students[stud].addTest(today.toString("yyyy-MM-dd"), testName, percent, ocenka);
+	students[stud].addTest(today.toString("dd.MM.yyyy"), testName, percent, ocenka);
 }
 
 void StudentDb::setStudents(QList< Student > students)
@@ -119,6 +119,59 @@ QList< Student > StudentDb::getStudents() const
 {
 	return students;
 }
+
+QList<QStringList> StudentDb::select(bool chDate, bool chGroup, bool chName, QDate from, QDate to, const QString &groupName, const QString &studentName)
+{
+	QList<QStringList> tmpAll, tmp1;
+	
+	tmpAll = select();
+	
+	if(chDate)
+	{
+		for(int i = 0; i < tmpAll.count(); i++)
+		{
+			QDate studDate = QDate::fromString(tmpAll.at(i).at(2), "dd.MM.yyyy");
+			if(studDate >= from && studDate <= to)
+				tmp1 << tmpAll.at(i);
+		}
+		tmpAll = tmp1;
+	}
+	
+	if(chGroup)
+	{
+		tmp1.clear();
+		for(int i = 0; i < tmpAll.count(); i++)
+		{
+			if(tmpAll.at(i).at(1) == groupName)
+				tmp1 << tmpAll.at(i);
+		}
+		tmpAll = tmp1;
+	}
+	
+	if(chName)
+	{
+		tmp1.clear();
+		for(int i = 0; i < tmpAll.count(); i++)
+		{
+			if(tmpAll.at(i).at(0) == studentName)
+				tmp1 << tmpAll.at(i);
+		}
+		tmpAll = tmp1;
+	}
+	return tmpAll;
+}
+
+QList< QStringList > StudentDb::select()
+{
+	QList<QStringList> ret;
+	for(int i = 0; i < students.count(); i++)
+	{
+		ret += students.at(i).getTestListWithStud();
+	}
+	return ret;
+}
+
+//============================================================================================================//
 
 QDataStream &operator<<(QDataStream &out, const StudentDb &db)
 {

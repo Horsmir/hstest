@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Hs Test Show Result
+Name[ru]=Результаты тестирования
+GenericName=Application show testing results
+GenericName[ru]=Приложение для отображения результатов тестирования
+Terminal=false
+Exec=hstest-result
+Icon=hstestcfg
+Categories=Education;Qt;Settings;

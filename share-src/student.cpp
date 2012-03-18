@@ -108,6 +108,21 @@ void Student::setTestList(QList< QStringList > &testList)
 	this->testList = testList;
 }
 
+QList< QStringList > Student::getTestListWithStud() const
+{
+	QList<QStringList> ret;
+	QStringList tmp;
+	for(int i = 0; i < testList.count(); i++)
+	{
+		QStringList tmp;
+		tmp << name;
+		tmp <<groupName;
+		tmp.append(testList.at(i));
+		ret.append(tmp);
+	}
+	return ret;
+}
+
 //========================================================================================
 
 QDataStream &operator<<(QDataStream &out, const Student &stud)

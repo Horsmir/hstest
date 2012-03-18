@@ -2,6 +2,7 @@
 Version=1.0
 Type=Application
 Name=Hs Test Configure
+Name[ru]=Настройка тестов
 GenericName=Application for configure tests
 GenericName[ru]=Приложение для настройки тестов
 Terminal=false

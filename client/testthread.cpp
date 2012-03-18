@@ -105,7 +105,7 @@ void TestThread::run()
 				query.append(QString("GET|3|\n").toUtf8());
 				break;
 			case 4:
-				query.append(QString("POST|4|%1|%2|%3|%4|%5|\n").arg(studentName).arg(groupName).arg(testNameStud).arg(percent).arg(ocenka).toUtf8());
+				query.append(QString("POST|4|%1|%2|%3|%4|%5|\n").arg(studentName).arg(groupName).arg(testNameStud).arg(QString().setNum(percent, 'f', 2)).arg(ocenka).toUtf8());
 				socket.write(query);
 				if(!socket.waitForBytesWritten(Timeout))
 				{

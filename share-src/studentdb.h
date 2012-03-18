@@ -45,6 +45,9 @@ public:
 	Student getStudentByName(const QString &studentName, const QString &groupName) const;
 	QList<Student> getStudents() const;
 	
+	QList< QStringList > select(bool chDate, bool chGroup, bool chName, QDate from, QDate to, const QString &groupName, const QString &studentName);
+	QList< QStringList > select();
+	
 private:
 	QList<Student> students;
 	QStringList groups;

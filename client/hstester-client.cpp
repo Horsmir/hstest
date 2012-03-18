@@ -570,7 +570,7 @@ void MainWindow::showResult()
 	
 	if(modeType == Exam)
 	{
-		testManager->sentStudentData(nf.toFloat(), ocenka);
+		testManager->sentStudentData(percent, ocenka);
 	}
 	
 	ui->stackedWidget->setCurrentIndex(5);

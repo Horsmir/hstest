@@ -2,6 +2,7 @@
 Version=1.0
 Type=Application
 Name=Hs Test
+Name[ru]=Тесты
 GenericName=Application for testing
 GenericName[ru]=Приложение для тестирования
 Terminal=false

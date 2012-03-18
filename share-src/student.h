@@ -44,6 +44,7 @@ public:
 	QString getGroupName() const;
 	QList<QStringList> getTestList() const;
 	QStringList getTestById(qint32 index) const;
+	QList<QStringList> getTestListWithStud() const;
 	
 private:
 	QString name;

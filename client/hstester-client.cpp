@@ -57,10 +57,11 @@ MainWindow::MainWindow(QWidget *parent):
 	imagesDir.cdUp();
 	imagesPath = imagesDir.absolutePath() + "/share/hstest/images/";
 	
-	settings = new QSettings("../config/hstester.conf", QSettings::NativeFormat);
+	settings = new QSettings(QSettings::NativeFormat, QSettings::UserScope, "HsTest", "hstest-client", this);
 	readSettings();
 	
 	setupFonts();
+	setWordWrap();
 	
 	ui->mainToolBar->setVisible(viewPanel);
 	
@@ -934,6 +935,25 @@ void MainWindow::setupFonts()
 	{
 		regLabelNodes[i]->setFont(fontAnsw);
 		regBtnNodes[i]->setFont(fontAnsw);
+	}
+}
+
+void MainWindow::setWordWrap()
+{
+	int i = 0;
+	
+	ui->labelQuestClose->setWordWrap(true);
+	ui->labelQuestOpen->setWordWrap(true);
+	ui->teQuestions->setWordWrapMode(QTextOption::WordWrap);
+	
+	for(i = 0; i < 8; i ++)
+	{
+		confLabelNodes[i]->setWordWrap(true);
+	}
+	
+	for(i = 0; i < 16; i++)
+	{
+		regLabelNodes[i]->setWordWrap(true);
 	}
 }
 

@@ -143,6 +143,7 @@ private:
 	void writeSettings();
 	
 	void setupFonts();
+	void setWordWrap();
 };
 
 #endif // hstester_client_H

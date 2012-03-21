@@ -875,8 +875,10 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionHelp_triggered()
 {
-	QString curPath = QDir::currentPath();
-	curPath = "file://" + curPath + "/help_rus.pdf";
+	QDir docDir(QCoreApplication::applicationDirPath());
+	docDir.cdUp();
+	QString curPath = docDir.absolutePath() + "/share/doc/hstest";
+	curPath = "file://" + curPath + "/hstest-client-help_ru.pdf";
 	QDesktopServices::openUrl(QUrl(curPath, QUrl::TolerantMode));
 }
 

@@ -50,7 +50,6 @@ private slots:
 	void on_btnSelect_clicked();
 	void on_btnShowAll_clicked();
 	void on_btnPrint_clicked();
-	void on_btnSettingView_clicked();
 	
 private:
 	QVBoxLayout *verticalLayout;
@@ -59,7 +58,6 @@ private:
 	QPushButton *btnShowAll;
 	QPushButton *btnPrint;
 	QSpacerItem *horizontalSpacer;
-	QPushButton *btnSettingView;
 	QPushButton *btnExit;
 	QTableWidget *tableStudents;
 	

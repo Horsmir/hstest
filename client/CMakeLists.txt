@@ -12,3 +12,5 @@ install(TARGETS hstest-client DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(DIRECTORY ../icons ../images DESTINATION ${CMAKE_INSTALL_PREFIX}/share/hstest)
 install(FILES hstest-client.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
 install(FILES ../icons/hstest.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps)
+install(FILES ../docs/hstest-client-help_ru.pdf DESTINATION ${CMAKE_INSTALL_PREFIX}/share/doc/hstest)
+

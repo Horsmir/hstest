@@ -22,6 +22,7 @@
 ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	QDialog(parent)
 {
+	resize(650, 270);
 	verticalLayout = new QVBoxLayout(this);
 	horizontalLayout = new QHBoxLayout();
 	btnSelect = new QPushButton(trUtf8("&Выбрать..."), this);
@@ -36,10 +37,8 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	
 	horizontalLayout->addItem(horizontalSpacer);
 	
-	btnSettingView = new QPushButton(trUtf8("&Настроить вид..."), this);
 	btnExit = new QPushButton(trUtf8("&Закрыть"), this);
 	
-	horizontalLayout->addWidget(btnSettingView);
 	horizontalLayout->addWidget(btnExit);
 	
 	verticalLayout->addLayout(horizontalLayout);
@@ -72,7 +71,6 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	connect(btnSelect, SIGNAL(clicked(bool)), SLOT(on_btnSelect_clicked()));
 	connect(btnShowAll, SIGNAL(clicked(bool)), SLOT(on_btnShowAll_clicked()));
 	connect(btnPrint, SIGNAL(clicked(bool)), SLOT(on_btnPrint_clicked()));
-	connect(btnSettingView, SIGNAL(clicked(bool)), SLOT(on_btnSettingView_clicked()));
 }
 
 ResultView::~ResultView()
@@ -140,11 +138,6 @@ void ResultView::on_btnPrint_clicked()
 	QTextDocument doc;
 	doc.setHtml(html);
 	doc.print(&printer);
-}
-
-void ResultView::on_btnSettingView_clicked()
-{
-
 }
 
 void ResultView::readStudentDb()

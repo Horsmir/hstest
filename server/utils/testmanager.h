@@ -64,6 +64,9 @@ public:
 	
 	void addGroup(const QString &group);
 	QStringList getGroupsList() const;
+	
+	void setPercentParam(float per2, float per3, float per4);
+	void getPercentParam(float &per2, float &per3, float &per4);
 
 private:
 	TestDB *tests;

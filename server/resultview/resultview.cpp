@@ -26,7 +26,7 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	horizontalLayout = new QHBoxLayout();
 	btnSelect = new QPushButton(trUtf8("&Выбрать..."), this);
 	btnShowAll = new QPushButton(trUtf8("&Показать все"), this);
-	btnPrint = new QPushButton(trUtf8("Пе&чать..."), this);
+	btnPrint = new QPushButton(trUtf8("Экспорт в PDF"), this);
 	
 	horizontalLayout->addWidget(btnSelect);
 	horizontalLayout->addWidget(btnShowAll);
@@ -110,7 +110,36 @@ void ResultView::on_btnShowAll_clicked()
 
 void ResultView::on_btnPrint_clicked()
 {
-
+	QFileDialog::Options options;
+	options |= QFileDialog::DontUseNativeDialog;
+	QString selectedFilter;
+	QString pdfFileName = QFileDialog::getSaveFileName(this, trUtf8("Экспорт в PDF"), "", trUtf8("PDF файлы (*.pdf);;Все файлы (*)"), &selectedFilter, options);
+	if(pdfFileName.isEmpty())
+		pdfFileName = "result.pdf";
+	
+	QPrinter printer;
+	printer.setOutputFormat(QPrinter::PdfFormat);
+	printer.setOutputFileName(pdfFileName);
+	
+	QString html = "<html><body><table border=\"1\"><tr>";
+	QStringList headerTable = initHeaderTable();
+	for(int i = 0; i < headerTable.count(); i++)
+	{
+		html += "<th border=\"2\">" + headerTable.at(i) + "</th>";
+	}
+	html += "</tr>";
+	for(int i = 0; i < tableStudents->rowCount(); i++)
+	{
+		html += "<tr>";
+		for(int j = 0; j < tableStudents->columnCount(); j++)
+			html += "<td border=\"1\">" + tableStudents->item(i, j)->text() + "</td>";
+		html += "</tr>";
+	}
+	html += "</table></body></html>";
+	
+	QTextDocument doc;
+	doc.setHtml(html);
+	doc.print(&printer);
 }
 
 void ResultView::on_btnSettingView_clicked()

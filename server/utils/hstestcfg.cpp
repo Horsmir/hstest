@@ -15,6 +15,7 @@ hstestcfg::hstestcfg() :
 	btnDelTest = new QPushButton(trUtf8("Удалить тест"), this);
 	btnEditTest = new QPushButton(trUtf8("Изменить тест"), this);
 	btnEditGroups = new QPushButton(trUtf8("Группы"), this);
+	btnEditMarks = new QPushButton(trUtf8("Шкала баллов"), this);
 	btnClose = new QPushButton(trUtf8("Закрыть"), this);
 
 	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -25,6 +26,7 @@ hstestcfg::hstestcfg() :
 	verticalLayout->addWidget(btnDelTest);
 	verticalLayout->addWidget(btnEditTest);
 	verticalLayout->addWidget(btnEditGroups);
+	verticalLayout->addWidget(btnEditMarks);
 	verticalLayout->addWidget(btnClose);
 	verticalLayout->addItem(verticalSpacer);
 
@@ -50,6 +52,7 @@ hstestcfg::hstestcfg() :
 	delTestDialog = new DlgDeleteTest(this);
 	editTestDialog = new DlgEditTest(this);
 	editGroupsDialog = new DlgEditGroups(this);
+	editMarksDialog = new DlgEditMarks(this);
 
 	connect(btnAddCat, SIGNAL(clicked(bool)), SLOT(on_btnAddCat_clicked()));
 	connect(btnAddTest, SIGNAL(clicked(bool)), SLOT(on_btnAddTest_clicked()));
@@ -57,6 +60,7 @@ hstestcfg::hstestcfg() :
 	connect(btnDelCat, SIGNAL(clicked(bool)), SLOT(on_btnDelCat_clicked()));
 	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
 	connect(btnEditGroups, SIGNAL(clicked(bool)), SLOT(on_btnEditGroups_clicked()));
+	connect(btnEditMarks, SIGNAL(clicked(bool)), SLOT(on_btnEditMarks_clicked()));
 	connect(btnDelTest, SIGNAL(clicked(bool)), SLOT(on_btnDelTest_clicked()));
 }
 
@@ -161,6 +165,18 @@ void hstestcfg::on_btnEditGroups_clicked()
 	testManager->readStudentDbFromFile();
 	editGroupsDialog->setTestManager(testManager);
 	editGroupsDialog->show();
+}
+
+void hstestcfg::on_btnEditMarks_clicked()
+{
+	float percent2, percent3, percent4;
+	testManager->getPercentParam(percent2, percent3, percent4);
+	editMarksDialog->setPercents(percent2, percent3, percent4);
+	if(editMarksDialog->exec() == QDialog::Accepted)
+	{
+		editMarksDialog->getPercents(percent2, percent3, percent4);
+		testManager->setPercentParam(percent2, percent3, percent4);
+	}
 }
 
 #include "hstestcfg.moc"

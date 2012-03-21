@@ -28,6 +28,9 @@
 #include <QtGui/QSpacerItem>
 #include <QtGui/QTableWidget>
 #include <QtCore/QFile>
+#include <QtGui/QPrinter>
+#include <QtGui/QTextDocument>
+#include <QtGui/QFileDialog>
 #include <QtCore/QDir>
 #include "studentdb.h"
 #include "dlgselect.h"

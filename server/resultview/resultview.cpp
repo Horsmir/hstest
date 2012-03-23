@@ -119,18 +119,24 @@ void ResultView::on_btnPrint_clicked()
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setOutputFileName(pdfFileName);
 	
-	QString html = "<html><body><table border=\"1\"><tr>";
+	QString header = trUtf8("<h2 align=\"center\">Резултат тестирования</h2><p></p>");
+	QString html = "<html><body>" + header + "<table border=\"1\" align=\"center\" width=\"90%\" cellspacing=\"0\" cellpadding=\"4\"><tr>";
 	QStringList headerTable = initHeaderTable();
 	for(int i = 0; i < headerTable.count(); i++)
 	{
-		html += "<th border=\"2\">" + headerTable.at(i) + "</th>";
+		html += "<th>" + headerTable.at(i) + "</th>";
 	}
 	html += "</tr>";
 	for(int i = 0; i < tableStudents->rowCount(); i++)
 	{
 		html += "<tr>";
 		for(int j = 0; j < tableStudents->columnCount(); j++)
-			html += "<td border=\"1\">" + tableStudents->item(i, j)->text() + "</td>";
+		{
+			if(j == 0 || j == 3)
+				html += "<td align=\"left\">" + tableStudents->item(i, j)->text() + "</td>";
+			else
+				html += "<td align=\"center\">" + tableStudents->item(i, j)->text() + "</td>";
+		}
 		html += "</tr>";
 	}
 	html += "</table></body></html>";

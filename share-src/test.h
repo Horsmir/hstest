@@ -31,56 +31,56 @@ class Test : public QObject
 {
 
 public:
-    Test();
-    Test ( const Test& other );
-    virtual ~Test();
-    virtual Test& operator= ( const Test& other );
-    virtual bool operator== ( const Test& other ) const;
+	Test(QObject *parent = 0);
+	Test(const Test &other);
+	virtual ~Test();
+	virtual Test &operator= (const Test &other);
+	virtual bool operator== (const Test &other) const;
 
-    void setName ( const QString &name_test );
-    void setAuthor ( const QString &author_test );
-    void setCreateDate ( QDate date );
-    void setNumVis ( int nvis );
-    void setVis();
-    void setNoVis();
-    void setCount ( int c );
-    void setNodeList(const QList<TestNode> &nodeList);
-    
-    void addNode ( const TestNode &test_node );
+	void setName(const QString &name_test);
+	void setAuthor(const QString &author_test);
+	void setCreateDate(QDate date);
+	void setNumVis(int nvis);
+	void setVis();
+	void setNoVis();
+	void setCount(int c);
+	void setNodeList(const QList<TestNode> &nodeList);
 
-    QString getName() const;
-    QString getAuthor() const;
-    QDate getCreateDate() const;
-    int getNumVis() const;
-    int getCount() const;
-    bool checkVis();
-    TestNode getNode ( int index ) const;
-    const TestNode * getNodePtr(int index) const;
-    bool getVis() const;
-    QList<TestNode> getNodeList() const;
+	void addNode(const TestNode &test_node);
 
-    bool readFromText ( const QString &text_file );
+	QString getName() const;
+	QString getAuthor() const;
+	QDate getCreateDate() const;
+	int getNumVis() const;
+	int getCount() const;
+	bool checkVis();
+	TestNode getNode(int index) const;
+	const TestNode *getNodePtr(int index) const;
+	bool getVis() const;
+	QList<TestNode> getNodeList() const;
 
-    void clear();
-    void shuffle();
+	bool readFromText(const QString &text_file);
+
+	void clear();
+	void shuffle();
 
 private:
-    QString name;       // Название.
-    QString author;      // Автор.
-    QDate createDate;   // Дата создания.
-    int count;          // Количество заданий.
-    int numVis;         // Количество отображаемых заданий.
-    bool vis;           // Включить "true" в тренировочный режим или нет - "false".
-    QList<TestNode> nodeList; // Список заданий.
+	QString name;       // Название.
+	QString author;      // Автор.
+	QDate createDate;   // Дата создания.
+	int count;          // Количество заданий.
+	int numVis;         // Количество отображаемых заданий.
+	bool vis;           // Включить "true" в тренировочный режим или нет - "false".
+	QList<TestNode> nodeList; // Список заданий.
 
-    void readNodeCloseFromText ( QString &str_node );
-    void readNodeOpenFromText ( QString &str_node );
-    void readNodeConformityFromText ( QString &str_node );
-    void readNodeRegulatingFromText ( QString &str_node );
+	void readNodeCloseFromText(QString &str_node);
+	void readNodeOpenFromText(QString &str_node);
+	void readNodeConformityFromText(QString &str_node);
+	void readNodeRegulatingFromText(QString &str_node);
 };
 
-QDataStream &operator << ( QDataStream &out, const Test &test );
-QDataStream &operator >> ( QDataStream &in, Test &test );
+QDataStream &operator << (QDataStream &out, const Test &test);
+QDataStream &operator >> (QDataStream &in, Test &test);
 
 #endif // TEST_H
-// kate: indent-mode cstyle; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

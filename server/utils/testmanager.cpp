@@ -180,10 +180,20 @@ QStringList TestManager::getTestListByCategory(const QString &categoryName, bool
 	return tests->getTestNameListByCategory(categoryName, all);
 }
 
+/**
+ * @brief Загрузка теста из текстового файла. Формат файла см. на <github.com/Horsmir/hstest/wiki/Формат-файла-с-тестом>
+ *
+ * @param categoryName название категории
+ * @param testFileTextName путь к файлу с тестом
+ * @param numVis количество отображаемых заданий
+ * @param vis видимый для клиента (true) или нет (false)
+ * @return bool
+ **/
 bool TestManager::loadTestFromFile(const QString &categoryName, const QString &testFileTextName, quint32 numVis, bool vis)
 {
 	Test newTest;
-	newTest.readFromText(testFileTextName);
+	if(!newTest.readFromText(testFileTextName))
+		return false;
 	newTest.setNumVis(numVis);
 	if(vis)
 		newTest.setVis();

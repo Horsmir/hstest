@@ -392,4 +392,9 @@ void TestManager::getPercentParam(float &per2, float &per3, float &per4)
 	tests->getPercentParam(per2, per3, per4);
 }
 
+QString TestManager::getTestFileName(const QString &catName, const QString &testName) const
+{
+	return tests->getFileNameTest(catName, testName);
+}
+
 // kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

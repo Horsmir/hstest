@@ -38,6 +38,7 @@ DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
 	sbNumVis->setMaximum(1000);
 	label_4 = new QLabel(trUtf8("Видимых вопросов:"), this);
 	chbVis = new QCheckBox(trUtf8("Видимый для клиента"), this);
+	btnEditTest = new QPushButton(trUtf8("Редактировать"), this);
 	buttonBox = new QDialogButtonBox(this);
 	buttonBox->setOrientation(Qt::Horizontal);
 	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
@@ -53,6 +54,7 @@ DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
 	formLayout->setWidget(4, QFormLayout::LabelRole, label_4);
 	verticalLayout->addLayout(formLayout);
 	verticalLayout->addWidget(chbVis);
+	verticalLayout->addWidget(btnEditTest);
 	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	verticalLayout->addItem(verticalSpacer);
 	verticalLayout->addWidget(buttonBox);
@@ -63,6 +65,7 @@ DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
 	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
 	connect(cbCat, SIGNAL(currentIndexChanged(QString)), SLOT(setTest(QString)));
 	connect(cbTest, SIGNAL(currentIndexChanged(QString)), SLOT(setParamTest(QString)));
+	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
 }
 
 DlgEditTest::~DlgEditTest()
@@ -114,6 +117,15 @@ void DlgEditTest::setParamTest(const QString &test)
 	sbNumVis->setValue(currTest.getNumVis());
 	sbNumVis->setMaximum(currTest.getCount());
 	chbVis->setChecked(currTest.getVis());
+}
+
+void DlgEditTest::on_btnEditTest_clicked()
+{
+	QProcess *proc = new QProcess(this);
+	QStringList args;
+	args << (tests->getTestDir() + "/" + tests->getTestFileName(cbCat->currentText(), cbTest->currentText()));
+	
+	proc->start("hstesteditor", args);
 }
 
 #include "dlgedittest.moc"

@@ -15,6 +15,6 @@ endif(NOT localstatedir)
 add_subdirectory(utils utils)
 
 install(TARGETS hstest-server DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-install(DIRECTORY data/ DESTINATION ${localstatedir}/lib/hstest)
+install(DIRECTORY hstest DESTINATION ${localstatedir}/lib)
 
 add_subdirectory(resultview)

@@ -68,6 +68,8 @@ public:
 	void setPercentParam(float per2, float per3, float per4);
 	void getPercentParam(float &per2, float &per3, float &per4);
 
+	QString getTestFileName(const QString &catName, const QString &testName) const;
+
 private:
 	TestDB *tests;
 	StudentDb *students;

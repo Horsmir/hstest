@@ -28,6 +28,8 @@
 #include <QtGui/QSpinBox>
 #include <QtGui/QCheckBox>
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QPushButton>
+#include <QtCore/QProcess>
 #include "testmanager.h"
 
 
@@ -49,6 +51,7 @@ public:
 private slots:
 	void setTest(const QString &cat);
 	void setParamTest(const QString &test);
+	void on_btnEditTest_clicked();
 	
 private:
 	QVBoxLayout *verticalLayout;
@@ -65,6 +68,7 @@ private:
 	QSpacerItem *verticalSpacer;
 	QDialogButtonBox *buttonBox;
 	TestManager *tests;
+	QPushButton *btnEditTest;
 };
 
 #endif // DLGEDITTEST_H

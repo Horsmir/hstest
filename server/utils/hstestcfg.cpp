@@ -40,11 +40,15 @@ hstestcfg::hstestcfg() :
 	QIcon logo;
 	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
 	setWindowIcon(logo);
-	setWindowTitle(trUtf8("Параметры Hs Test Server 0.3"));
+	setWindowTitle(trUtf8("Параметры Hs Test Server 0.4"));
 
 	testManager = new TestManager(this);
 	appDir.cdUp();
-	testManager->setTestDir(appDir.absolutePath() + "/var/lib/hstest");
+	QString dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+	QDir dataDir(dataDirPath);
+	if(!dataDir.exists())
+		dataDir.mkpath(dataDirPath);
+	testManager->setTestDir(dataDirPath);
 	testManager->readTestDbFromFile();
 	createTree();
 

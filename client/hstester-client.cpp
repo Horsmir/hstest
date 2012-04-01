@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent):
 	listViewTests = false;
 	tTime = new QTime(0, 0);
 	mTimer = new QTimer(this);
-	appName = trUtf8("Hs Test 0.3");
+	appName = trUtf8("Hs Test 0.4");
 	modeType = Training;
 	
 	per2 = 60.0;

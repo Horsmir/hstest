@@ -1,9 +1,10 @@
 #ifndef hstesterserver_H
 #define hstesterserver_H
 
-#include <QDebug>
-#include <QObject>
-#include <iostream>
+#include <QtCore/QDebug>
+#include <QtCore/QObject>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
 #include "testserver.h"
 #include "testmanager.h"
 

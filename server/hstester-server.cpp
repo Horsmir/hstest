@@ -4,7 +4,14 @@ HstesterServer::HstesterServer(QObject *parent):
 	QObject(parent)
 {
 	testManager = new TestManager(this);
-	testManager->setTestDir("../../var/lib/hstest");
+	QDir appDir(QCoreApplication::applicationDirPath());
+	appDir.cdUp();
+	appDir.cdUp();
+	QString dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+	QDir dataDir(dataDirPath);
+	if(!dataDir.exists())
+		dataDir.mkpath(dataDirPath);
+	testManager->setTestDir(dataDirPath);
 	testManager->readTestDbFromFile();
 	testManager->readStudentDbFromFile();
 	testServer = new TestServer(testManager, this);
@@ -14,10 +21,6 @@ HstesterServer::HstesterServer(QObject *parent):
 		qDebug() << trUtf8("Unable to start the server: ") << testServer->errorString();
 		return;
 	}
-	
-	std::cout << "***Server started***" << std::endl;
-	std::cout << "Address: " << testServer->serverAddress().toString().data() << std::endl;
-	std::cout << "Port: " << testServer->serverPort() << std::endl;
 }
 
 HstesterServer::~HstesterServer()

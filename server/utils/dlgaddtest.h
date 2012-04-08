@@ -45,6 +45,8 @@ public:
 	bool getVis() const;
 	QString getCat() const;
 	
+	void clear();
+	
 private slots:
 	void on_toolBtnFileOpen_clicked();
 	

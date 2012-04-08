@@ -128,4 +128,12 @@ void DlgEditTest::on_btnEditTest_clicked()
 	proc->start("hstesteditor", args);
 }
 
+void DlgEditTest::clear()
+{
+	cbCat->clear();
+	cbTest->clear();
+	sbNumVis->clear();
+	labelNumTasks->clear();
+}
+
 #include "dlgedittest.moc"

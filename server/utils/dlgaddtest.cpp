@@ -117,4 +117,12 @@ QString DlgAddTest::getCat() const
 	return cbCats->currentText();
 }
 
+void DlgAddTest::clear()
+{
+	leTestFileName->clear();
+	leNumVis->clear();
+	chbVis->setCheckState(Qt::Unchecked);
+	cbCats->clear();
+}
+
 #include "dlgaddtest.moc"

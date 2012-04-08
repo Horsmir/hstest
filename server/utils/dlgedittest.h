@@ -48,6 +48,8 @@ public:
 	quint32 getNumVis() const;
 	bool getVis() const;
 	
+	void clear();
+	
 private slots:
 	void setTest(const QString &cat);
 	void setParamTest(const QString &test);

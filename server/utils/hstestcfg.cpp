@@ -113,6 +113,7 @@ void hstestcfg::on_btnAddCat_clicked()
 
 void hstestcfg::on_btnAddTest_clicked()
 {
+	addTestDialog->clear();
 	bool ok;
 	addTestDialog->setCats(testManager->getCategoryList());
 	if(addTestDialog->exec() == QDialog::Accepted)
@@ -154,6 +155,7 @@ void hstestcfg::on_btnDelTest_clicked()
 
 void hstestcfg::on_btnEditTest_clicked()
 {
+	editTestDialog->clear();
 	editTestDialog->setTestManager(testManager);
 	if(editTestDialog->exec() == QDialog::Accepted)
 	{

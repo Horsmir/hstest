@@ -169,7 +169,10 @@ bool Test::readFromText(const QString &text_file)
 	QStringList tmp1 = test_nodes.at(0).split("\n");
 	name = tmp1.at(0).split(":").at(1).trimmed();
 	author = tmp1.at(1).split(":").at(1).trimmed();
-	createDate = QDate::currentDate();
+	if(tmp1.count() > 2)
+		createDate = QDate::fromString(tmp1.at(2).split(":").at(1).trimmed(), "dd.MM.yyyy");
+	else
+		createDate = QDate::currentDate();
 
 	tmp1.clear();
 	for(int i = 1; i < test_nodes.count(); i++)

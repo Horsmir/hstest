@@ -1,19 +1,27 @@
+#ifndef Q_OS_WIN32
+#include <unistd.h>
 #include <sys/stat.h>
+#endif
 #include <QCoreApplication>
 #include "hstester-server.h"
 
+#ifndef Q_OS_WIN32
 QString getTime();
 void demonize();
 int writeLog(const QString &msg);
+#endif
 
 int main(int argc, char **argv)
 {
 	QCoreApplication app(argc, argv);
 	HstesterServer foo;
+#ifndef Q_OS_WIN32
 	demonize();
+#endif
 	return app.exec();
 }
 
+#ifndef Q_OS_WIN32
 void demonize()
 {
 	if(QCoreApplication::arguments().contains("--no-daemon"))
@@ -79,3 +87,4 @@ int writeLog(const QString &msg)  //функция записи строки в 
 	//pLog.close();
 	return 0;
 }
+#endif

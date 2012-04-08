@@ -54,8 +54,13 @@ MainWindow::MainWindow(QWidget *parent):
 	
 	QString appDir = QCoreApplication::applicationDirPath();
 	QDir imagesDir(appDir);
+#ifdef Q_OS_LINUX
 	imagesDir.cdUp();
 	imagesPath = imagesDir.absolutePath() + "/share/hstest/images/";
+#endif
+#ifdef Q_OS_WIN32
+	imagesPath = imagesDir.absolutePath() + "/images/";
+#endif
 	
 	settings = new QSettings(QSettings::NativeFormat, QSettings::UserScope, "HsTest", "hstest-client", this);
 	readSettings();
@@ -560,7 +565,12 @@ void MainWindow::showResult()
 		ocenka = 4;
 	else
 		ocenka = 5;
+#ifdef Q_OS_LINUX
 	ui->labelResultImg->setPixmap(QPixmap(imagesPath + nf.setNum(ocenka) + ".svg"));
+#endif
+#ifdef Q_OS_WIN32
+	ui->labelResultImg->setPixmap(QPixmap(imagesPath + nf.setNum(ocenka) + ".png"));
+#endif
 	
 	QStringList timeList = timerView->text().split(':');
 	ui->labelResultTime->setText(QString(trUtf8("Время решения теста: %1ч. %2м.")).arg(timeList.at(0)).arg(timeList.at(1)));

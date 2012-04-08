@@ -50,21 +50,38 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	
 	verticalLayout->addWidget(tableStudents);
 	
+	QString appDirPath = QCoreApplication::applicationDirPath();
+	QDir appDir(appDirPath);
+	QString iconsPath;
+#ifdef Q_OS_LINUX
+	appDir.cdUp();
+	iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
+#endif
+#ifdef Q_OS_WIN32
+	iconsPath = appDir.absolutePath() + "/icons/";
+#endif
+	QIcon logo;
+#ifdef Q_OS_LINUX
+	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
+#endif
+#ifdef Q_OS_WIN32
+	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.png"));
+#endif
+	setWindowIcon(logo);
+	
 	magicNumber = 0xAAFF452C;
 	students = new StudentDb(this);
-	studentDbFileName = "../../var/lib/hstest/students.tst";
+#ifdef Q_OS_LINUX
+	appDir.cdUp();
+	studentDbFileName = appDir.absolutePath() + "/var/lib/hstest/students.tst";
+#endif
+#ifdef Q_OS_WIN32
+	studentDbFileName = appDir.absolutePath() + "/data/students.tst";
+#endif
 	readStudentDb();
 	
 	selectDialog = new DlgSelect(this);
 	
-	QString appDirPath = QCoreApplication::applicationDirPath();
-	QDir appDir(appDirPath);
-	appDir.cdUp();
-	QString iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
-	
-	QIcon logo;
-	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
-	setWindowIcon(logo);
 	setWindowTitle(trUtf8("Результаты тестирования"));
 	
 	connect(btnExit, SIGNAL(clicked()), SLOT(close()));

@@ -182,8 +182,13 @@ public:
 	{
 		QString appDir = QCoreApplication::applicationDirPath();
 		QDir iconsDir(appDir);
+#ifdef Q_OS_LINUX
 		iconsDir.cdUp();
 		iconsPath = iconsDir.absolutePath() + "/share/hstest/icons/";
+#endif
+#ifdef Q_OS_WIN32
+		iconsPath = iconsDir.absolutePath() + "/icons/";
+#endif
 
 		if(MainWindow->objectName().isEmpty())
 			MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
@@ -192,7 +197,12 @@ public:
 		font.setFamily(QString::fromUtf8("Droid Sans"));
 		MainWindow->setFont(font);
 		QIcon icon9;
+#ifdef Q_OS_LINUX
 		icon9.addFile(iconsPath + QString::fromUtf8("hstest.svg"), QSize(), QIcon::Normal, QIcon::Off);
+#endif
+#ifdef Q_OS_WIN32
+		icon9.addFile(iconsPath + QString::fromUtf8("hstest.png"), QSize(), QIcon::Normal, QIcon::Off);
+#endif
 		MainWindow->setWindowIcon(icon9);
 		actionLoadTests = new QAction(MainWindow);
 		actionLoadTests->setObjectName(QString::fromUtf8("actionLoadTests"));

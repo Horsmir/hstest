@@ -5,9 +5,15 @@ HstesterServer::HstesterServer(QObject *parent):
 {
 	testManager = new TestManager(this);
 	QDir appDir(QCoreApplication::applicationDirPath());
+	QString dataDirPath;
+#ifdef Q_OS_LINUX
 	appDir.cdUp();
 	appDir.cdUp();
-	QString dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+	dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+#endif
+#ifdef Q_OS_WIN32
+	dataDirPath = appDir.absolutePath() + "/data";
+#endif
 	QDir dataDir(dataDirPath);
 	if(!dataDir.exists())
 		dataDir.mkpath(dataDirPath);

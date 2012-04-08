@@ -34,17 +34,33 @@ hstestcfg::hstestcfg() :
 	
 	QString appDirPath = QCoreApplication::applicationDirPath();
 	QDir appDir(appDirPath);
+	QString iconsPath;
+#ifdef Q_OS_LINUX
 	appDir.cdUp();
-	QString iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
-
+	iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
+#endif
+#ifdef Q_OS_WIN32
+	iconsPath = appDir.absolutePath() + "/icons/";
+#endif
 	QIcon logo;
+#ifdef Q_OS_LINUX
 	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
+#endif
+#ifdef Q_OS_WIN32
+	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.png"));
+#endif
 	setWindowIcon(logo);
 	setWindowTitle(trUtf8("Параметры Hs Test Server 0.4"));
 
 	testManager = new TestManager(this);
+	QString dataDirPath;
+#ifdef Q_OS_LINUX
 	appDir.cdUp();
-	QString dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+	dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
+#endif
+#ifdef Q_OS_WIN32
+	dataDirPath = appDir.absolutePath() + "/data";
+#endif
 	QDir dataDir(dataDirPath);
 	if(!dataDir.exists())
 		dataDir.mkpath(dataDirPath);

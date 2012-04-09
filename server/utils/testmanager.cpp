@@ -397,4 +397,9 @@ QString TestManager::getTestFileName(const QString &catName, const QString &test
 	return tests->getFileNameTest(catName, testName);
 }
 
+quint32 TestManager::getMagicNumber() const
+{
+	return magicNumber;
+}
+
 // kate: indent-mode cstyle; indent-width 4; replace-tabs off; tab-width 4; 

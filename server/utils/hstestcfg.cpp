@@ -10,7 +10,9 @@ hstestcfg::hstestcfg() :
 
 	verticalLayout = new QVBoxLayout();
 	btnAddCat = new QPushButton(trUtf8("Добавить категорию"), this);
-	btnAddTest = new QPushButton(trUtf8("Добавить тест"), this);
+	btnAddTest = new QPushButton(trUtf8("Импортировать тест"), this);
+	btnAddBinTest = new QPushButton(trUtf8("Добавить тест"), this);
+	btnAddBinTest->setToolTip(trUtf8("Добавить тест в бинарном формате"));
 	btnDelCat = new QPushButton(trUtf8("Удалить категорию"), this);
 	btnDelTest = new QPushButton(trUtf8("Удалить тест"), this);
 	btnEditTest = new QPushButton(trUtf8("Изменить тест"), this);
@@ -22,6 +24,7 @@ hstestcfg::hstestcfg() :
 
 	verticalLayout->addWidget(btnAddCat);
 	verticalLayout->addWidget(btnAddTest);
+	verticalLayout->addWidget(btnAddBinTest);
 	verticalLayout->addWidget(btnDelCat);
 	verticalLayout->addWidget(btnDelTest);
 	verticalLayout->addWidget(btnEditTest);
@@ -73,9 +76,11 @@ hstestcfg::hstestcfg() :
 	editTestDialog = new DlgEditTest(this);
 	editGroupsDialog = new DlgEditGroups(this);
 	editMarksDialog = new DlgEditMarks(this);
+	addBintestDialog = new DlgAddBinTest(this);
 
 	connect(btnAddCat, SIGNAL(clicked(bool)), SLOT(on_btnAddCat_clicked()));
 	connect(btnAddTest, SIGNAL(clicked(bool)), SLOT(on_btnAddTest_clicked()));
+	connect(btnAddBinTest, SIGNAL(clicked(bool)), SLOT(on_btnAddBinTest_clicked()));
 	connect(btnClose, SIGNAL(clicked(bool)), SLOT(on_btnClose_clicked()));
 	connect(btnDelCat, SIGNAL(clicked(bool)), SLOT(on_btnDelCat_clicked()));
 	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
@@ -198,6 +203,25 @@ void hstestcfg::on_btnEditMarks_clicked()
 	{
 		editMarksDialog->getPercents(percent2, percent3, percent4);
 		testManager->setPercentParam(percent2, percent3, percent4);
+	}
+}
+
+void hstestcfg::on_btnAddBinTest_clicked()
+{
+	Test newTest;
+	addBintestDialog->setCat(testManager->getCategoryList());
+	addBintestDialog->setMagicNumber(testManager->getMagicNumber());
+	addBintestDialog->setTest(&newTest);
+	if(addBintestDialog->exec() == QDialog::Accepted)
+	{
+		newTest.setName(addBintestDialog->getTestName());
+		newTest.setNumVis(addBintestDialog->getNumVis());
+		if(addBintestDialog->getNumVis())
+			newTest.setVis();
+		else
+			newTest.setNoVis();
+		testManager->addTest(addBintestDialog->getCatName(), newTest);
+		createTree();
 	}
 }
 

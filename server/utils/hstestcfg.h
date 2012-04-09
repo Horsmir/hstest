@@ -17,6 +17,7 @@
 #include "dlgedittest.h"
 #include "dlgeditgroups.h"
 #include "dlgeditmarks.h"
+#include "dlgaddbintest.h"
 
 class hstestcfg : public QDialog
 {
@@ -31,6 +32,7 @@ public:
 private slots:
 	void on_btnAddCat_clicked();
 	void on_btnAddTest_clicked();
+	void on_btnAddBinTest_clicked();
 	void on_btnDelCat_clicked();
 	void on_btnDelTest_clicked();
 	void on_btnEditTest_clicked();
@@ -44,6 +46,7 @@ private:
 	QVBoxLayout *verticalLayout;
 	QPushButton *btnAddCat;
 	QPushButton *btnAddTest;
+	QPushButton *btnAddBinTest;
 	QPushButton *btnDelCat;
 	QPushButton *btnDelTest;
 	QPushButton *btnEditTest;
@@ -58,6 +61,7 @@ private:
 	DlgEditTest *editTestDialog;
 	DlgEditGroups *editGroupsDialog;
 	DlgEditMarks *editMarksDialog;
+	DlgAddBinTest *addBintestDialog;
 };
 
 #endif // hstestcfg_H

@@ -69,6 +69,9 @@ public:
 	void getPercentParam(float &per2, float &per3, float &per4);
 
 	QString getTestFileName(const QString &catName, const QString &testName) const;
+	quint32 getMagicNumber() const;
+	
+	bool addTest(const QString &categoryName, Test test);
 
 private:
 	TestDB *tests;
@@ -77,8 +80,6 @@ private:
 	QString testDbFileName;
 	QString studentDbFileName;
 	quint32 magicNumber;
-
-	bool addTest(const QString &categoryName, Test test);
 };
 
 #endif // TESTMANAGER_H

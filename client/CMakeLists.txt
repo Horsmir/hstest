@@ -1,4 +1,4 @@
-project(hstester-client)
+project(hstest-client)
 cmake_minimum_required(VERSION 2.6)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${share_SRC_DIR})

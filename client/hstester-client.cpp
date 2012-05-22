@@ -113,8 +113,20 @@ void MainWindow::initCloseView()
 	closeNodes[6] = ui->cbAnswer_7;
 	closeNodes[7] = ui->cbAnswer_8;
 	
+	closeLabels[0] = ui->labelChAnswer_1;
+	closeLabels[1] = ui->labelChAnswer_2;
+	closeLabels[2] = ui->labelChAnswer_3;
+	closeLabels[3] = ui->labelChAnswer_4;
+	closeLabels[4] = ui->labelChAnswer_5;
+	closeLabels[5] = ui->labelChAnswer_6;
+	closeLabels[6] = ui->labelChAnswer_7;
+	closeLabels[7] = ui->labelChAnswer_8;
+	
 	for(int i = 0; i < 8; i++)
+	{
 		closeNodes[i]->setVisible(false);
+		closeLabels[i]->setVisible(false);
+	}
 }
 
 void MainWindow::initConfView()
@@ -609,7 +621,10 @@ void MainWindow::showTestNode()
 	{
 		case TYPE_NODE_CLOSE:
 			for(int i = 0; i < 8; i++)
+			{
 				closeNodes[i]->setVisible(false);
+				closeLabels[i]->setVisible(false);
+			}
 			ui->labelTaskClose->setText(currentNode->getTask());
 			ui->labelQuestClose->setText(currentNode->getQuestion());
 			c_answ = currentNode->getAnswers().count();
@@ -620,9 +635,10 @@ void MainWindow::showTestNode()
 			}
 			for(int i = 0; i < c_answ; i++)
 			{
-				closeNodes[i]->setText(currentNode->getAnswers().at(i));
+				closeLabels[i]->setText(currentNode->getAnswers().at(i));
 				closeNodes[i]->setChecked(false);
 				closeNodes[i]->setVisible(true);
+				closeLabels[i]->setVisible(true);
 			}
 			ui->stackedWidget->setCurrentIndex(1);
 			break;

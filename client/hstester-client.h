@@ -83,6 +83,7 @@ private:
 	QLabel* numTasks;           // отображение количества заданий в тесте
 	QLabel* timerView;          // отображение времени решения теста
 	QCheckBox* closeNodes[8];   // массив чекбоксов задания закрытого типа
+	QLabel* closeLabels[8];		// массив ответов закрытого типа
 	QPushButton* confBtnNodes[8];   // массив кнопок задания типа соответствия
 	QLabel* confLabelNodes[8];  // массив ответов задания типа соответствия
 	QPushButton* regBtnNodes[16];// массив кнопок задания типа упорядочения

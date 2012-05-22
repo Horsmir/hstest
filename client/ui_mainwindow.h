@@ -75,6 +75,22 @@ public:
 	QCheckBox *cbAnswer_6;
 	QCheckBox *cbAnswer_7;
 	QCheckBox *cbAnswer_8;
+	QLabel *labelChAnswer_1;
+	QLabel *labelChAnswer_2;
+	QLabel *labelChAnswer_3;
+	QLabel *labelChAnswer_4;
+	QLabel *labelChAnswer_5;
+	QLabel *labelChAnswer_6;
+	QLabel *labelChAnswer_7;
+	QLabel *labelChAnswer_8;
+	QHBoxLayout *horAnswer_1;
+	QHBoxLayout *horAnswer_2;
+	QHBoxLayout *horAnswer_3;
+	QHBoxLayout *horAnswer_4;
+	QHBoxLayout *horAnswer_5;
+	QHBoxLayout *horAnswer_6;
+	QHBoxLayout *horAnswer_7;
+	QHBoxLayout *horAnswer_8;
 	QSpacerItem *verticalSpacer;
 	QWidget *pageNodeOpen;
 	QVBoxLayout *verticalLayout_4;
@@ -306,6 +322,10 @@ public:
 		labelQuestClose->setFont(font2);
 
 		verticalLayout_3->addWidget(labelQuestClose);
+		
+		QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Fixed);
+		sizePolicy3.setHorizontalStretch(0);
+		sizePolicy3.setVerticalStretch(0);
 
 		groupBoxClose = new QGroupBox(pageNodeClose);
 		groupBoxClose->setObjectName(QString::fromUtf8("groupBoxClose"));
@@ -315,43 +335,126 @@ public:
 		verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
 		cbAnswer_1 = new QCheckBox(groupBoxClose);
 		cbAnswer_1->setObjectName(QString::fromUtf8("cbAnswer_1"));
+		labelChAnswer_1 = new QLabel(groupBoxClose);
+		labelChAnswer_1->setObjectName(QString::fromUtf8("labelChAnswer_1"));
+		QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+		sizePolicy.setHorizontalStretch(0);
+		sizePolicy.setVerticalStretch(0);
+		sizePolicy.setHeightForWidth(labelChAnswer_1->sizePolicy().hasHeightForWidth());
+		labelChAnswer_1->setSizePolicy(sizePolicy);
+		labelChAnswer_1->setWordWrap(true);
+		horAnswer_1 = new QHBoxLayout();
+		horAnswer_1->setObjectName(QString::fromUtf8("horAnswer_1"));
+		
+		horAnswer_1->addWidget(cbAnswer_1);
+		horAnswer_1->addWidget(labelChAnswer_1);
 
-		verticalLayout_2->addWidget(cbAnswer_1);
+		verticalLayout_2->addLayout(horAnswer_1);
 
 		cbAnswer_2 = new QCheckBox(groupBoxClose);
 		cbAnswer_2->setObjectName(QString::fromUtf8("cbAnswer_2"));
-
-		verticalLayout_2->addWidget(cbAnswer_2);
+		labelChAnswer_2 = new QLabel(groupBoxClose);
+		labelChAnswer_2->setObjectName(QString::fromUtf8("labelChAnswer_2"));
+		sizePolicy.setHeightForWidth(labelChAnswer_2->sizePolicy().hasHeightForWidth());
+		labelChAnswer_2->setSizePolicy(sizePolicy);
+		labelChAnswer_2->setWordWrap(true);
+		horAnswer_2 = new QHBoxLayout();
+		horAnswer_2->setObjectName(QString::fromUtf8("horAnswer_2"));
+		
+		horAnswer_2->addWidget(cbAnswer_2);
+		horAnswer_2->addWidget(labelChAnswer_2);
+		
+		verticalLayout_2->addLayout(horAnswer_2);
 
 		cbAnswer_3 = new QCheckBox(groupBoxClose);
 		cbAnswer_3->setObjectName(QString::fromUtf8("cbAnswer_3"));
-
-		verticalLayout_2->addWidget(cbAnswer_3);
+		labelChAnswer_3 = new QLabel(groupBoxClose);
+		labelChAnswer_3->setObjectName(QString::fromUtf8("labelChAnswer_3"));
+		sizePolicy.setHeightForWidth(labelChAnswer_3->sizePolicy().hasHeightForWidth());
+		labelChAnswer_3->setSizePolicy(sizePolicy);
+		labelChAnswer_3->setWordWrap(true);
+		horAnswer_3 = new QHBoxLayout();
+		horAnswer_2->setObjectName(QString::fromUtf8("horAnswer_3"));
+		
+		horAnswer_3->addWidget(cbAnswer_3);
+		horAnswer_3->addWidget(labelChAnswer_3);
+		
+		verticalLayout_2->addLayout(horAnswer_3);
 
 		cbAnswer_4 = new QCheckBox(groupBoxClose);
 		cbAnswer_4->setObjectName(QString::fromUtf8("cbAnswer_4"));
-
-		verticalLayout_2->addWidget(cbAnswer_4);
+		labelChAnswer_4 = new QLabel(groupBoxClose);
+		labelChAnswer_4->setObjectName(QString::fromUtf8("labelChAnswer_4"));
+		sizePolicy.setHeightForWidth(labelChAnswer_4->sizePolicy().hasHeightForWidth());
+		labelChAnswer_4->setSizePolicy(sizePolicy);
+		labelChAnswer_4->setWordWrap(true);
+		horAnswer_4 = new QHBoxLayout();
+		horAnswer_4->setObjectName(QString::fromUtf8("horAnswer_4"));
+		
+		horAnswer_4->addWidget(cbAnswer_4);
+		horAnswer_4->addWidget(labelChAnswer_4);
+		
+		verticalLayout_2->addLayout(horAnswer_4);
 
 		cbAnswer_5 = new QCheckBox(groupBoxClose);
 		cbAnswer_5->setObjectName(QString::fromUtf8("cbAnswer_5"));
-
-		verticalLayout_2->addWidget(cbAnswer_5);
+		labelChAnswer_5 = new QLabel(groupBoxClose);
+		labelChAnswer_5->setObjectName(QString::fromUtf8("labelChAnswer_5"));
+		sizePolicy.setHeightForWidth(labelChAnswer_5->sizePolicy().hasHeightForWidth());
+		labelChAnswer_5->setSizePolicy(sizePolicy);
+		labelChAnswer_5->setWordWrap(true);
+		horAnswer_5 = new QHBoxLayout();
+		horAnswer_5->setObjectName(QString::fromUtf8("horAnswer_5"));
+		
+		horAnswer_5->addWidget(cbAnswer_5);
+		horAnswer_5->addWidget(labelChAnswer_5);
+		
+		verticalLayout_2->addLayout(horAnswer_5);
 
 		cbAnswer_6 = new QCheckBox(groupBoxClose);
 		cbAnswer_6->setObjectName(QString::fromUtf8("cbAnswer_6"));
-
-		verticalLayout_2->addWidget(cbAnswer_6);
+		labelChAnswer_6 = new QLabel(groupBoxClose);
+		labelChAnswer_6->setObjectName(QString::fromUtf8("labelChAnswer_6"));
+		sizePolicy.setHeightForWidth(labelChAnswer_6->sizePolicy().hasHeightForWidth());
+		labelChAnswer_6->setSizePolicy(sizePolicy);
+		labelChAnswer_6->setWordWrap(true);
+		horAnswer_6 = new QHBoxLayout();
+		horAnswer_6->setObjectName(QString::fromUtf8("horAnswer_6"));
+		
+		horAnswer_6->addWidget(cbAnswer_6);
+		horAnswer_6->addWidget(labelChAnswer_6);
+		
+		verticalLayout_2->addLayout(horAnswer_6);
 
 		cbAnswer_7 = new QCheckBox(groupBoxClose);
 		cbAnswer_7->setObjectName(QString::fromUtf8("cbAnswer_7"));
-
-		verticalLayout_2->addWidget(cbAnswer_7);
+		labelChAnswer_7 = new QLabel(groupBoxClose);
+		labelChAnswer_7->setObjectName(QString::fromUtf8("labelChAnswer_7"));
+		sizePolicy.setHeightForWidth(labelChAnswer_7->sizePolicy().hasHeightForWidth());
+		labelChAnswer_7->setSizePolicy(sizePolicy);
+		labelChAnswer_7->setWordWrap(true);
+		horAnswer_7 = new QHBoxLayout();
+		horAnswer_7->setObjectName(QString::fromUtf8("horAnswer_7"));
+		
+		horAnswer_7->addWidget(cbAnswer_7);
+		horAnswer_7->addWidget(labelChAnswer_7);
+		
+		verticalLayout_2->addLayout(horAnswer_7);
 
 		cbAnswer_8 = new QCheckBox(groupBoxClose);
 		cbAnswer_8->setObjectName(QString::fromUtf8("cbAnswer_8"));
-
-		verticalLayout_2->addWidget(cbAnswer_8);
+		labelChAnswer_8 = new QLabel(groupBoxClose);
+		labelChAnswer_8->setObjectName(QString::fromUtf8("labelChAnswer_8"));
+		sizePolicy.setHeightForWidth(labelChAnswer_8->sizePolicy().hasHeightForWidth());
+		labelChAnswer_8->setSizePolicy(sizePolicy);
+		labelChAnswer_8->setWordWrap(true);
+		horAnswer_8 = new QHBoxLayout();
+		horAnswer_8->setObjectName(QString::fromUtf8("horAnswer_8"));
+		
+		horAnswer_8->addWidget(cbAnswer_8);
+		horAnswer_8->addWidget(labelChAnswer_8);
+		
+		verticalLayout_2->addLayout(horAnswer_8);
 
 
 		verticalLayout_3->addWidget(groupBoxClose);
@@ -410,11 +513,11 @@ public:
 		verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
 		labelTaskConformity = new QLabel(pageNodeConformity);
 		labelTaskConformity->setObjectName(QString::fromUtf8("labelTaskConformity"));
-		QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
-		sizePolicy.setHorizontalStretch(0);
-		sizePolicy.setVerticalStretch(0);
-		sizePolicy.setHeightForWidth(labelTaskConformity->sizePolicy().hasHeightForWidth());
-		labelTaskConformity->setSizePolicy(sizePolicy);
+		QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
+		sizePolicy2.setHorizontalStretch(0);
+		sizePolicy2.setVerticalStretch(0);
+		sizePolicy2.setHeightForWidth(labelTaskConformity->sizePolicy().hasHeightForWidth());
+		labelTaskConformity->setSizePolicy(sizePolicy2);
 		labelTaskConformity->setFont(font2);
 
 		verticalLayout_6->addWidget(labelTaskConformity);
@@ -607,8 +710,8 @@ public:
 		verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
 		labelTaskRegulating = new QLabel(pageNodeRegulating);
 		labelTaskRegulating->setObjectName(QString::fromUtf8("labelTaskRegulating"));
-		sizePolicy.setHeightForWidth(labelTaskRegulating->sizePolicy().hasHeightForWidth());
-		labelTaskRegulating->setSizePolicy(sizePolicy);
+		sizePolicy3.setHeightForWidth(labelTaskRegulating->sizePolicy().hasHeightForWidth());
+		labelTaskRegulating->setSizePolicy(sizePolicy3);
 		labelTaskRegulating->setFont(font2);
 
 		verticalLayout_7->addWidget(labelTaskRegulating);
@@ -821,8 +924,8 @@ public:
 		verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
 		labelResultTest = new QLabel(pageResult);
 		labelResultTest->setObjectName(QString::fromUtf8("labelResultTest"));
-		sizePolicy.setHeightForWidth(labelResultTest->sizePolicy().hasHeightForWidth());
-		labelResultTest->setSizePolicy(sizePolicy);
+		sizePolicy3.setHeightForWidth(labelResultTest->sizePolicy().hasHeightForWidth());
+		labelResultTest->setSizePolicy(sizePolicy3);
 		QFont font5;
 		font5.setPointSize(16);
 		font5.setBold(true);
@@ -834,24 +937,24 @@ public:
 
 		labelResultPrec = new QLabel(pageResult);
 		labelResultPrec->setObjectName(QString::fromUtf8("labelResultPrec"));
-		sizePolicy.setHeightForWidth(labelResultPrec->sizePolicy().hasHeightForWidth());
-		labelResultPrec->setSizePolicy(sizePolicy);
+		sizePolicy3.setHeightForWidth(labelResultPrec->sizePolicy().hasHeightForWidth());
+		labelResultPrec->setSizePolicy(sizePolicy3);
 		labelResultPrec->setFont(font1);
 		labelResultPrec->setAlignment(Qt::AlignCenter);
 
 		verticalLayout_8->addWidget(labelResultPrec);
 
 		labelResultTime = new QLabel(pageResult);
-		sizePolicy.setHeightForWidth(labelResultTime->sizePolicy().hasHeightForWidth());
-		labelResultTime->setSizePolicy(sizePolicy);
+		sizePolicy3.setHeightForWidth(labelResultTime->sizePolicy().hasHeightForWidth());
+		labelResultTime->setSizePolicy(sizePolicy3);
 		labelResultTime->setFont(font1);
 		labelResultTime->setAlignment(Qt::AlignCenter);
 		verticalLayout_8->addWidget(labelResultTime);
 
 		labelResultOcenk = new QLabel(pageResult);
 		labelResultOcenk->setObjectName(QString::fromUtf8("labelResultOcenk"));
-		sizePolicy.setHeightForWidth(labelResultOcenk->sizePolicy().hasHeightForWidth());
-		labelResultOcenk->setSizePolicy(sizePolicy);
+		sizePolicy3.setHeightForWidth(labelResultOcenk->sizePolicy().hasHeightForWidth());
+		labelResultOcenk->setSizePolicy(sizePolicy3);
 		QFont font6;
 		font6.setPointSize(12);
 		font6.setBold(true);
@@ -1015,14 +1118,14 @@ public:
 		labelTaskClose->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\264\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
 		labelQuestClose->setText(QApplication::translate("MainWindow", "\320\222\320\276\320\277\321\200\320\276\321\201", 0, QApplication::UnicodeUTF8));
 		groupBoxClose->setTitle(QApplication::translate("MainWindow", "\320\222\320\260\321\200\320\270\320\260\320\275\321\202\321\213 \320\276\321\202\320\262\320\265\321\202\320\260", 0, QApplication::UnicodeUTF8));
-		cbAnswer_1->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_2->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_3->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_4->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_5->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_6->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_7->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
-		cbAnswer_8->setText(QApplication::translate("MainWindow", "CheckBox", 0, QApplication::UnicodeUTF8));
+		cbAnswer_1->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_2->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_3->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_4->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_5->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_6->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_7->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
+		cbAnswer_8->setText(QApplication::translate("MainWindow", "", 0, QApplication::UnicodeUTF8));
 		labelTaskOpen->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\264\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
 		labelQuestOpen->setText(QApplication::translate("MainWindow", "\320\222\320\276\320\277\321\200\320\276\321\201", 0, QApplication::UnicodeUTF8));
 		labelAnswer->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\262\320\265\321\202: ", 0, QApplication::UnicodeUTF8));

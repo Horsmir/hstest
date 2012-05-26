@@ -120,6 +120,7 @@ void DlgRegister::on_leFio_textChanged()
 
 void DlgRegister::setGroups(QStringList groups)
 {
+	cbGroups->clear();
 	groups.sort();
 	cbGroups->addItems(groups);
 }

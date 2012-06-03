@@ -190,7 +190,10 @@ bool Test::readFromText(const QString &text_file)
 		else if((test_nodes.at(i).indexOf("1:")) != (-1))
 			readNodeRegulatingFromText(test_nodes[i]);
 		else
+		{
+			qDebug() << "Error: " << test_nodes.at(i);
 			return false;
+		}
 	}
 
 	count = nodeList.count();

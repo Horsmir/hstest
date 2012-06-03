@@ -874,6 +874,9 @@ void MainWindow::on_actionReturn_triggered()
 	numTasks->setVisible(false);
 	numTasksL->setVisible(false);
 	timerView->setVisible(false);
+	ui->progressBarCurTest->setVisible(false);
+	ui->btnNext->setVisible(false);
+	ui->preResultView->setVisible(false);
 	
 	if(modeType == Exam)
 	{

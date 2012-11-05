@@ -3,6 +3,7 @@
 #include <QtGui/QCloseEvent>
 #include <QtGui/QInputDialog>
 #include <QtGui/QMessageBox>
+#include "hstestconfigure.h"
 #include "hstestcfg.h"
 
 hstestcfg::hstestcfg(QWidget *parent, Qt::WindowFlags f) :
@@ -12,17 +13,13 @@ hstestcfg::hstestcfg(QWidget *parent, Qt::WindowFlags f) :
 	
 	QString appDirPath = QCoreApplication::applicationDirPath();
 	QDir appDir(appDirPath);
-	QString iconsPath;
-#ifdef Q_OS_LINUX
-	appDir.cdUp();
-	iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
-#endif
 
-	setWindowTitle(trUtf8("Параметры Hs Test Server 0.4"));
+	setWindowTitle(trUtf8("Параметры %1 Server %2").arg(APP_NAME).arg(VERSION));
 
 	testManager = new TestManager(this);
 	QString dataDirPath;
 #ifdef Q_OS_LINUX
+	appDir.cdUp();
 	appDir.cdUp();
 	dataDirPath = appDir.absolutePath() + "/var/lib/hstest";
 #endif

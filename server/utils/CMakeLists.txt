@@ -13,4 +13,5 @@ add_executable(hstestcfg WIN32 ${hstestcfg_SRCS} ${UI_CFG_HEADERS} ${QRC_SERVER_
 target_link_libraries(hstestcfg ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
 
 install(TARGETS hstestcfg DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(FILES ../../icons/hstestcfg.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps)
 install(FILES hstestcfg.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)

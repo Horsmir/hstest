@@ -65,7 +65,7 @@ void DlgSelect::on_chbDate_stateChanged(int on)
 	}
 }
 
-void DlgSelect::on_chbGroups_stateChanged(int on)
+void DlgSelect::on_chbGroup_stateChanged(int on)
 {
 	if(on == Qt::Checked)
 		ui->cbGroup->setEnabled(true);

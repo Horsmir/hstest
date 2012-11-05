@@ -17,40 +17,32 @@
 */
 
 
-#ifndef DLGSELECT_H
-#define DLGSELECT_H
+#ifndef HELPBROWSER_H
+#define HELPBROWSER_H
 
-#include <QtGui/QDialog>
-#include "ui_select.h"
+#include <QtGui/QWidget>
+#include "ui_helpform.h"
 
 namespace Ui
 {
-	class SelectDialog;
+	class helpForm;
 }
 
-class DlgSelect : public QDialog
+class HelpBrowser : public QWidget
 {
 	Q_OBJECT
-	
 public:
-	explicit DlgSelect(QWidget *parent = 0, Qt::WindowFlags f = 0);
-	virtual ~DlgSelect();
+	explicit HelpBrowser(QWidget *parent = 0, Qt::WindowFlags f = 0);
+	HelpBrowser(const QString &path, const QString &page, QWidget *parent = 0);
+	virtual ~HelpBrowser();
 	
-	void setGroups(QStringList groups);
-	
-	QDate getDateFrom() const;
-	QDate getDateTo() const;
-	QString getGroupName() const;
-	QString getStudentName() const;
-	void getCheckeds(bool &chDate, bool &chGroup, bool &chName);
+	static void showPage(const QString &path, const QString &page);
 	
 private slots:
-	void on_chbDate_stateChanged(int on);
-	void on_chbGroup_stateChanged(int on);
-	void on_chbName_stateChanged(int on);	
+	void updateWindowTitle();
 	
 private:
-	Ui::SelectDialog *ui;
+	Ui::helpForm *ui;
 };
 
-#endif // DLGSELECT_H
+#endif // HELPBROWSER_H

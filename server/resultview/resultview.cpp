@@ -22,6 +22,7 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QPrinter>
 #include <QtGui/QTextDocument>
+#include "hstestconfigure.h"
 #include "resultview.h"
 
 ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
@@ -34,17 +35,11 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	
 	QString appDirPath = QCoreApplication::applicationDirPath();
 	QDir appDir(appDirPath);
-	QString iconsPath;
-#ifdef Q_OS_LINUX
-	appDir.cdUp();
-	iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
-#endif
-#ifdef Q_OS_WIN32
-	iconsPath = appDir.absolutePath() + "/icons/";
-#endif
+	
 	magicNumber = 0xAAFF452C;
 	students = new StudentDb(this);
 #ifdef Q_OS_LINUX
+	appDir.cdUp();
 	appDir.cdUp();
 	studentDbFileName = appDir.absolutePath() + "/var/lib/hstest/students.tst";
 #endif
@@ -58,7 +53,7 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 
 ResultView::~ResultView()
 {
-
+	delete ui;
 }
 
 void ResultView::on_btnSelect_clicked()

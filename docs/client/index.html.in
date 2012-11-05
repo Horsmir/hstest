@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+      "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type"
+  content="application/xhtml+xml; charset=UTF-8">
+  <title>Главная страница</title>
+</head>
+
+<body>
+<h1 style="text-align:center;margin-left:auto;margin-right:auto;">Руководство пользователя @APP_NAME@ @HSTEST_VERSION@</h1>
+<h2 style="text-align:center;margin-left:auto;margin-right:auto;"><span
+style="color:#385b88">Введение</span></h2>
+
+<p style="text-align:justify;">Программа <b>@APP_NAME@</b> предназначена для тестирования учеников, студентов, сотрудников организаций и т. п. с использованием сетевых технологий на платформах: GNU/Linux, Windows.
+<p style="text-align:justify;">В <b>@APP_NAME@</b> возможно проводить тестирование по тестам: закрытого типа, открытого типа, на соответствие и на упорядочение. В локальной сети база данных тестов хранится на одном компьютере (сервере). Управление тестами возможно только на сервере.
+<p style="text-align:justify;">Тестирование проходит в двух режимах: тренировочном и экзаменационном. В тренировочном режиме, по окончании тестирования, возможно просмотреть тесты и результаты ответов на них. В экзаменационном режиме на сервер передаются данные о тестируемом, а после тестирования – название теста и результат.
+<p style="text-align:justify;"><b>@APP_NAME@</b> является свободным программным обеспечением. Вы можете распространять и/или модифицировать её согласно условиям Стандартной Общественной Лицензии GNU, опубликованной Фондом Свободного Программного Обеспечения, версии 3 или, по Вашему желанию, любой более поздней версии.
+<p style="text-align:justify;">Эта программа распространяется в надежде, что она будет полезной, но БЕЗ ВСЯКИХ
+ГАРАНТИЙ, в том числе подразумеваемых гарантий ТОВАРНОГО СОСТОЯНИЯ ПРИ ПРОДАЖЕ и ГОДНОСТИ ДЛЯ ОПРЕДЕЛЁННОГО ПРИМЕНЕНИЯ. Смотрите Стандартную Общественную Лицензию GNU для получения дополнительной информации.
+<p style="text-align:justify;">Вы должны были получить копию Стандартной Общественной Лицензии GNU вместе с программой. В случае её отсутствия, посмотрите <a href="http://www.gnu.org/licenses/">www.gnu.org/licenses/</a>. Сайт программы: <a href="http://github.com/Horsmir/hstest">github.com/Horsmir/hstest</a>.
+
+<p>Copyright© 2012 Роман Браун</p>
+
+<p>Email: <a href="mailto:firdragon76@gmail.com">firdragon76@gmail.com</a></p>
+
+<h3><span style="color:#385b88">Основные функц<span
+style="color:#385b88"></span>ии:</span></h3>
+<ul>
+	<li></li>
+</ul>
+
+<h3 style="color:#385b88">Оглавление:</h3>
+
+<p style="margin-left:2em;"><a href="systems.html">Системные требования</a></p>
+
+<p style="margin-left:2em;"><a href="quick_start.html">Нчало работы</a></p>
+
+<p style="margin-left:2em;"><a href="license.html">Лицензия</a></p>
+</body>
+</html>

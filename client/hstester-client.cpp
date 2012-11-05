@@ -8,6 +8,7 @@
 #include <QtCore/QUrl>
 #include <QtNetwork/QTcpSocket>
 #include "hstestconfigure.h"
+#include "help-browser/helpbrowser.h"
 #include "hstester-client.h"
 
 
@@ -912,11 +913,17 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionHelp_triggered()
 {
-	QDir docDir(QCoreApplication::applicationDirPath());
-	docDir.cdUp();
-	QString curPath = docDir.absolutePath() + "/share/doc/hstest";
+	QString docDir;
+#ifdef Q_OS_WIN32
+	docDir = QCoreApplication::applicationDirPath()  + "/docs";
+#endif
+#ifdef Q_OS_LINUX
+	docDir = APP_PATH + "/share/doc/hstest/client";
+#endif
+	HelpBrowser::showPage(docDir, "index.html");
+	/*QString curPath = docDir.absolutePath() + "/share/doc/hstest";
 	curPath = "file://" + curPath + "/hstest-client-help_ru.pdf";
-	QDesktopServices::openUrl(QUrl(curPath, QUrl::TolerantMode));
+	QDesktopServices::openUrl(QUrl(curPath, QUrl::TolerantMode));*/
 }
 
 void MainWindow::groupsLoaded()

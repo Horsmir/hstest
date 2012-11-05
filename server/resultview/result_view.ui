@@ -14,7 +14,7 @@
    <string>Результаты тестирования</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../server.qrc">
+   <iconset resource="resultview.qrc">
     <normaloff>:/icons/hstestcfg.png</normaloff>:/icons/hstestcfg.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -89,7 +89,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../server.qrc"/>
+  <include location="resultview.qrc"/>
  </resources>
  <connections>
   <connection>

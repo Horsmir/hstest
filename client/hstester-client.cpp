@@ -7,6 +7,7 @@
 #include <QtGui/QDesktopServices>
 #include <QtCore/QUrl>
 #include <QtNetwork/QTcpSocket>
+#include "hstestconfigure.h"
 #include "hstester-client.h"
 
 
@@ -47,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent):
 	listViewTests = false;
 	tTime = new QTime(0, 0);
 	mTimer = new QTimer(this);
-	appName = trUtf8("Hs Test 0.4");
+	appName = APP_NAME + " " + VERSION;
 	modeType = Training;
 	
 	per2 = 60.0;
@@ -64,8 +65,7 @@ MainWindow::MainWindow(QWidget *parent):
 	QString appDir = QCoreApplication::applicationDirPath();
 	QDir imagesDir(appDir);
 #ifdef Q_OS_LINUX
-	imagesDir.cdUp();
-	imagesPath = imagesDir.absolutePath() + "/share/hstest/images/";
+	imagesPath = APP_PATH + "/share/hstest/images/";
 #endif
 #ifdef Q_OS_WIN32
 	imagesPath = imagesDir.absolutePath() + "/images/";
@@ -455,7 +455,6 @@ void MainWindow::on_actionLoadTests_triggered()
 void MainWindow::testDbLoaded()
 {
 	QIcon folderIcon;
-	//folderIcon.addPixmap(style->standardPixmap(QStyle::SP_DirClosedIcon));
 	folderIcon.addPixmap(QPixmap(":/icons/folder.png"));
 	ui->listCatTestView->clear();
 	QStringList catList = testManager->getCategoryList();

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainDialog</class>
+ <widget class="QDialog" name="MainDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>599</width>
+    <height>433</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Параметры Hs Test Server</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../server.qrc">
+    <normaloff>:/icons/hstestcfg.png</normaloff>:/icons/hstestcfg.png</iconset>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QPlainTextEdit" name="teTests">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="btnAddCat">
+       <property name="text">
+        <string>Добавить категорию</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnAddTest">
+       <property name="text">
+        <string>Импортировать тест</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnAddBinTest">
+       <property name="toolTip">
+        <string>Добавить тест в бинарном формате</string>
+       </property>
+       <property name="text">
+        <string>Добавить тест</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnDelCat">
+       <property name="text">
+        <string>Удалить категорию</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnDelTest">
+       <property name="text">
+        <string>Удалить тест</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnEditTest">
+       <property name="text">
+        <string>Изменить тест</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnEditGroups">
+       <property name="text">
+        <string>Группы</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnEditMarks">
+       <property name="text">
+        <string>Шкала баллов</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnClose">
+       <property name="text">
+        <string>Закрыть</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../server.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btnClose</sender>
+   <signal>clicked()</signal>
+   <receiver>MainDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>509</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>509</x>
+     <y>286</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

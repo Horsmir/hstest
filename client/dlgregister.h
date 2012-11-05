@@ -21,15 +21,12 @@
 #define DLGREGISTER_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QComboBox>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QGroupBox>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
+#include "ui_dlgregister.h"
 
+namespace Ui
+{
+	class DlgRegister;
+}
 
 class DlgRegister : public QDialog
 {
@@ -50,19 +47,7 @@ private slots:
 	void on_leFio_textChanged();
 	
 private:
-	QVBoxLayout *verticalLayout_2;
-	QHBoxLayout *horizontalLayout;
-	QLabel *label;
-	QComboBox *cbMode;
-	QSpacerItem *horizontalSpacer;
-	QGroupBox *groupBox;
-	QVBoxLayout *verticalLayout;
-	QLabel *label_2;
-	QLineEdit *leFio;
-	QLabel *label_3;
-	QComboBox *cbGroups;
-	QSpacerItem *verticalSpacer;
-	QDialogButtonBox *buttonBox;
+	Ui::DlgRegister *ui;
 };
 
 #endif // DLGREGISTER_H

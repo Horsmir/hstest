@@ -21,15 +21,12 @@
 #define DLGSELECT_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QDateEdit>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QComboBox>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QLineEdit>
+#include "ui_select.h"
 
+namespace Ui
+{
+	class SelectDialog;
+}
 
 class DlgSelect : public QDialog
 {
@@ -48,27 +45,12 @@ public:
 	void getCheckeds(bool &chDate, bool &chGroup, bool &chName);
 	
 private slots:
-	void on_chbDate_checked(int on);
-	void on_chbGroups_checked(int on);
-	void on_chbName_checked(int on);	
+	void on_chbDate_stateChanged(int on);
+	void on_chbGroups_stateChanged(int on);
+	void on_chbName_stateChanged(int on);	
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QCheckBox *chbDate;
-	QHBoxLayout *horizontalLayout;
-	QLabel *label;
-	QDateEdit *deFrom;
-	QSpacerItem *horizontalSpacer;
-	QLabel *label_2;
-	QDateEdit *deTo;
-	QFrame *line;
-	QCheckBox *chbGroup;
-	QComboBox *cbGroup;
-	QFrame *line_2;
-	QCheckBox *chbName;
-	QLineEdit *leName;
-	QFrame *line_3;
-	QDialogButtonBox *buttonBox;
+	Ui::SelectDialog *ui;
 };
 
 #endif // DLGSELECT_H

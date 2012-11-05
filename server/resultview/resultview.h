@@ -21,19 +21,14 @@
 #define RESULTVIEW_H
 
 #include <QtCore/QDebug>
-#include <QtCore/QCoreApplication>
-#include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QTableWidget>
-#include <QtCore/QFile>
-#include <QtGui/QPrinter>
-#include <QtGui/QTextDocument>
-#include <QtGui/QFileDialog>
-#include <QtCore/QDir>
 #include "studentdb.h"
 #include "dlgselect.h"
+#include "ui_result_view.h"
+
+namespace Ui
+{
+	class Dialog;
+}
 
 
 class ResultView : public QDialog
@@ -52,15 +47,7 @@ private slots:
 	void on_btnPrint_clicked();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QHBoxLayout *horizontalLayout;
-	QPushButton *btnSelect;
-	QPushButton *btnShowAll;
-	QPushButton *btnPrint;
-	QSpacerItem *horizontalSpacer;
-	QPushButton *btnExit;
-	QTableWidget *tableStudents;
-	
+	Ui::Dialog *ui;
 	quint32 magicNumber;
 	StudentDb *students;
 	QString studentDbFileName;

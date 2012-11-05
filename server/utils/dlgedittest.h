@@ -21,17 +21,13 @@
 #define DLGEDITTEST_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QFormLayout>
-#include <QtGui/QComboBox>
-#include <QtGui/QLabel>
-#include <QtGui/QSpinBox>
-#include <QtGui/QCheckBox>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QPushButton>
-#include <QtCore/QProcess>
+#include "ui_dlgedittest.h"
 #include "testmanager.h"
 
+namespace Ui
+{
+	class DlgEditTest;
+}
 
 class DlgEditTest : public QDialog
 {
@@ -51,26 +47,13 @@ public:
 	void clear();
 	
 private slots:
-	void setTest(const QString &cat);
-	void setParamTest(const QString &test);
+	void on_cbCat_currentIndexChanged(const QString &cat);
+	void on_cbTest_currentIndexChanged(const QString &test);
 	void on_btnEditTest_clicked();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QFormLayout *formLayout;
-	QComboBox *cbCat;
-	QLabel *label;
-	QComboBox *cbTest;
-	QLabel *label_2;
-	QLabel *labelNumTasks;
-	QLabel *label_3;
-	QSpinBox *sbNumVis;
-	QLabel *label_4;
-	QCheckBox *chbVis;
-	QSpacerItem *verticalSpacer;
-	QDialogButtonBox *buttonBox;
+	Ui::DlgEditTest *ui;
 	TestManager *tests;
-	QPushButton *btnEditTest;
 };
 
 #endif // DLGEDITTEST_H

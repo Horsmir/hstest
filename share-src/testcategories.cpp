@@ -210,8 +210,7 @@ bool TestCategories::editTest(const QString &testName, quint32 numVis, bool vis)
 	node << testFileName;
 	node << QString().setNum(numVis);
 	node << strVis;
-	data.removeAt(id);
-	data.append(node);
+	data.replace(id, node);
 	return true;
 }
 

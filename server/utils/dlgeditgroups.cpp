@@ -17,66 +17,28 @@
 */
 
 
+#include <QtGui/QInputDialog>
+#include <QtGui/QMessageBox>
 #include "dlgeditgroups.h"
 
 DlgEditGroups::DlgEditGroups(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent), testManager(0)
+	QDialog(parent), testManager(0), ui(new Ui::DlgEditGroups)
 {
-	verticalLayout_2 = new QVBoxLayout(this);
-	label = new QLabel(trUtf8("Группы:"), this);
-	
-	verticalLayout_2->addWidget(label);
-	
-	horizontalLayout = new QHBoxLayout();
-	lvGroups = new QListWidget(this);
-	lvGroups->setFrameShape(QFrame::StyledPanel);
-	lvGroups->setFrameShadow(QFrame::Sunken);
-	lvGroups->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	
-	horizontalLayout->addWidget(lvGroups);
-	
-	verticalLayout = new QVBoxLayout();
-	btnAdd = new QPushButton(trUtf8("&Добавить"), this);
-	
-	verticalLayout->addWidget(btnAdd);
-	
-	btnDel = new QPushButton(trUtf8("&Удалить"), this);
-	
-	verticalLayout->addWidget(btnDel);
-	
-	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	
-	verticalLayout->addItem(verticalSpacer);
-	
-	btnExit = new QPushButton(trUtf8("&Закрыть"), this);
-	
-	verticalLayout->addWidget(btnExit);
-	
-	horizontalLayout->addLayout(verticalLayout);
-	
-	verticalLayout_2->addLayout(horizontalLayout);
-	
-#ifndef QT_NO_SHORTCUT
-	label->setBuddy(lvGroups);
-#endif // QT_NO_SHORTCUT
-	
-	connect(btnExit, SIGNAL(clicked()), SLOT(close()));
-	connect(btnAdd, SIGNAL(clicked(bool)), SLOT(on_btnAdd_clicked()));
-	connect(btnDel, SIGNAL(clicked(bool)), SLOT(on_btnDel_clocked()));
+	ui->setupUi(this);
 }
 
 DlgEditGroups::~DlgEditGroups()
 {
-
+	delete ui;
 }
 
 void DlgEditGroups::setTestManager(TestManager *testManager)
 {
-	lvGroups->clear();
+	ui->lvGroups->clear();
 	this->testManager = testManager;
-	lvGroups->addItems(this->testManager->getGroupsList());
-	if(lvGroups->count() != 0)
-		lvGroups->sortItems();
+	ui->lvGroups->addItems(this->testManager->getGroupsList());
+	if(ui->lvGroups->count() != 0)
+		ui->lvGroups->sortItems();
 }
 
 void DlgEditGroups::on_btnAdd_clicked()
@@ -90,7 +52,7 @@ void DlgEditGroups::on_btnAdd_clicked()
 		{
 			testManager->addGroup(newGroup);
 			testManager->writeStudentDbToFile();
-			lvGroups->addItem(newGroup);
+			ui->lvGroups->addItem(newGroup);
 		}
 		else
 		{

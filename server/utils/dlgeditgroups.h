@@ -21,15 +21,13 @@
 #define DLGEDITGROUPS_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QListWidget>
-#include <QtGui/QInputDialog>
-#include <QtGui/QMessageBox>
+#include "ui_dlgeditgroups.h"
 #include "testmanager.h"
 
+namespace Ui
+{
+	class DlgEditGroups;
+}
 
 class DlgEditGroups : public QDialog
 {
@@ -46,15 +44,7 @@ private slots:
 	void on_btnDel_clocked();
 	
 private:
-	QVBoxLayout *verticalLayout_2;
-	QLabel *label;
-	QHBoxLayout *horizontalLayout;
-	QListWidget *lvGroups;
-	QVBoxLayout *verticalLayout;
-	QPushButton *btnAdd;
-	QPushButton *btnDel;
-	QSpacerItem *verticalSpacer;
-	QPushButton *btnExit;
+	Ui::DlgEditGroups *ui;
 	
 	TestManager *testManager;
 };

@@ -17,6 +17,8 @@
 */
 
 
+#include <QtCore/QWaitCondition>
+#include <QtNetwork/QTcpSocket>
 #include "testthread.h"
 
 

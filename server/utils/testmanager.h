@@ -20,8 +20,8 @@
 #ifndef TESTMANAGER_H
 #define TESTMANAGER_H
 
-#include <QDebug>
-#include <QObject>
+#include <QtCore/QDebug>
+#include <QtCore/QObject>
 #include "testdb.h"
 #include "test.h"
 #include "studentdb.h"

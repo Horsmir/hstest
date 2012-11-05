@@ -20,63 +20,40 @@
 #include "dlgdeletetest.h"
 
 DlgDeleteTest::DlgDeleteTest(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent), categories(0)
+	QDialog(parent), categories(0), ui(new Ui::DlgDeleteTest)
 {
-	verticalLayout = new QVBoxLayout(this);
-	label = new QLabel(trUtf8("Категория: "), this);
-	cbCat = new QComboBox(this);
-	label_2 = new QLabel(trUtf8("Тест: "), this);
-	cbTest = new QComboBox(this);
-	verticalSpacer = new QSpacerItem(20, 24, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	buttonBox = new QDialogButtonBox(this);
-	
-	buttonBox->setOrientation(Qt::Horizontal);
-	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-	buttonBox->setCenterButtons(true);
-	
-	verticalLayout->addWidget(label);
-	verticalLayout->addWidget(cbCat);
-	verticalLayout->addWidget(label_2);
-	verticalLayout->addWidget(cbTest);
-	verticalLayout->addItem(verticalSpacer);
-	verticalLayout->addWidget(buttonBox);
-	
-	setWindowTitle(trUtf8("Удалить тест"));
-	
-	connect(buttonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
-	connect(cbCat, SIGNAL(currentIndexChanged(QString)), SLOT(setTest(QString)));
+	ui->setupUi(this);
 }
 
 DlgDeleteTest::~DlgDeleteTest()
 {
-
+	delete ui;
 }
 
 QString DlgDeleteTest::getCategory() const
 {
-	return cbCat->currentText();
+	return ui->cbCat->currentText();
 }
 
 QString DlgDeleteTest::getTest() const
 {
-	return cbTest->currentText();
+	return ui->cbTest->currentText();
 }
 
 void DlgDeleteTest::setCategories(TestDB *categories)
 {
 	this->categories = categories;
-	cbCat->clear();
-	cbCat->addItems(this->categories->getCategoryNameList());
-	cbCat->setCurrentIndex(0);
-	setTest(cbCat->currentText());
+	ui->cbCat->clear();
+	ui->cbCat->addItems(this->categories->getCategoryNameList());
+	ui->cbCat->setCurrentIndex(0);
+	setTest(ui->cbCat->currentText());
 }
 
 void DlgDeleteTest::setTest(const QString &cat)
 {
-	cbTest->clear();
-	cbTest->addItems(categories->getTestNameListByCategory(cat, true));
-	cbTest->setCurrentIndex(0);
+	ui->cbTest->clear();
+	ui->cbTest->addItems(categories->getTestNameListByCategory(cat, true));
+	ui->cbTest->setCurrentIndex(0);
 }
 
 #include "dlgdeletetest.moc"

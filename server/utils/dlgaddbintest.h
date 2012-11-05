@@ -21,17 +21,13 @@
 #define DLGADDBINTEST_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
-#include <QtGui/QComboBox>
-#include <QtGui/QSpinBox>
-#include <QtGui/QCheckBox>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QFileDialog>
+#include "ui_dlgaddbintest.h"
 #include "test.h"
+
+namespace Ui
+{
+	class DlgAddBinTest;
+}
 
 class DlgAddBinTest : public QDialog
 {
@@ -54,24 +50,7 @@ private slots:
 	void on_tbtnOpenFile_clicked();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QLabel *label;
-	QHBoxLayout *horizontalLayout;
-	QLineEdit *leTestFilePath;
-	QPushButton *tbtnOpenFile;
-	QLabel *label_5;
-	QComboBox *cbCat;
-	QLabel *label_2;
-	QLineEdit *leTestName;
-	QHBoxLayout *horizontalLayout_2;
-	QLabel *label_3;
-	QLabel *labelNumAll;
-	QHBoxLayout *horizontalLayout_3;
-	QLabel *label_4;
-	QSpinBox *sbNumVis;
-	QCheckBox *checkBox;
-	QSpacerItem *verticalSpacer;
-	QDialogButtonBox *buttonBox;
+	Ui::DlgAddBinTest *ui;
 	
 	Test *test;
 	quint32 magicNumber;

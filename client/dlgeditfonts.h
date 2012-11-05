@@ -21,12 +21,12 @@
 #define DLGEDITFONTS_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QFormLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QFontDialog>
+#include "ui_dlgeditfonts.h"
+
+namespace Ui
+{
+	class EditFontsDialog;
+}
 
 class DlgEditFonts : public QDialog
 {
@@ -45,16 +45,7 @@ private slots:
 	void on_btnAnsw_clicked();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QFormLayout *formLayout;
-	QLabel *label;
-	QPushButton *btnTask;
-	QLabel *label_2;
-	QPushButton *btnQuest;
-	QLabel *label_3;
-	QPushButton *btnAnsw;
-	QDialogButtonBox *buttonBox;
-	
+	Ui::EditFontsDialog *ui;
 	QFont fTask;
 	QFont fQuest;
 	QFont fAnsw;

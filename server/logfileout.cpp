@@ -17,6 +17,8 @@
 */
 
 
+#include <QtCore/QTextStream>
+#include <QtCore/QFile>
 #include "logfileout.h"
 
 LogFileOut::LogFileOut(QObject *parent):

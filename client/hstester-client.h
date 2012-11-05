@@ -2,20 +2,16 @@
 #define hstester_client_H
 
 #include <QtGui/QMainWindow>
-#include <QtCore/QTime>
-#include <QtCore/QTimer>
-#include <QtCore/QSettings>
-#include <QtGui/QCloseEvent>
-#include <QtGui/QMessageBox>
-#include <QtCore/QDir>
-#include <QtGui/QDesktopServices>
-#include <QtCore/QUrl>
+
 #include "ui_mainwindow.h"
 #include "dlgconfig.h"
 #include "testmanager.h"
 #include "report.h"
 #include "reportview.h"
 #include "dlgregister.h"
+
+class QCloseEvent;
+class QSettings;
 
 namespace Ui {
 	class MainWindow;

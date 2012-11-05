@@ -22,11 +22,12 @@
 
 #include <QtCore/QDebug>
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QTextEdit>
-#include <QtCore/QFile>
-#include <QtCore/QTextCodec>
+#include "ui_reportview.h"
 
+namespace Ui
+{
+	class ReportView;
+}
 
 class ReportView : public QDialog
 {
@@ -39,8 +40,7 @@ public:
 	void load();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QTextEdit *textEdit;
+	Ui::ReportView *ui;
 	QString reportFileName;
 };
 

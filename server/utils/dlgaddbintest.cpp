@@ -17,80 +17,23 @@
 */
 
 
+#include <QtGui/QFileDialog>
 #include "dlgaddbintest.h"
 
-DlgAddBinTest::DlgAddBinTest(QWidget *parent, Qt::WindowFlags f): QDialog(parent, f)
+DlgAddBinTest::DlgAddBinTest(QWidget *parent, Qt::WindowFlags f): QDialog(parent, f), ui(new Ui::DlgAddBinTest)
 {
-	verticalLayout = new QVBoxLayout(this);
-	label = new QLabel(trUtf8("Файл:"), this);
-	horizontalLayout = new QHBoxLayout();
-	leTestFilePath = new QLineEdit(this);
-	tbtnOpenFile = new QPushButton(trUtf8("..."), this);
-	label_5 = new QLabel(trUtf8("Категория:"), this);
-	
-	cbCat = new QComboBox(this);
-	QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	sizePolicy.setHorizontalStretch(0);
-	sizePolicy.setVerticalStretch(0);
-	sizePolicy.setHeightForWidth(cbCat->sizePolicy().hasHeightForWidth());
-	cbCat->setSizePolicy(sizePolicy);
-	
-	label_2 = new QLabel(trUtf8("Название теста:"), this);
-	horizontalLayout_2 = new QHBoxLayout();
-	label_3 = new QLabel(trUtf8("Количество заданий:"), this);
-	
-	labelNumAll = new QLabel("0", this);
-	QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	sizePolicy1.setHorizontalStretch(0);
-	sizePolicy1.setVerticalStretch(0);
-	sizePolicy1.setHeightForWidth(labelNumAll->sizePolicy().hasHeightForWidth());
-	labelNumAll->setSizePolicy(sizePolicy1);
-	
-	leTestName = new QLineEdit(this);
-	horizontalLayout_3 = new QHBoxLayout();	
-	label_4 = new QLabel(trUtf8("Количество отображаемых заданий:"), this);
-	sbNumVis = new QSpinBox(this);
-	sbNumVis->setMinimum(0);
-	checkBox = new QCheckBox(trUtf8("Видимый для клиента"), this);
-	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	
-	buttonBox = new QDialogButtonBox(this);
-	buttonBox->setOrientation(Qt::Horizontal);
-	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-	buttonBox->setCenterButtons(true);
-	
-	verticalLayout->addWidget(label);
-	horizontalLayout->addWidget(leTestFilePath);
-	horizontalLayout->addWidget(tbtnOpenFile);
-	verticalLayout->addLayout(horizontalLayout);
-	verticalLayout->addWidget(label_5);
-	verticalLayout->addWidget(cbCat);
-	verticalLayout->addWidget(label_2);
-	verticalLayout->addWidget(leTestName);
-	horizontalLayout_2->addWidget(label_3);
-	horizontalLayout_2->addWidget(labelNumAll);
-	verticalLayout->addLayout(horizontalLayout_2);
-	horizontalLayout_3->addWidget(label_4);
-	horizontalLayout_3->addWidget(sbNumVis);
-	verticalLayout->addLayout(horizontalLayout_3);
-	verticalLayout->addWidget(checkBox);
-	verticalLayout->addItem(verticalSpacer);
-	verticalLayout->addWidget(buttonBox);
-	
-	connect(buttonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
-	connect(tbtnOpenFile, SIGNAL(clicked(bool)), SLOT(on_tbtnOpenFile_clicked()));
+	ui->setupUi(this);
 }
 
 DlgAddBinTest::~DlgAddBinTest()
 {
-
+	delete ui;
 }
 
 void DlgAddBinTest::setCat(const QStringList &catList)
 {
-	cbCat->clear();
-	cbCat->addItems(catList);
+	ui->cbCat->clear();
+	ui->cbCat->addItems(catList);
 }
 
 void DlgAddBinTest::setTest(Test *test)
@@ -100,7 +43,7 @@ void DlgAddBinTest::setTest(Test *test)
 
 QString DlgAddBinTest::getCatName() const
 {
-	return cbCat->currentText();
+	return ui->cbCat->currentText();
 }
 
 void DlgAddBinTest::on_tbtnOpenFile_clicked()
@@ -140,15 +83,15 @@ void DlgAddBinTest::readTest(const QString &fileName)
 	
 	in >> *test;
 	
-	leTestFilePath->setText(fileName);
-	leTestName->setText(test->getName());
-	labelNumAll->setNum(test->getCount());
-	sbNumVis->setMaximum(test->getCount());
-	sbNumVis->setValue(test->getNumVis());
+	ui->leTestFilePath->setText(fileName);
+	ui->leTestName->setText(test->getName());
+	ui->labelNumAll->setNum(test->getCount());
+	ui->sbNumVis->setMaximum(test->getCount());
+	ui->sbNumVis->setValue(test->getNumVis());
 	if(test->checkVis())
-		checkBox->setCheckState(Qt::Checked);
+		ui->checkBox->setCheckState(Qt::Checked);
 	else
-		checkBox->setCheckState(Qt::Unchecked);
+		ui->checkBox->setCheckState(Qt::Unchecked);
 }
 
 void DlgAddBinTest::setMagicNumber(quint32 magicNumber)
@@ -158,17 +101,17 @@ void DlgAddBinTest::setMagicNumber(quint32 magicNumber)
 
 quint32 DlgAddBinTest::getNumVis() const
 {
-	return sbNumVis->value();
+	return ui->sbNumVis->value();
 }
 
 QString DlgAddBinTest::getTestName() const
 {
-	return leTestName->text();
+	return ui->leTestName->text();
 }
 
 bool DlgAddBinTest::getVis() const
 {
-	if(checkBox->checkState() == Qt::Checked)
+	if(ui->checkBox->checkState() == Qt::Checked)
 		return true;
 	else
 		return false;

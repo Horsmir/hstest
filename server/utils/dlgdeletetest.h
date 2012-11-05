@@ -21,12 +21,13 @@
 #define DLGDELETETEST_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QComboBox>
-#include <QtGui/QDialogButtonBox>
+#include "ui_dlgdeletetest.h"
 #include "testdb.h"
 
+namespace Ui
+{
+	class DlgDeleteTest;
+}
 
 class DlgDeleteTest : public QDialog
 {
@@ -45,13 +46,7 @@ private slots:
 	void setTest(const QString &cat);
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QLabel *label;
-	QComboBox *cbCat;
-	QLabel *label_2;
-	QComboBox *cbTest;
-	QSpacerItem *verticalSpacer;
-	QDialogButtonBox *buttonBox;
+	Ui::DlgDeleteTest *ui;
 	TestDB *categories;
 };
 

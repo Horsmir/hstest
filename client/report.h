@@ -21,7 +21,6 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
-#include <QtCore/QFile>
 #include "testnode.h"
 
 class RepTmpl : public QObject

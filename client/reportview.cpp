@@ -16,25 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include <QtCore/QFile>
+#include <QtCore/QTextCodec>
 #include "reportview.h"
 
 ReportView::ReportView(QWidget *parent, const QString &report_file):
-	QDialog(parent), reportFileName(report_file)
+	QDialog(parent), reportFileName(report_file), ui(new Ui::ReportView)
 {
-	verticalLayout = new QVBoxLayout(this);
-	textEdit = new QTextEdit(this);
-	
-	textEdit->setReadOnly(true);
-	verticalLayout->addWidget(textEdit);
-	
-	setWindowTitle(trUtf8("Просмотр результатов"));
+	ui->setupUi(this);
 	resize(parent->width(), parent->height());
 }
 
 ReportView::~ReportView()
 {
-
+	delete ui;
 }
 
 void ReportView::load()
@@ -49,7 +44,7 @@ void ReportView::load()
 		QString str = codec->toUnicode(data);
 		if (Qt::mightBeRichText(str))
 		{
-			textEdit->setHtml(str);
+			ui->textEdit->setHtml(str);
 		}
 	}
 }

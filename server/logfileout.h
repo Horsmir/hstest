@@ -22,8 +22,6 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
-#include <QtCore/QTextStream>
-#include <QtCore/QFile>
 
 
 class LogFileOut : public QObject

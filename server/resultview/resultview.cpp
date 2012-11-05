@@ -17,38 +17,20 @@
 */
 
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QFile>
+#include <QtGui/QFileDialog>
+#include <QtGui/QPrinter>
+#include <QtGui/QTextDocument>
 #include "resultview.h"
 
 ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent)
+	QDialog(parent), ui(new Ui::Dialog)
 {
+	ui->setupUi(this);
 	resize(650, 270);
-	verticalLayout = new QVBoxLayout(this);
-	horizontalLayout = new QHBoxLayout();
-	btnSelect = new QPushButton(trUtf8("&Выбрать..."), this);
-	btnShowAll = new QPushButton(trUtf8("&Показать все"), this);
-	btnPrint = new QPushButton(trUtf8("Экспорт в PDF"), this);
 	
-	horizontalLayout->addWidget(btnSelect);
-	horizontalLayout->addWidget(btnShowAll);
-	horizontalLayout->addWidget(btnPrint);
-	
-	horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	
-	horizontalLayout->addItem(horizontalSpacer);
-	
-	btnExit = new QPushButton(trUtf8("&Закрыть"), this);
-	
-	horizontalLayout->addWidget(btnExit);
-	
-	verticalLayout->addLayout(horizontalLayout);
-	
-	tableStudents = new QTableWidget(this);
-	tableStudents->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	tableStudents->setColumnCount(6);
-	tableStudents->setHorizontalHeaderLabels(initHeaderTable());
-	
-	verticalLayout->addWidget(tableStudents);
+	ui->tableStudents->setHorizontalHeaderLabels(initHeaderTable());
 	
 	QString appDirPath = QCoreApplication::applicationDirPath();
 	QDir appDir(appDirPath);
@@ -60,15 +42,6 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 #ifdef Q_OS_WIN32
 	iconsPath = appDir.absolutePath() + "/icons/";
 #endif
-	QIcon logo;
-#ifdef Q_OS_LINUX
-	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
-#endif
-#ifdef Q_OS_WIN32
-	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.png"));
-#endif
-	setWindowIcon(logo);
-	
 	magicNumber = 0xAAFF452C;
 	students = new StudentDb(this);
 #ifdef Q_OS_LINUX
@@ -81,13 +54,6 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 	readStudentDb();
 	
 	selectDialog = new DlgSelect(this);
-	
-	setWindowTitle(trUtf8("Результаты тестирования"));
-	
-	connect(btnExit, SIGNAL(clicked()), SLOT(close()));
-	connect(btnSelect, SIGNAL(clicked(bool)), SLOT(on_btnSelect_clicked()));
-	connect(btnShowAll, SIGNAL(clicked(bool)), SLOT(on_btnShowAll_clicked()));
-	connect(btnPrint, SIGNAL(clicked(bool)), SLOT(on_btnPrint_clicked()));
 }
 
 ResultView::~ResultView()
@@ -144,15 +110,15 @@ void ResultView::on_btnPrint_clicked()
 		html += "<th>" + headerTable.at(i) + "</th>";
 	}
 	html += "</tr>";
-	for(int i = 0; i < tableStudents->rowCount(); i++)
+	for(int i = 0; i < ui->tableStudents->rowCount(); i++)
 	{
 		html += "<tr>";
-		for(int j = 0; j < tableStudents->columnCount(); j++)
+		for(int j = 0; j < ui->tableStudents->columnCount(); j++)
 		{
 			if(j == 0 || j == 3)
-				html += "<td align=\"left\">" + tableStudents->item(i, j)->text() + "</td>";
+				html += "<td align=\"left\">" + ui->tableStudents->item(i, j)->text() + "</td>";
 			else
-				html += "<td align=\"center\">" + tableStudents->item(i, j)->text() + "</td>";
+				html += "<td align=\"center\">" + ui->tableStudents->item(i, j)->text() + "</td>";
 		}
 		html += "</tr>";
 	}
@@ -201,16 +167,16 @@ void ResultView::readStudentDb()
 
 void ResultView::showResult(QList< QStringList > result)
 {
-	tableStudents->clear();
-	tableStudents->setHorizontalHeaderLabels(initHeaderTable());
-	tableStudents->setRowCount(result.count());
+	ui->tableStudents->clear();
+	ui->tableStudents->setHorizontalHeaderLabels(initHeaderTable());
+	ui->tableStudents->setRowCount(result.count());
 	
 	for(int i = 0; i < result.count(); i++)
 	{
-		for(int j = 0; j < tableStudents->columnCount(); j++)
+		for(int j = 0; j < ui->tableStudents->columnCount(); j++)
 		{
 			QTableWidgetItem *item = new QTableWidgetItem(result.at(i).at(j));
-			tableStudents->setItem(i, j, item);
+			ui->tableStudents->setItem(i, j, item);
 		}
 	}
 }

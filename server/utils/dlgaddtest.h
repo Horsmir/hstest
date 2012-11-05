@@ -21,15 +21,12 @@
 #define DLGADDTEST_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
-#include <QtGui/QToolButton>
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QFileDialog>
+#include "ui_dlgaddtest.h"
 
+namespace Ui
+{
+	class DlgAddTest;
+}
 
 class DlgAddTest : public QDialog
 {
@@ -37,6 +34,7 @@ class DlgAddTest : public QDialog
 	
 public:
     explicit DlgAddTest ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
+	virtual ~DlgAddTest();
 	
 	void setCats(const QStringList &cats);
 	
@@ -51,24 +49,7 @@ private slots:
 	void on_toolBtnFileOpen_clicked();
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QHBoxLayout *horizontalLayout;
-	QLabel *label;
-	QLineEdit *leTestFileName;
-	QToolButton *toolBtnFileOpen;
-	QHBoxLayout *horizontalLayout_2;
-	QLabel *label_2;
-	QLineEdit *leNumVis;
-	QSpacerItem *verticalSpacer;
-	QHBoxLayout *horizontalLayout_3;
-	QSpacerItem *horizontalSpacer;
-	QPushButton *btnAdd;
-	QPushButton *btnCancel;
-	QSpacerItem *horizontalSpacer_2;
-	QCheckBox *chbVis;
-	QLabel *label_3;
-	QComboBox *cbCats;
-	QHBoxLayout *horizontalLayout_4;
+	Ui::DlgAddTest *ui;
 };
 
 #endif // DLGADDTEST_H

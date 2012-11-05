@@ -17,123 +17,87 @@
 */
 
 
+#include <QtCore/QProcess>
+#include <QtCore/QFile>
 #include "dlgedittest.h"
-#include <QFile>
 
 DlgEditTest::DlgEditTest(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent), tests(0)
+	QDialog(parent), tests(0), ui(new Ui::DlgEditTest)
 {
-	verticalLayout = new QVBoxLayout(this);
-	formLayout = new QFormLayout();
-	formLayout->setLabelAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-	formLayout->setFormAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-	
-	cbCat = new QComboBox(this);
-	label = new QLabel(trUtf8("Категория: "), this);
-	cbTest = new QComboBox(this);
-	label_2 = new QLabel(trUtf8("Тест: "), this);
-	labelNumTasks = new QLabel(this);
-	label_3 = new QLabel(trUtf8("Всего вопросов:"), this);
-	sbNumVis = new QSpinBox(this);
-	sbNumVis->setMaximum(1000);
-	label_4 = new QLabel(trUtf8("Видимых вопросов:"), this);
-	chbVis = new QCheckBox(trUtf8("Видимый для клиента"), this);
-	btnEditTest = new QPushButton(trUtf8("Редактировать"), this);
-	buttonBox = new QDialogButtonBox(this);
-	buttonBox->setOrientation(Qt::Horizontal);
-	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-	buttonBox->setCenterButtons(true);
-	
-	formLayout->setWidget(1, QFormLayout::FieldRole, cbCat);
-	formLayout->setWidget(1, QFormLayout::LabelRole, label);
-	formLayout->setWidget(2, QFormLayout::FieldRole, cbTest);
-	formLayout->setWidget(2, QFormLayout::LabelRole, label_2);
-	formLayout->setWidget(3, QFormLayout::FieldRole, labelNumTasks);
-	formLayout->setWidget(3, QFormLayout::LabelRole, label_3);
-	formLayout->setWidget(4, QFormLayout::FieldRole, sbNumVis);
-	formLayout->setWidget(4, QFormLayout::LabelRole, label_4);
-	verticalLayout->addLayout(formLayout);
-	verticalLayout->addWidget(chbVis);
-	verticalLayout->addWidget(btnEditTest);
-	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	verticalLayout->addItem(verticalSpacer);
-	verticalLayout->addWidget(buttonBox);
-	
-	setWindowTitle(trUtf8("Изменить тест"));
-	
-	connect(buttonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
-	connect(cbCat, SIGNAL(currentIndexChanged(QString)), SLOT(setTest(QString)));
-	connect(cbTest, SIGNAL(currentIndexChanged(QString)), SLOT(setParamTest(QString)));
-	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
+	ui->setupUi(this);
 }
 
 DlgEditTest::~DlgEditTest()
 {
-
+	delete ui;
 }
 
 QString DlgEditTest::getCategory() const
 {
-	return cbCat->currentText();
+	return ui->cbCat->currentText();
 }
 
 quint32 DlgEditTest::getNumVis() const
 {
-	return sbNumVis->value();
+	return ui->sbNumVis->value();
 }
 
 QString DlgEditTest::getTest() const
 {
-	return cbTest->currentText();
+	return ui->cbTest->currentText();
 }
 
 bool DlgEditTest::getVis() const
 {
-	return chbVis->isChecked();
+	return ui->chbVis->isChecked();
 }
 
 void DlgEditTest::setTestManager(TestManager *tests)
 {
 	this->tests = tests;
-	cbCat->clear();
-	cbCat->addItems(tests->getCategoryList());
-	cbCat->setCurrentIndex(0);
+	ui->cbCat->clear();
+	QStringList catsList = tests->getCategoryList();
+	catsList.sort();
+	ui->cbCat->addItems(catsList);
+	ui->cbCat->setCurrentIndex(0);
 }
 
-void DlgEditTest::setTest(const QString &cat)
+void DlgEditTest::on_cbCat_currentIndexChanged(const QString &cat)
 {
-	cbTest->clear();
-	cbTest->addItems(tests->getTestListByCategory(cat, true));
-	cbTest->setCurrentIndex(0);
-	setParamTest(cbTest->currentText());
+	ui->cbTest->clear();
+	QStringList testsList = tests->getTestListByCategory(cat, true);
+	testsList.sort();
+	ui->cbTest->addItems(testsList);
+	ui->cbTest->setCurrentIndex(0);
+	on_cbTest_currentIndexChanged(ui->cbTest->currentText());
 }
 
-void DlgEditTest::setParamTest(const QString &test)
+void DlgEditTest::on_cbTest_currentIndexChanged(const QString &test)
 {
-	QString cat = cbCat->currentText();
+	QString cat = ui->cbCat->currentText();
 	Test currTest = tests->getTest(cat, test);
-	labelNumTasks->setNum(currTest.getCount());
-	sbNumVis->setValue(currTest.getNumVis());
-	sbNumVis->setMaximum(currTest.getCount());
-	chbVis->setChecked(currTest.getVis());
+	ui->labelNumTasks->setNum(currTest.getCount());
+	ui->sbNumVis->clear();
+	ui->sbNumVis->setMaximum(currTest.getCount());
+	ui->sbNumVis->setValue(currTest.getNumVis());
+	ui->chbVis->setChecked(currTest.getVis());
 }
 
 void DlgEditTest::on_btnEditTest_clicked()
 {
 	QProcess *proc = new QProcess(this);
 	QStringList args;
-	args << (tests->getTestDir() + "/" + tests->getTestFileName(cbCat->currentText(), cbTest->currentText()));
+	args << (tests->getTestDir() + "/" + tests->getTestFileName(ui->cbCat->currentText(), ui->cbTest->currentText()));
 	
 	proc->start("hstesteditor", args);
 }
 
 void DlgEditTest::clear()
 {
-	cbCat->clear();
-	cbTest->clear();
-	sbNumVis->clear();
-	labelNumTasks->clear();
+	ui->cbCat->clear();
+	ui->cbTest->clear();
+	ui->sbNumVis->clear();
+	ui->labelNumTasks->clear();
 }
 
 #include "dlgedittest.moc"

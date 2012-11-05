@@ -1,3 +1,6 @@
+#include <QtCore/QObject>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
 #include "hstester-server.h"
 
 HstesterServer::HstesterServer(QObject *parent):

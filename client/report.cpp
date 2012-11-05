@@ -17,6 +17,7 @@
 */
 
 
+#include <QtCore/QFile>
 #include "report.h"
 
 RepTmpl::RepTmpl(QObject *parent):

@@ -1,16 +1,8 @@
 #ifndef hstestcfg_H
 #define hstestcfg_H
 
-#include <QtCore/QCoreApplication>
+
 #include <QtGui/QDialog>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QPushButton>
-#include <QtGui/QHeaderView>
-#include <QtGui/QPlainTextEdit>
-#include <QtGui/QCloseEvent>
-#include <QtGui/QInputDialog>
-#include <QtGui/QMessageBox>
 #include "testmanager.h"
 #include "dlgaddtest.h"
 #include "dlgdeletetest.h"
@@ -18,12 +10,18 @@
 #include "dlgeditgroups.h"
 #include "dlgeditmarks.h"
 #include "dlgaddbintest.h"
+#include "ui_main_dialog.h"
+
+namespace Ui
+{
+	class MainDialog;
+}
 
 class hstestcfg : public QDialog
 {
 	Q_OBJECT
 public:
-	hstestcfg();
+	explicit hstestcfg(QWidget *parent = 0, Qt::WindowFlags f = 0);
 	virtual ~hstestcfg();
 
 	void createTree();
@@ -41,19 +39,7 @@ private slots:
 	void on_btnClose_clicked();
 
 private:
-	QHBoxLayout *horizontalLayout;
-	QPlainTextEdit *teTests;
-	QVBoxLayout *verticalLayout;
-	QPushButton *btnAddCat;
-	QPushButton *btnAddTest;
-	QPushButton *btnAddBinTest;
-	QPushButton *btnDelCat;
-	QPushButton *btnDelTest;
-	QPushButton *btnEditTest;
-	QPushButton *btnEditGroups;
-	QPushButton *btnEditMarks;
-	QPushButton *btnClose;
-	QSpacerItem *verticalSpacer;
+	Ui::MainDialog *ui;
 
 	TestManager *testManager;
 	DlgAddTest *addTestDialog;

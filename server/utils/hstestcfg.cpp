@@ -1,39 +1,14 @@
+#include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QInputDialog>
+#include <QtGui/QMessageBox>
 #include "hstestcfg.h"
 
-hstestcfg::hstestcfg() :
-	QDialog()
+hstestcfg::hstestcfg(QWidget *parent, Qt::WindowFlags f) :
+	QDialog(parent, f), ui(new Ui::MainDialog)
 {
-	horizontalLayout = new QHBoxLayout(this);
-	teTests = new QPlainTextEdit(this);
-	teTests->setReadOnly(true);
-	horizontalLayout->addWidget(teTests);
-
-	verticalLayout = new QVBoxLayout();
-	btnAddCat = new QPushButton(trUtf8("Добавить категорию"), this);
-	btnAddTest = new QPushButton(trUtf8("Импортировать тест"), this);
-	btnAddBinTest = new QPushButton(trUtf8("Добавить тест"), this);
-	btnAddBinTest->setToolTip(trUtf8("Добавить тест в бинарном формате"));
-	btnDelCat = new QPushButton(trUtf8("Удалить категорию"), this);
-	btnDelTest = new QPushButton(trUtf8("Удалить тест"), this);
-	btnEditTest = new QPushButton(trUtf8("Изменить тест"), this);
-	btnEditGroups = new QPushButton(trUtf8("Группы"), this);
-	btnEditMarks = new QPushButton(trUtf8("Шкала баллов"), this);
-	btnClose = new QPushButton(trUtf8("Закрыть"), this);
-
-	verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-	verticalLayout->addWidget(btnAddCat);
-	verticalLayout->addWidget(btnAddTest);
-	verticalLayout->addWidget(btnAddBinTest);
-	verticalLayout->addWidget(btnDelCat);
-	verticalLayout->addWidget(btnDelTest);
-	verticalLayout->addWidget(btnEditTest);
-	verticalLayout->addWidget(btnEditGroups);
-	verticalLayout->addWidget(btnEditMarks);
-	verticalLayout->addWidget(btnClose);
-	verticalLayout->addItem(verticalSpacer);
-
-	horizontalLayout->addLayout(verticalLayout);
+	ui->setupUi(this);
 	
 	QString appDirPath = QCoreApplication::applicationDirPath();
 	QDir appDir(appDirPath);
@@ -42,17 +17,7 @@ hstestcfg::hstestcfg() :
 	appDir.cdUp();
 	iconsPath = appDir.absolutePath() + "/share/hstest/icons/";
 #endif
-#ifdef Q_OS_WIN32
-	iconsPath = appDir.absolutePath() + "/icons/";
-#endif
-	QIcon logo;
-#ifdef Q_OS_LINUX
-	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.svg"));
-#endif
-#ifdef Q_OS_WIN32
-	logo.addPixmap(QPixmap(iconsPath + "hstestcfg.png"));
-#endif
-	setWindowIcon(logo);
+
 	setWindowTitle(trUtf8("Параметры Hs Test Server 0.4"));
 
 	testManager = new TestManager(this);
@@ -77,20 +42,12 @@ hstestcfg::hstestcfg() :
 	editGroupsDialog = new DlgEditGroups(this);
 	editMarksDialog = new DlgEditMarks(this);
 	addBintestDialog = new DlgAddBinTest(this);
-
-	connect(btnAddCat, SIGNAL(clicked(bool)), SLOT(on_btnAddCat_clicked()));
-	connect(btnAddTest, SIGNAL(clicked(bool)), SLOT(on_btnAddTest_clicked()));
-	connect(btnAddBinTest, SIGNAL(clicked(bool)), SLOT(on_btnAddBinTest_clicked()));
-	connect(btnClose, SIGNAL(clicked(bool)), SLOT(on_btnClose_clicked()));
-	connect(btnDelCat, SIGNAL(clicked(bool)), SLOT(on_btnDelCat_clicked()));
-	connect(btnEditTest, SIGNAL(clicked(bool)), SLOT(on_btnEditTest_clicked()));
-	connect(btnEditGroups, SIGNAL(clicked(bool)), SLOT(on_btnEditGroups_clicked()));
-	connect(btnEditMarks, SIGNAL(clicked(bool)), SLOT(on_btnEditMarks_clicked()));
-	connect(btnDelTest, SIGNAL(clicked(bool)), SLOT(on_btnDelTest_clicked()));
 }
 
 hstestcfg::~hstestcfg()
-{}
+{
+	delete ui;
+}
 
 void hstestcfg::closeEvent(QCloseEvent *event)
 {
@@ -100,24 +57,26 @@ void hstestcfg::closeEvent(QCloseEvent *event)
 
 void hstestcfg::createTree()
 {
-	teTests->clear();
+	ui->teTests->clear();
 	QStringList cats = testManager->getCategoryList();
 	QStringList testList;
 	QString curCat = "";
 	if(cats.isEmpty())
 		return;
+	cats.sort();
 	for(int i = 0; i < cats.count(); i++)
 	{
 		curCat = cats.at(i);
-		teTests->appendPlainText(QString().setNum(i + 1) + ". " + curCat);
+		ui->teTests->appendPlainText(QString().setNum(i + 1) + ". " + curCat);
 
 		testList = testManager->getTestListByCategory(curCat, true);
 		int n = testList.count();
 		if(testList.isEmpty())
 			continue;
+		testList.sort();
 		for(int j = 0; j < n; j++)
 		{
-			teTests->appendPlainText("    - " + testList.at(j));
+			ui->teTests->appendPlainText("    - " + testList.at(j));
 		}
 	}
 }

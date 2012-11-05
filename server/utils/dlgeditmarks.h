@@ -21,12 +21,12 @@
 #define DLGEDITMARKS_H
 
 #include <QtGui/QDialog>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QSpacerItem>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QDialogButtonBox>
+#include "ui_dlgeditmarks.h"
 
+namespace Ui
+{
+	class DlgEditMarks;
+}
 
 class DlgEditMarks : public QDialog
 {
@@ -46,31 +46,7 @@ private slots:
 	void on_dsbPer4_changed(const QString &text);
 	
 private:
-	QVBoxLayout *verticalLayout;
-	QLabel *label_6;
-	QHBoxLayout *horizontalLayout;
-	QLabel *label;
-	QSpacerItem *horizontalSpacer;
-	QLabel *label_4;
-	QDoubleSpinBox *dsbPer2;
-	QHBoxLayout *horizontalLayout_2;
-	QLabel *label_3;
-	QLabel *labelPer2;
-	QSpacerItem *horizontalSpacer_2;
-	QLabel *label_2;
-	QDoubleSpinBox *dsbPer3;
-	QHBoxLayout *horizontalLayout_3;
-	QLabel *label_5;
-	QLabel *labelPer3;
-	QSpacerItem *horizontalSpacer_3;
-	QLabel *label_8;
-	QDoubleSpinBox *dsbPer4;
-	QHBoxLayout *horizontalLayout_4;
-	QLabel *label_9;
-	QLabel *labelPer4;
-	QLabel *label_11;
-	QSpacerItem *horizontalSpacer_4;
-	QDialogButtonBox *buttonBox;
+	Ui::DlgEditMarks *ui;
 };
 
 #endif // DLGEDITMARKS_H

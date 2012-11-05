@@ -17,49 +17,18 @@
 */
 
 
+#include <QtGui/QFontDialog>
 #include "dlgeditfonts.h"
 
 DlgEditFonts::DlgEditFonts(QWidget *parent, Qt::WindowFlags f):
-	QDialog(parent)
+	QDialog(parent), ui(new Ui::EditFontsDialog)
 {
-	verticalLayout = new QVBoxLayout(this);
-	formLayout = new QFormLayout();
-	formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-	formLayout->setLabelAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-	
-	label = new QLabel(trUtf8("Задание:"), this);
-	btnTask = new QPushButton(this);
-	label_2 = new QLabel(trUtf8("Вопрос:"), this);
-	btnQuest = new QPushButton(this);
-	label_3 = new QLabel(trUtf8("Ответ:"), this);
-	btnAnsw = new QPushButton(this);
-	
-	formLayout->setWidget(0, QFormLayout::LabelRole, label);
-	formLayout->setWidget(0, QFormLayout::FieldRole, btnTask);
-	formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
-	formLayout->setWidget(1, QFormLayout::FieldRole, btnQuest);
-	formLayout->setWidget(2, QFormLayout::LabelRole, label_3);
-	formLayout->setWidget(2, QFormLayout::FieldRole, btnAnsw);
-	
-	verticalLayout->addLayout(formLayout);
-	
-	buttonBox = new QDialogButtonBox(this);
-	buttonBox->setOrientation(Qt::Horizontal);
-	buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-	buttonBox->setCenterButtons(true);
-	
-	verticalLayout->addWidget(buttonBox);
-	
-	connect(buttonBox, SIGNAL(accepted()), SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), SLOT(reject()));
-	connect(btnTask, SIGNAL(clicked(bool)), SLOT(on_btnTask_clicked()));
-	connect(btnQuest, SIGNAL(clicked(bool)), SLOT(on_btnQuest_clicked()));
-	connect(btnAnsw, SIGNAL(clicked(bool)), SLOT(on_btnAnsw_clicked()));	
+	ui->setupUi(this);
 }
 
 DlgEditFonts::~DlgEditFonts()
 {
-
+	delete ui;
 }
 
 void DlgEditFonts::setFonts(QFont fTask, QFont fQuest, QFont fAnsw)
@@ -68,14 +37,14 @@ void DlgEditFonts::setFonts(QFont fTask, QFont fQuest, QFont fAnsw)
 	this->fQuest = fQuest;
 	this->fAnsw = fAnsw;
 	
-	btnTask->setFont(this->fTask);
-	btnTask->setText(this->fTask.family());
+	ui->btnTask->setFont(this->fTask);
+	ui->btnTask->setText(this->fTask.family());
 	
-	btnQuest->setFont(this->fQuest);
-	btnQuest->setText(this->fQuest.family());
+	ui->btnQuest->setFont(this->fQuest);
+	ui->btnQuest->setText(this->fQuest.family());
 	
-	btnAnsw->setFont(this->fAnsw);
-	btnAnsw->setText(this->fAnsw.family());
+	ui->btnAnsw->setFont(this->fAnsw);
+	ui->btnAnsw->setText(this->fAnsw.family());
 }
 
 void DlgEditFonts::on_btnTask_clicked()
@@ -85,8 +54,8 @@ void DlgEditFonts::on_btnTask_clicked()
 	if(ok)
 	{
 		fTask = newFont;
-		btnTask->setFont(fTask);
-		btnTask->setText(fTask.family());
+		ui->btnTask->setFont(fTask);
+		ui->btnTask->setText(fTask.family());
 	}
 }
 
@@ -97,8 +66,8 @@ void DlgEditFonts::on_btnQuest_clicked()
 	if(ok)
 	{
 		fQuest = newFont;
-		btnQuest->setFont(fQuest);
-		btnQuest->setText(fQuest.family());
+		ui->btnQuest->setFont(fQuest);
+		ui->btnQuest->setText(fQuest.family());
 	}
 }
 
@@ -109,8 +78,8 @@ void DlgEditFonts::on_btnAnsw_clicked()
 	if(ok)
 	{
 		fAnsw = newFont;
-		btnAnsw->setFont(fAnsw);
-		btnAnsw->setText(fAnsw.family());
+		ui->btnAnsw->setFont(fAnsw);
+		ui->btnAnsw->setText(fAnsw.family());
 	}
 }
 

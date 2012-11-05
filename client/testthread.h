@@ -21,8 +21,6 @@
 #define TESTTHREAD_H
 
 #include <QtCore/QThread>
-#include <QtCore/QWaitCondition>
-#include <QtNetwork/QTcpSocket>
 #include "testdb.h"
 #include "test.h"
 

@@ -1,3 +1,12 @@
+#include <QtCore/QTime>
+#include <QtCore/QTimer>
+#include <QtCore/QSettings>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QMessageBox>
+#include <QtCore/QDir>
+#include <QtGui/QDesktopServices>
+#include <QtCore/QUrl>
+#include <QtNetwork/QTcpSocket>
 #include "hstester-client.h"
 
 
@@ -447,7 +456,7 @@ void MainWindow::testDbLoaded()
 {
 	QIcon folderIcon;
 	//folderIcon.addPixmap(style->standardPixmap(QStyle::SP_DirClosedIcon));
-	folderIcon.addPixmap(QPixmap(ui->iconsPath + "folder.png"));
+	folderIcon.addPixmap(QPixmap(":/icons/folder.png"));
 	ui->listCatTestView->clear();
 	QStringList catList = testManager->getCategoryList();
 	for(int i = 0; i < catList.count(); i++)
@@ -747,7 +756,7 @@ void MainWindow::on_listCatTestView_clicked(const QModelIndex &index)
 		ui->listCatTestView->addItems(testManager->getTestListByCategory(curCatName));
 		
 		QIcon testIcon;
-		testIcon.addPixmap(QPixmap(ui->iconsPath + "test.png"));
+		testIcon.addPixmap(QPixmap(":/icons/test.png"));
 		for(int i = 0; i < ui->listCatTestView->count(); i++)
 			ui->listCatTestView->item(i)->setIcon(testIcon);
 		
@@ -805,7 +814,7 @@ void MainWindow::on_actionForvard_activated()
 	ui->listCatTestView->addItems(testManager->getTestListByCategory(curCatName));
 	
 	QIcon testIcon;
-	testIcon.addPixmap(QPixmap(ui->iconsPath + "test.png"));
+	testIcon.addPixmap(QPixmap(":/icons/test.png"));
 	for(int i = 0; i < ui->listCatTestView->count(); i++)
 		ui->listCatTestView->item(i)->setIcon(testIcon);
 	

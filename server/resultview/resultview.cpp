@@ -45,6 +45,7 @@ ResultView::ResultView(QWidget *parent, Qt::WindowFlags f):
 #endif
 #ifdef Q_OS_WIN32
 	studentDbFileName = appDir.absolutePath() + "/data/students.tst";
+	setWindowIcon(QIcon(":/icons/hstestcfg.png"));
 #endif
 	readStudentDb();
 	

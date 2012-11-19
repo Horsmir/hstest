@@ -53,3 +53,13 @@ set(share_SRC_STUD ${share_SRC_DIR}/student.cpp ${share_SRC_DIR}/studentdb.cpp)
 add_subdirectory(server)
 add_subdirectory(client)
 #add_subdirectory(share-src)
+
+########## Add make dist target ################
+set(CPACK_PACKAGE_VERSION "${HSTEST_VERSION}")
+set(CPACK_SOURCE_GENERATOR "TBZ2")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "hstest-${HSTEST_VERSION}")
+set(CPACK_IGNORE_FILES "/CVS/;/\\\\.git\;/\\\\.svn/;\\\\.swp$;\\\\.#;/#;\\\\.tar.gz$;/CMakeFiles/;CMakeCache.txt;build/;dist/;exp/;.*~;*.kdev4;installer-win32/;exp-win32/;server/data/;build-win32/")
+set(CPACK_SOURCE_IGNORE_FILES ${CPACK_IGNORE_FILES})
+include(CPack)
+# simulate autotools' "make dist"
+add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)

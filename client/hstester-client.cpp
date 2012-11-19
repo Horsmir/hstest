@@ -70,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent):
 #endif
 #ifdef Q_OS_WIN32
 	imagesPath = imagesDir.absolutePath() + "/images/";
+	setWindowIcon(QIcon(":/icons/hstest.png"));
 #endif
 	
 	settings = new QSettings(QSettings::NativeFormat, QSettings::UserScope, "HsTest", "hstest-client", this);

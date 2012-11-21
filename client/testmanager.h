@@ -25,6 +25,7 @@
 #include "testdb.h"
 #include "test.h"
 #include "testthread.h"
+#include "session.h"
 
 
 class TestManager : public QObject
@@ -60,6 +61,16 @@ public:
 	QStringList getGroups() const;
 	
 	void getPercentParam(float &per2, float per3, float per4);
+	
+	bool isCloseSession() const;
+	void setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime);
+	void writeSession();
+	void closeSession();
+	void getSessionParam();
+	void setIsSession(bool ses);
+	bool getIsSession() const;
+	void setModeType(quint16 modeType);
+	quint16 getModeType();
 
 signals:
 	void testDbLoaded();
@@ -85,6 +96,8 @@ private:
 	QStringList groups;
 	QString studentName;
 	QString groupName;
+	Session *session;
+	bool isSession;
 };
 
 #endif // TESTMANAGER_H

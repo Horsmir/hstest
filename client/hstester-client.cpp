@@ -450,7 +450,28 @@ void MainWindow::on_actionAdvance_triggered()
 void MainWindow::on_actionLoadTests_triggered()
 {
 	listViewTests = false;
-	testManager->loadGroups();
+	testManager->setSessionParam(&numCurrentNode, &numRealAnswers, tTime);
+	if(testManager->isCloseSession())
+	{
+		testManager->loadGroups();
+	}
+	else
+	{
+		if(QMessageBox::question(this, appName, trUtf8("Последняя сессия не закрыта. Востановить её?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+		{
+			testManager->setIsSession(true);
+			testManager->getSessionParam();
+			if(testManager->getModeType() == 1)
+				modeType = Exam;
+			else
+				modeType = Training;
+		}
+		else
+		{
+			testManager->setIsSession(false);
+			testManager->loadGroups();
+		}
+	}
 }
 
 void MainWindow::testDbLoaded()
@@ -615,6 +636,8 @@ void MainWindow::showResult()
 		resultReport->setOcenka(ocenka);
 		resultReport->writeReportFile();
 	}
+	
+	testManager->closeSession();
 }
 
 void MainWindow::showTestNode()
@@ -723,7 +746,11 @@ void MainWindow::testLoaded()
 {
 	numTasks->setNum(int(testManager->getNumNodes()));
 	ui->progressBarCurTest->setMaximum(testManager->getNumNodes());
-	ui->progressBarCurTest->setValue(0);
+	if(!testManager->getIsSession())
+		ui->progressBarCurTest->setValue(0);
+	else
+		ui->progressBarCurTest->setValue(numCurrentNode);
+	
 	setWindowTitle(appName + " - " + testManager->getTestName());
 	
 	numTasksL->setVisible(true);
@@ -740,8 +767,11 @@ void MainWindow::testLoaded()
 	ui->actionRepit->setEnabled(true);
 	ui->actionReturn->setEnabled(true);
 	
-	numCurrentNode = 0;
-	tTime->setHMS(0, 0, 0);
+	if(!testManager->getIsSession())
+	{
+		numCurrentNode = 0;
+		tTime->setHMS(0, 0, 0);
+	}
 	mTimer->start(60000);
 	showTestNode();
 }
@@ -796,6 +826,7 @@ void MainWindow::on_btnNext_clicked()
 	}
 	if(numCurrentNode == (testManager->getNumNodes() - 1))
 		ui->btnNext->setText(trUtf8("Результат"));
+	testManager->writeSession();
 	showTestNode();
 }
 
@@ -949,6 +980,7 @@ void MainWindow::groupsLoaded()
 			config->setCreateReportVisible(true);
 			ui->actionShowResult->setVisible(true);
 		}
+		testManager->setModeType(id);
 		testManager->loadTestDb();
 	}
 }

@@ -20,9 +20,11 @@
 #include "testmanager.h"
 
 TestManager::TestManager(QObject *parent) :
-	QObject(parent), tests(0), currentTest(0), serverName("localhost"), serverPort(0), currentNodeId(0)
+	QObject(parent), tests(0), currentTest(0), serverName("localhost"), serverPort(0), currentNodeId(0), isSession(false)
 {
 	magicNumber = 0xAAFF452C;
+	session = new Session(this);
+	session->setMagicNumber(magicNumber);
 
 	connect(&thread, SIGNAL(newTestDb(TestDB)), SLOT(requestNewTestDb(TestDB)));
 	connect(&thread, SIGNAL(newTest(Test)), SLOT(requestNewTest(Test)));
@@ -34,6 +36,7 @@ TestManager::TestManager(const TestManager &other) :
 	QObject(other.parent())
 {
 	tests = other.tests;
+	session = other.session;
 }
 
 TestManager::~TestManager()
@@ -46,6 +49,7 @@ TestManager &TestManager::operator= (const TestManager &other)
 {
 	setParent(other.parent());
 	tests = other.tests;
+	session = other.session;
 	return *this;
 }
 
@@ -120,6 +124,8 @@ void TestManager::requestNewTest(Test test)
 	currentTest = new Test(test);
 	numNodes = currentTest->getCount();
 	currentTest->shuffle();
+	session->setTest(currentTest);
+	session->setCloseSession(false);
 	emit testLoaded();
 }
 
@@ -185,6 +191,70 @@ void TestManager::requestNewGroups(QStringList groups)
 void TestManager::sentStudentData(qreal percent, quint32 ocenka)
 {
 	thread.sendStudentData(serverName, serverPort, studentName, groupName, currentTest->getName(), percent, ocenka);
+}
+
+bool TestManager::isCloseSession() const
+{
+	return session->isCloseSession();
+}
+
+void TestManager::closeSession()
+{
+	session->setCloseSession(true);
+}
+
+void TestManager::setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime)
+{
+	session->setCurrentNumTask(currenNumTask);
+	session->setCurrentTime(currentTime);
+	session->setNumRealAnswers(numRealAnswers);
+}
+
+void TestManager::writeSession()
+{
+	session->writeValues();
+}
+
+void TestManager::getSessionParam()
+{
+	session->getValues();
+	if(currentTest != 0)
+		delete currentTest;
+	currentTest = new Test(session->getTest());
+	numNodes = currentTest->getCount();
+	currentNodeId = session->getCurrentNumTask();
+	emit testLoaded();
+}
+
+void TestManager::setIsSession(bool ses)
+{
+	isSession = ses;
+}
+
+bool TestManager::getIsSession() const
+{
+	return isSession;
+}
+
+quint16 TestManager::getModeType()
+{
+	quint16 ret = session->getModeType();
+	if(ret == 1)
+	{
+		studentName = session->getStudentName();
+		groupName = session->getGroupName();
+	}
+	return ret;
+}
+
+void TestManager::setModeType(quint16 modeType)
+{
+	session->setModeType(modeType);
+	if(modeType == 1)
+	{
+		session->setStudentName(studentName);
+		session->setGroupName(groupName);
+	}
 }
 
 #include "testmanager.moc"

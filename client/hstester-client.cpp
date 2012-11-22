@@ -618,7 +618,10 @@ void MainWindow::showResult()
 	QStringList timeList = timerView->text().split(':');
 	ui->labelResultTime->setText(QString(trUtf8("Время решения теста: %1ч. %2м.")).arg(timeList.at(0)).arg(timeList.at(1)));
 	
-	ui->actionRepit->setEnabled(true);
+	if(testManager->getIsSession())
+		ui->actionRepit->setEnabled(false);
+	else
+		ui->actionRepit->setEnabled(true);
 	ui->actionReturn->setEnabled(true);
 	ui->actionShowResult->setEnabled(true);
 	

@@ -201,6 +201,7 @@ bool TestManager::isCloseSession() const
 void TestManager::closeSession()
 {
 	session->setCloseSession(true);
+	isSession = false;
 }
 
 void TestManager::setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime, QString *currentCatName)

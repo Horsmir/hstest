@@ -450,7 +450,7 @@ void MainWindow::on_actionAdvance_triggered()
 void MainWindow::on_actionLoadTests_triggered()
 {
 	listViewTests = false;
-	testManager->setSessionParam(&numCurrentNode, &numRealAnswers, tTime);
+	testManager->setSessionParam(&numCurrentNode, &numRealAnswers, tTime, &curCatName);
 	if(testManager->isCloseSession())
 	{
 		testManager->loadGroups();
@@ -747,9 +747,15 @@ void MainWindow::testLoaded()
 	numTasks->setNum(int(testManager->getNumNodes()));
 	ui->progressBarCurTest->setMaximum(testManager->getNumNodes());
 	if(!testManager->getIsSession())
+	{
 		ui->progressBarCurTest->setValue(0);
+		ui->actionRepit->setEnabled(true);
+	}
 	else
+	{
 		ui->progressBarCurTest->setValue(numCurrentNode);
+		ui->actionRepit->setEnabled(false);
+	}
 	
 	setWindowTitle(appName + " - " + testManager->getTestName());
 	
@@ -764,7 +770,6 @@ void MainWindow::testLoaded()
 	ui->actionForvard->setDisabled(true);
 	ui->actionLoadTests->setDisabled(true);
 	
-	ui->actionRepit->setEnabled(true);
 	ui->actionReturn->setEnabled(true);
 	
 	if(!testManager->getIsSession())
@@ -863,6 +868,7 @@ void MainWindow::on_actionShowResult_triggered()
 void MainWindow::on_actionRepit_triggered()
 {
 	numRealAnswers = 0;
+	numCurrentNode = 0;
 	ocenka = 2;
 	percent = 0.0;
 	numConfRegAnsw = 1;
@@ -889,6 +895,7 @@ void MainWindow::on_actionRepit_triggered()
 void MainWindow::on_actionReturn_triggered()
 {
 	numRealAnswers = 0;
+	numCurrentNode = 0;
 	ocenka = 2;
 	percent = 0.0;
 	numConfRegAnsw = 1;

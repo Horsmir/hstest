@@ -39,6 +39,7 @@ public:
 	void setNumRealAnswers(int *numRealAnswers);
 	void setCurrentTime(QTime *currentTime);
 	void setModeType(quint16 modeType);
+	void setCurrentCatName(QString *currentCatName);
 	void setStudentName(const QString &studentName);
 	void setGroupName(const QString &groupName);
 	void setTest(Test *test);
@@ -65,6 +66,7 @@ private:
 	QSettings *settingsSession; // хранение настроек сессии
 	quint32 magicNumber; // идентификатор файла с тестом
 	quint16 modeType; // режим тестирования
+	QString *currentCatName; // текущее имя категории
 	QString studentName;
 	QString groupName;
 };

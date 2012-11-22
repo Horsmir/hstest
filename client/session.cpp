@@ -26,7 +26,7 @@
 #include "test.h"
 #include "session.h"
 
-Session::Session(QObject *parent): QObject(parent), closeSession(false), currenNumTask(0), currentTime(0), numRealAnswers(0), magicNumber(0), modeType(0)
+Session::Session(QObject *parent): QObject(parent), closeSession(false), currenNumTask(0), currentTime(0), numRealAnswers(0), magicNumber(0), modeType(0), currentCatName(0)
 {
 	sessionTestFileName = "hstestsession.tst";
 	currentDate = QDate::currentDate();
@@ -54,6 +54,7 @@ void Session::getValues()
 	*currentTime = settingsSession->value("Session/CurrentTime", QTime()).toTime();
 	*numRealAnswers = settingsSession->value("Session/NumRealAnswer", 0).toInt();
 	modeType = settingsSession->value("Session/ModeType", 0).toUInt();
+	*currentCatName = settingsSession->value("Session/CurrentCatName", QString()).toString();
 	studentName = settingsSession->value("Session/StudentName", QString()).toString();
 	groupName = settingsSession->value("Session/GroupName", QString()).toString();
 }
@@ -90,6 +91,7 @@ void Session::writeValues()
 	settingsSession->setValue("Session/CurrentTime", *currentTime);
 	settingsSession->setValue("Session/NumRealAnswer", *numRealAnswers);
 	settingsSession->setValue("Session/ModeType", modeType);
+	settingsSession->setValue("Session/CurrentCatName", *currentCatName);
 	settingsSession->setValue("Session/StudentName", studentName);
 	settingsSession->setValue("Session/GroupName", groupName);
 }
@@ -181,6 +183,11 @@ void Session::setModeType(quint16 modeType)
 void Session::setStudentName(const QString &studentName)
 {
 	this->studentName = studentName;
+}
+
+void Session::setCurrentCatName(QString *currentCatName)
+{
+	this->currentCatName = currentCatName;
 }
 
 #include "session.moc"

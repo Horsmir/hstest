@@ -63,7 +63,7 @@ public:
 	void getPercentParam(float &per2, float per3, float per4);
 	
 	bool isCloseSession() const;
-	void setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime);
+	void setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime, QString *currentCatName);
 	void writeSession();
 	void closeSession();
 	void getSessionParam();

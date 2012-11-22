@@ -203,11 +203,12 @@ void TestManager::closeSession()
 	session->setCloseSession(true);
 }
 
-void TestManager::setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime)
+void TestManager::setSessionParam(int *currenNumTask, int *numRealAnswers, QTime *currentTime, QString *currentCatName)
 {
 	session->setCurrentNumTask(currenNumTask);
 	session->setCurrentTime(currentTime);
 	session->setNumRealAnswers(numRealAnswers);
+	session->setCurrentCatName(currentCatName);
 }
 
 void TestManager::writeSession()

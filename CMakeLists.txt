@@ -28,7 +28,7 @@ set(APP_NAME "Hs Test")
 
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 5)
-set(PATCH_VERSION 0)
+set(PATCH_VERSION 1)
 set(HSTEST_VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
 add_definitions(-DHSTEST_VERSION=\"${HSTEST_VERSION}\")
 message(STATUS "")
@@ -53,3 +53,13 @@ set(share_SRC_STUD ${share_SRC_DIR}/student.cpp ${share_SRC_DIR}/studentdb.cpp)
 add_subdirectory(server)
 add_subdirectory(client)
 #add_subdirectory(share-src)
+
+########## Add make dist target ################
+set(CPACK_PACKAGE_VERSION "${HSTEST_VERSION}")
+set(CPACK_SOURCE_GENERATOR "TBZ2")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "hstest-${HSTEST_VERSION}")
+set(CPACK_IGNORE_FILES "/CVS/;/\\\\.git\;/\\\\.svn/;\\\\.swp$;\\\\.#;/#;\\\\.tar.gz$;/CMakeFiles/;CMakeCache.txt;build/;dist/;exp/;config/;data/;.*~;.kdev4;exp-win32/;installer-win32/;build-win32/")
+set(CPACK_SOURCE_IGNORE_FILES ${CPACK_IGNORE_FILES})
+include(CPack)
+# simulate autotools' "make dist"
+add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${share_SRC_DIR})
 
-set(hstester-client_SRCS help-browser/helpbrowser.cpp dlgeditfonts.cpp dlgregister.cpp reportview.cpp report.cpp testthread.cpp ${share_SRC} testmanager.cpp dlgconfig.cpp hstester-client.cpp main.cpp)
+set(hstester-client_SRCS session.cpp help-browser/helpbrowser.cpp dlgeditfonts.cpp dlgregister.cpp reportview.cpp report.cpp testthread.cpp ${share_SRC} testmanager.cpp dlgconfig.cpp hstester-client.cpp main.cpp)
 set(hstester-client_UIS help-browser/helpform.ui reportview.ui dlgregister.ui dlgeditfonts.ui dlgconfig.ui mainwindow.ui)
 set(hstester-client_QRCS hstest-client.qrc)
 
